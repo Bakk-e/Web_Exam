@@ -1,3 +1,9 @@
+@import "Variables.css";
+
+#athlete-page {
+    height: 100vh;
+}
+
 #athlete-page-header {
     display: flex;
     width: 100%;
@@ -12,20 +18,21 @@
 }
 
 #athlete-page-id {
-    font-size: 2rem;
-    align-self: center;
-    margin: 0 auto;
+    font-size: 2.5rem;
+}
+
+#athlete-page-back {
+    font-size: 1.3rem;
 }
 
 #athlete-page-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 55vh;
+    height: 50vh;
     flex-direction: column;
+    font-size: 1.2rem;
 }
-
-
 
 #athlete-page-inteval-zones {
     margin-top: 1rem;
@@ -41,4 +48,102 @@
     padding: 0.6rem;
     border: none;
     border-bottom: 1px solid #ddd;
+}
+
+#athlete-page-edit-section {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-button {
+    padding: 1rem;
+    font-size: 2rem;
+    margin-right: 3.5rem;
+}
+
+.athlete-page-editOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--grayBackground);
+    z-index: 999;
+    display: none;
+}
+
+.athlete-page-editOverlay.open {
+    display: block;
+}
+
+.athlete-page-edit {
+    position: fixed;
+    top: 43%;
+    right: -35rem;
+    width: 35rem;
+    height: 30rem;
+    background-color: var(--white);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+}
+
+.athlete-page-edit.open {
+    right: 2rem;
+}
+
+#athlete-page-edit-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-header-exit {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
+
+#athlete-page-edit-list {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#athlete-page-edit-list td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.athlete-page-edit-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.athlete-page-edit-point-title {
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.athlete-page-edit-point-input {
+    border-radius: 1.8rem;
+}
+
+#athlete-page-edit-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-footer-save {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
 }

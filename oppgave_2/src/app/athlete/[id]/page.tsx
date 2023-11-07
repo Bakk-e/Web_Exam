@@ -1,12 +1,25 @@
+"use client"
+
+import EditAthlete from "@/components/EditAthlete";
 import "@/styles/AthletePageStyle.css"
+import Link from "next/link"
+import { useState } from "react"
+
+const initialState = {editOpen: false};
 
 export default function AthletePage({ params }: { params: { id: string }}) {
+    const [isEditOpen, setIsEditOpen] = useState(initialState.editOpen);
+
+    function toggleEdit() {
+        setIsEditOpen(!isEditOpen);
+    }
 
     return (
         <div id="athlete-page">
             <header id="athlete-page-header">
                 <a id="athlete-page-logo">Logo</a>
-                <p id="athlete-page-id">1</p>
+                <p id="athlete-page-id">{params.id}</p>
+                <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
             </header>
             <div id="athlete-page-info">
                 <p id="athlete-page-info-gender">Kjønn: male</p>
@@ -52,6 +65,10 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     </table>
                 </div>
             </div>
+            <div id="athlete-page-edit-section">
+                <button id="athlete-page-edit-button" onClick={toggleEdit}>Edit</button>
+            </div>
+            <EditAthlete id={params.id} isEditOpen={isEditOpen} toggleEdit={toggleEdit}></EditAthlete>
         </div>
     )
 }
