@@ -1,0 +1,9 @@
+:root {
+    --white: rgb(255, 255, 255);
+    --black: rgb(0, 0, 0);
+    --whiteishGray: rgb(242, 242, 242);
+    --slightGray: rgb(221, 221, 221);
+    --darkBlue: rgb(0, 86, 179);
+    --blue: rgb(0, 123, 255);
+    --grayBackground: rgba(0, 0, 0, 0.5)
+}
