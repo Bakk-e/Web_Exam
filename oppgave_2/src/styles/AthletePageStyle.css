@@ -1,0 +1,44 @@
+#athlete-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+#athlete-page-logo {
+    font-size: 1.3rem;
+    align-self: flex-start;
+}
+
+#athlete-page-id {
+    font-size: 2rem;
+    align-self: center;
+    margin: 0 auto;
+}
+
+#athlete-page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+    flex-direction: column;
+}
+
+
+
+#athlete-page-inteval-zones {
+    margin-top: 1rem;
+}
+
+#athlete-page-inteval-zones-table {
+    border-collapse: collapse;
+    width: 35%;
+}
+
+#athlete-page-inteval-zones-table th, td {
+    text-align: left;
+    padding: 0.6rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
