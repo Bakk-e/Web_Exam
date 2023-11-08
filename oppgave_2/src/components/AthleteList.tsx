@@ -12,6 +12,7 @@ export default function AthleteList() {
                     <th>Id</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
+                    <th>Økter</th>
                     <th>Rapporter</th>
                 </tr>
                 <Athlete id="ola-nor-123" gender="Hankjønn" sport="Sykling"></Athlete>

@@ -1,0 +1,26 @@
+@import "Variables.css";
+
+#new-athlete-page {
+    height: 100vh;
+}
+
+#new-athlete-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+#new-athlete-page-logo {
+    font-size: 1.3rem;
+    align-self: flex-start;
+}
+
+#new-athlete-page-title {
+    font-size: 2.5rem;
+}
+
+#new-athlete-page-back {
+    font-size: 1.3rem;
+}

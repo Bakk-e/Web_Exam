@@ -11,8 +11,16 @@
     font-size: 1.3rem;
 }
 
-#goto-new-athlete {
+#main-page-nav {
     font-size: 1.3rem;
+}
+
+#goto-new-questions {
+    margin-left: 1rem;
+}
+
+#goto-new-athlete {
+    margin-left: 1rem;
 }
 
 #main-page-athlete-list {
