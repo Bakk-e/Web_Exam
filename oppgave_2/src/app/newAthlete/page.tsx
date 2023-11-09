@@ -11,41 +11,40 @@ export default function NewAthletePage() {
                 <p id="new-athlete-page-title">Ny utøver</p>
                 <Link legacyBehavior href="/"><a id="new-athlete-page-back">Tilbake</a></Link>
             </header>
-            <div>
-                <table>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Fornavn: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+            <div id="new-athlete-page-create">
+                <table id="new-athlete-page-create-table">
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Fornavn: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Etternavn: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Etternavn: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Kjønn: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Kjønn: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Kjønn: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Sport: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Sport: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Maks puls: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Maks puls: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Terskel watt: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Terskel watt: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
-                    </tr>
-                    <tr className="new-athlete-page-edit-point">
-                        <td className="new-athlete-page-edit-point-title">Terskel fart: </td>
-                        <td><input className="new-athlete-page-edit-point-input"/></td>
+                    <tr className="new-athlete-page-create-point">
+                        <td className="new-athlete-page-create-point-title">Terskel fart: </td>
+                        <td><input className="new-athlete-page-create-point-input"/></td>
                     </tr>
                 </table>
+            </div>
+            <div id="new-athlete-page-save-section">
+                <button id="new-athlete-page-save-button">Save</button>
             </div>
         </div>
     )

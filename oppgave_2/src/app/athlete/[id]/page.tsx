@@ -34,7 +34,10 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <header id="athlete-page-header">
                 <Link legacyBehavior href="/"><a id="athlete-page-logo">Logo</a></Link>
                 <p id="athlete-page-id">{params.id}</p>
-                <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
+                <nav id="athlete-page-nav">
+                    <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
+                    <Link legacyBehavior href="/newSession"><a id="athlete-page-new-session">Ny økt</a></Link>
+                </nav>
             </header>
             <div id="athlete-page-info">
                 <p id="athlete-page-info-gender">Kjønn: male</p>
