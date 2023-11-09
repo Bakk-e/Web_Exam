@@ -5,23 +5,28 @@
   "type": "module",
   "scripts": {
     "build": "next build",
-    "predev": "prisma generate && prisma db push && npm run seed",
     "db:generate": "prisma generate",
+    "predev": "prisma generate && prisma db push && npm run seed",
     "dev": "next dev",
     "e2e": "playwright test",
     "e2e:debug": "playwright test --debug",
     "e2e:report": "playwright show-report",
     "e2e:ui": "playwright test --ui",
+    "postinstall": "prisma generate",
     "lint": "eslint . --max-warnings 0",
     "lint:fix": "npm run lint --fix",
+    "prisma:generate": "prisma generate",
+    "prisma:init": "prisma init",
+    "prisma:migrate": "prisma migrate dev",
+    "prisma:push": "prisma db push",
+    "prisma:seed": "prisma db seed",
     "seed": "tsx ./prisma/seed.ts",
     "start": "next start",
     "test": "vitest run",
     "test:coverage": "vitest run --coverage",
     "test:ui": "vitest --ui",
     "test:watch": "vitest",
-    "typecheck": "tsc --noEmit",
-    "postinstall": "prisma generate"
+    "typecheck": "tsc --noEmit"
   },
   "dependencies": {
     "@formkit/auto-animate": "^0.8.0",
@@ -103,9 +108,9 @@
     "vite-tsconfig-paths": "^4.2.1",
     "vitest": "latest"
   },
+  "packageManager": "npm@8.10.0",
   "engines": {
     "node": ">=18.13.0",
     "npm": ">=8.6.11"
-  },
-  "packageManager": "npm@8.10.0"
+  }
 }
