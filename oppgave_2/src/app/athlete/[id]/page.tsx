@@ -17,6 +17,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
 
+    const listIdsT = ["ABC-123-456", "FGH-564-342", "JHK-576-878"]
+    const listIds = ["ABC-123-456", "FGH-564-342"]
+    const listIdsa = ["ABC-123-456"]
+    const listIdsd: any[] = []
+
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
     }
@@ -89,15 +94,17 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <div id="athlete-page-competitions-and-goals">
                 <p id="athlete-page-competitions-title">Konkuranser: </p>
                 <div id="athlete-page-competitions">
-                    <Competition competitionId="Abc-123-456" toggleEditCompetition={toggleEditCompetition}></Competition>
-                    <Competition competitionId="Abc-123-456" toggleEditCompetition={toggleEditCompetition}></Competition>
-                    <Competition competitionId="Abc-123-456" toggleEditCompetition={toggleEditCompetition}></Competition>
+                    {listIds.map((comp) => (
+                        <Competition competitionId={comp} toggleEditCompetition={toggleEditCompetition}></Competition>
+                    ))}
+                    {listIds.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
                 <div id="athlete-page-goals">
-                    <Goal goalId="Abc-123-456" toggleEditGoal={toggleEditGoal}></Goal>
-                    <Goal goalId="Abc-123-456" toggleEditGoal={toggleEditGoal}></Goal>
-                    <Goal goalId="Abc-123-456" toggleEditGoal={toggleEditGoal}></Goal>
+                    {listIds.map((goal) => (
+                        <Goal goalId={goal} toggleEditGoal={toggleEditGoal}></Goal>
+                    ))}
+                    {listIds.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>}
                 </div>
             </div>
             <div id="athlete-page-sessions-spacer">

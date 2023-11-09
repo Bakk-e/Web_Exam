@@ -238,6 +238,17 @@
     font-size: 1.2rem;
 }
 
+#athlete-page-competitions-card-add {
+    display: flex;
+    width: 26.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#athlete-page-competitions-card-add-button {
+    font-size: 2rem;
+}
+
 #athlete-page-goals-title {
     margin-bottom: 1rem;
     margin-top: 1rem;
@@ -297,6 +308,17 @@
     margin-right: 1rem;
     margin-bottom: 1rem;
     font-size: 1.2rem;
+}
+
+#athlete-page-goals-card-add {
+    display: flex;
+    width: 26.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#athlete-page-goals-card-add-button {
+    font-size: 2rem;
 }
 
 .athlete-page-edit-competition-overlay {
