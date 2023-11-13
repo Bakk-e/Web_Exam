@@ -4,7 +4,7 @@ generator client {
 
 datasource db {
   provider = "sqlite"
-  url      = "file:./dev.db"
+  url      = "https://webapp-api.vercel.app/api/users"
 }
 
 model Athlete {
@@ -27,6 +27,7 @@ model Meta {
 
 model Activities {
   id        Int         @id @default(autoincrement())
+  slug      String      @unique
   athlete   Athlete     @relation(fields: [userId], references: [userId])
   userId    String
   date      DateTime
