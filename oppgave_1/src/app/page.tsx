@@ -18,9 +18,9 @@ export default async function Home() {
       <Tasks>
         <Answer />
       </Tasks>
-      <Task />
+      <Task task={} />
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
-      <Progress />
+      <Progress tasks={} />
     </main>
   )
 }
