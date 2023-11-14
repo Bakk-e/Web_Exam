@@ -21,21 +21,23 @@ export default function Home() {
         }
         fetchData()
     }, []);
-    console.log(tasks.data)
+    console.log(tasks.data[0].text)
 
 
   return (
       <main>
-      {JSON.stringify(tasks)}
-      <Header />
-        {<Tasks tasks={tasks.data}>
-        <Answer />
-      </Tasks>}
-        <p>{}</p>
+          {JSON.stringify(tasks)}
+          <Header />
+          <h2>All Tasks</h2>
+          {<Tasks tasks={tasks.data}>
+              <Answer />
+          </Tasks>}
 
-        {/*<Task task={tasks[0]} />*/}
-      <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
-        { /*<Progress tasks={result} />*/}
+          <h2>Single Task</h2>
+          {<Task task={tasks.data[0]}/>}
+          <Answer />
+          <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
+          { /*<Progress tasks={result} />*/}
     </main>
   )
 }
