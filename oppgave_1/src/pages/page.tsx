@@ -6,6 +6,7 @@ import Task from "@/components/Task"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
+import {response} from "msw";
 
 
 /*export async function getServerSideProps(){
@@ -17,17 +18,17 @@ import {useEffect, useState} from "react";
 }*/
 export default function Home() {
 
-    /*const [result, setResult] = useState(null);
+    const [result, setResult] = useState<any>(null);
     useEffect(() => {
         async function fetchData(){
             const response = await fetch("http://localhost:3000/api/restapi", {
                 method: "get",
             });
             const json = await response.json()
-            //setResult(json);
+            setResult (json);
         }
         fetchData()
-    }, []);*/
+    }, []);
 
 
 
@@ -38,14 +39,14 @@ export default function Home() {
 
   return (
     <main>
-      {/*JSON.stringify(data)*/}
+      {JSON.stringify(result)}
       <Header />
       <Tasks>
         <Answer />
       </Tasks>
         {/*<Task task={} />*/}
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
-        { /*<Progress tasks={} />*/}
+        { /*<Progress tasks={result} />*/}
     </main>
 
   )
