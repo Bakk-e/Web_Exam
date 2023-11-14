@@ -5,4 +5,8 @@ export type Task = {
   data: `${number}|${number}`
 }
 
+export type ApiResponse = {
+  tasks : Task[]
+}
+
 export type Type = "add" | "subtract" | "multiply" | "divide"
