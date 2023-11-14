@@ -6,15 +6,15 @@ import { type Task } from "@/types"
 const tasks: Task[] = [
   {
     id: crypto.randomUUID(),
-    text: "Denne oppgaveteksten kommer fra API",
+    text: "Dette er API oppgave 1",
     type: "add",
     data: "9|0",
   },
   {
     id: crypto.randomUUID(),
-    text: "Denne oppgaveteksten kommer fra API",
-    type: "add",
-    data: "9|100",
+    text: "Dette er API oppgave 2",
+    type: "subtract",
+    data: "3245|100",
   },
 ]
 

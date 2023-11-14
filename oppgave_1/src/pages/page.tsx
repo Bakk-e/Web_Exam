@@ -13,15 +13,13 @@ export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
     useEffect(() => {
         async function fetchData(){
-            const response = await fetch("http://localhost:3000/api/restapi"//, {
-                //method: "get",
-           /* }*/);
+            const response = await fetch("http://localhost:3000/api/restapi");
             const json = await response.json()
             setTasks(json);
         }
         fetchData()
     }, []);
-    console.log(tasks.data[0].text)
+    //console.log(tasks.data[0].text)
 
 
   return (
@@ -29,12 +27,16 @@ export default function Home() {
           {JSON.stringify(tasks)}
           <Header />
           <h2>All Tasks</h2>
-          {<Tasks tasks={tasks.data}>
+          {tasks && tasks.data &&(
+              <Tasks tasks={tasks.data}>
               <Answer />
-          </Tasks>}
+          </Tasks>
+          )}
 
           <h2>Single Task</h2>
-          {<Task task={tasks.data[0]}/>}
+          {tasks && tasks.data && tasks.data.length > 0 &&(
+              <Task task={tasks.data[1]}/>
+          )}
           <Answer />
           <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
           { /*<Progress tasks={result} />*/}
