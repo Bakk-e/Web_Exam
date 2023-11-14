@@ -5,10 +5,16 @@ import { type Task } from "@/types"
 
 const tasks: Task[] = [
   {
-    id: "124",
-    text: "Skriv resultatet av regneoperasjonen",
+    id: crypto.randomUUID(),
+    text: "Denne oppgaveteksten kommer fra API",
     type: "add",
-    data: "9|4",
+    data: "9|0",
+  },
+  {
+    id: crypto.randomUUID(),
+    text: "Denne oppgaveteksten kommer fra API",
+    type: "add",
+    data: "9|100",
   },
 ]
 

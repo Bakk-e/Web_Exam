@@ -36,7 +36,6 @@ export default function Home() {
     method: "get",
   })
   const result = await response.json()*/
-
   return (
     <main>
       {JSON.stringify(result)}
@@ -44,6 +43,7 @@ export default function Home() {
       <Tasks>
         <Answer />
       </Tasks>
+
         {/*<Task task={} />*/}
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
         { /*<Progress tasks={result} />*/}
