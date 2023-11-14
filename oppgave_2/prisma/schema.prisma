@@ -3,8 +3,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "https://webapp-api.vercel.app/api/users"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model Athlete {
