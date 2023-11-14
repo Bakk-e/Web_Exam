@@ -3,7 +3,11 @@ import { type ReactNode } from "react"
 import { type Task as TaskType } from "@/types"
 import Task from "@/components/Task"
 
-export default function Tasks({ children }: { children: ReactNode }) {
+type TasksProps = {
+  tasks: TaskType[];
+  children : ReactNode;
+}
+export default function Tasks({ tasks, children }:  TasksProps ) {
   /*const tasks: TaskType[] = [
     {
       id: "123",
@@ -27,9 +31,10 @@ export default function Tasks({ children }: { children: ReactNode }) {
 
   return (
     <section>
-      {/*tasks.map((task) => (
+      {tasks.map((task) => (
           <Task key={task.id} task={task} />
-      ))*/}
+      ))}
+
       {children}
     </section>
   )

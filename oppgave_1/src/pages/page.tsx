@@ -9,45 +9,33 @@ import {useEffect, useState} from "react";
 import {response} from "msw";
 
 
-/*export async function getServerSideProps(){
-    const response = await fetch("http://localhost:3000/api/restapi", {
-        method: "get",
-    });
-    const data = await response.json()
-    return{props: {data} }
-}*/
 export default function Home() {
-
-    const [result, setResult] = useState<any>(null);
+    const [tasks, setTasks] = useState<any>(null);
     useEffect(() => {
         async function fetchData(){
-            const response = await fetch("http://localhost:3000/api/restapi", {
-                method: "get",
-            });
+            const response = await fetch("http://localhost:3000/api/restapi"//, {
+                //method: "get",
+           /* }*/);
             const json = await response.json()
-            setResult (json);
+            setTasks(json);
         }
         fetchData()
     }, []);
+    console.log(tasks.data)
 
 
-
-    /* const response = await fetch("http://localhost:3000/api/restapi", {
-    method: "get",
-  })
-  const result = await response.json()*/
   return (
-    <main>
-      {JSON.stringify(result)}
+      <main>
+      {JSON.stringify(tasks)}
       <Header />
-      <Tasks>
+        {<Tasks tasks={tasks.data}>
         <Answer />
-      </Tasks>
+      </Tasks>}
+        <p>{}</p>
 
-        {/*<Task task={} />*/}
+        {/*<Task task={tasks[0]} />*/}
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
         { /*<Progress tasks={result} />*/}
     </main>
-
   )
 }
