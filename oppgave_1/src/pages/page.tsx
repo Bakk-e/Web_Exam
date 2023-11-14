@@ -38,7 +38,6 @@ export default function Home() {
               <Task task={tasks.data[1]}/>
           )}
           <Answer />
-          <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
           { /*<Progress tasks={result} />*/}
     </main>
   )

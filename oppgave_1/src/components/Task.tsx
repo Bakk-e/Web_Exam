@@ -1,5 +1,6 @@
 import React from 'react';
 import { type Task as TaskType} from "@/types"
+import TaskText from "@/components/Text";
 
 type TaskProps = {
     task : TaskType
@@ -29,9 +30,8 @@ const Task: React.FC<TaskProps> = ({ task }) =>{
     return(
     <article>
         <h3>{taskText}</h3>
-        <p>Type: {convertType(type)}</p>
+        <TaskText text={"Hva blir resultatet av regneoperasjonen?"}/>
         <p>Question : {data[0]} {convertType(type)} {data[1]}</p>
-        <p>Data: {data}</p>
     </article>
     )
 }
