@@ -8,12 +8,15 @@ datasource db {
 }
 
 model Athlete {
-  id         String       @id @default(uuid())
-  userId     String       @unique
-  gender     String
-  sport      String
-  meta       Meta?
-  activities Activities[]
+  id            String         @id @default(uuid())
+  userId        String         @unique
+  gender        String
+  sport         String
+  meta          Meta?
+  activities    Activity?
+  goalId        Goal[]
+  competitionId Competition[]
+  archivedMeta  ArchivedMeta[]
 }
 
 model Meta {
@@ -21,38 +24,69 @@ model Meta {
   heartrate Int
   watt      Int
   speed     Int
-  athlete   Athlete @relation(fields: [userId], references: [id])
+  athlete   Athlete @relation(fields: [userId], references: [userId])
   userId    String  @unique
 }
 
-model Activities {
-  id        Int         @id @default(autoincrement())
-  slug      String      @unique
-  athlete   Athlete     @relation(fields: [userId], references: [userId])
-  userId    String
+model Activity {
+  id        Int        @id @default(autoincrement())
+  slug      String     @unique
+  athlete   Athlete    @relation(fields: [userId], references: [userId])
+  userId    String     @unique
   date      DateTime
-  goalId    String
-  tags      Tag[]       @relation()
-  questions Questions[]
-  intervals Intervals[]
+  tags      Tag[]      @relation()
+  questions Question[]
+  intervals Interval[]
 }
 
 model Tag {
-  id         Int          @id @default(autoincrement())
-  name       String       @unique
-  activities Activities[]
+  id         Int        @id @default(autoincrement())
+  name       String     @unique
+  activities Activity[]
 }
 
-model Questions {
-  id         String       @id @default(uuid())
+model Question {
+  id         String     @id @default(uuid())
   question   String
   type       String
-  activities Activities[]
+  activities Activity[]
 }
 
-model Intervals {
-  id         String       @id @default(uuid())
+model Interval {
+  id         String     @id @default(uuid())
   duration   Int
   intensity  Int
-  activities Activities[]
+  activities Activity[]
+}
+
+model Goal {
+  id        String   @id @default(uuid())
+  goalName  String
+  date      DateTime
+  place     String
+  goal      Int
+  comment   String
+  Athlete   Athlete? @relation(fields: [athleteId], references: [id])
+  athleteId String?
+}
+
+model Competition {
+  id              String   @id @default(uuid())
+  competitionName String
+  date            DateTime
+  goal            String
+  comment         String
+  Athlete         Athlete? @relation(fields: [athleteId], references: [id])
+  athleteId       String?
+}
+
+model ArchivedMeta {
+  id           Int      @id @default(autoincrement())
+  athleteId    String   @unique
+  heartrate    Int
+  watt         Int
+  speed        Int
+  archivedDate DateTime @default(now())
+
+  Athlete Athlete @relation(fields: [athleteId], references: [id])
 }
