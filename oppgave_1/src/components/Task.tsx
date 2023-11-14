@@ -5,7 +5,7 @@ type TaskProps = {
     task : TaskType
 }
 
-export default function Task({ task }:TaskProps){
+const Task: React.FC<TaskProps> = ({ task }) =>{
     // her kan legges inn logikk for å håndtere forskjellige oppgavetyper
     // For eksempel, beregning av resultatet basert på `task.type` og `task.data`
 
@@ -17,3 +17,4 @@ export default function Task({ task }:TaskProps){
     </article>
     )
 }
+export default Task;

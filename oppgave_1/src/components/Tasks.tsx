@@ -24,6 +24,7 @@ export default function Tasks({ children }: { children: ReactNode }) {
       type: "multiply",
     },
   ]
+
   return (
     <section>
       {tasks.map((task) => (

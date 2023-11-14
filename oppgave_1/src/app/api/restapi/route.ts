@@ -16,14 +16,14 @@ const tasks: Task[] = [
 const answers = new Map<Task["id"], { attempts: number }>()
 
 export function PUT(request: NextRequest) {
-  const count = request.nextUrl.searchParams.get("count")
+  let count = request.nextUrl.searchParams.get("count")
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
   return NextResponse.json({ success: true, data: tasks }, { status: 207 })
 }
 
 export function GET(request: NextRequest) {
-  const count = -1
+  let count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
   return NextResponse.json({ success: true, data: tasks }, { status: 200 })
