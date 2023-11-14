@@ -9,7 +9,7 @@ export default function EditAthlete(params: editAthleteProps) {
 
     return (
         <>
-            <div className={`athlete-page-editOverlay ${isEditOpen ? 'open' : ''}`}></div>
+            <div className={`athlete-page-edit-overlay ${isEditOpen ? 'open' : ''}`} onClick={toggleEdit}></div>
             <section className={`athlete-page-edit ${isEditOpen ? 'open' : ''}`}>
                 <article id="athlete-page-edit-header">
                     <button id="athlete-page-edit-header-exit" onClick={toggleEdit}>X</button>

@@ -1,18 +1,20 @@
 import React from 'react';
-import { type Task as TaskType } from "@/types";
-//import react from "@vitejs/plugin-react";
+import { type Task as TaskType} from "@/types"
 
 type TaskProps = {
-    task : TaskType,
-    onComplete : (taskId : string) => void;
+    task : TaskType
 }
 
-const Task : React.FC<TaskProps> = ({task, onComplete}) =>{
+const Task: React.FC<TaskProps> = ({ task }) =>{
+    // her kan legges inn logikk for å håndtere forskjellige oppgavetyper
+    // For eksempel, beregning av resultatet basert på `task.type` og `task.data`
+
     return(
-        <div className="task">
-            <h3>{task.text}</h3>
-            <button onClick={() => onComplete(task.id)}>Complete Task</button>
-        </div>
-    );
-};
+    <article>
+        <h3>{task.text}</h3>
+        <p>Type: {task.type}</p>
+        <p>Data: {task.data}</p>
+    </article>
+    )
+}
 export default Task;
