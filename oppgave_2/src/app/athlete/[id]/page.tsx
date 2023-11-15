@@ -72,27 +72,39 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         </tr>
                         <tr>
                             <th>Puls</th>
-                            <td>{(athlete?.maxHeartRate * 0.5).toFixed(0)}</td>
-                            <td>{(athlete?.maxHeartRate * 0.6).toFixed(0)}</td>
-                            <td>{(athlete?.maxHeartRate * 0.7).toFixed(0)}</td>
-                            <td>{(athlete?.maxHeartRate * 0.8).toFixed(0)}</td>
-                            <td>{(athlete?.maxHeartRate * 0.9).toFixed(0)}</td>
+                            {athlete && (
+                                <>
+                                    <td>{((athlete.maxHeartRate * 0.5).toFixed(0))}</td>
+                                    <td>{((athlete.maxHeartRate * 0.6).toFixed(0))}</td>
+                                    <td>{((athlete.maxHeartRate * 0.7).toFixed(0))}</td>
+                                    <td>{((athlete.maxHeartRate * 0.8).toFixed(0))}</td>
+                                    <td>{((athlete.maxHeartRate * 0.9).toFixed(0))}</td>
+                                </>
+                            )}
                         </tr>
                         <tr>
                             <th>Watt</th>
-                            <td>{(athlete?.thresholdWattage * 0.5).toFixed(0)}</td>
-                            <td>{(athlete?.thresholdWattage * 0.6).toFixed(0)}</td>
-                            <td>{(athlete?.thresholdWattage * 0.7).toFixed(0)}</td>
-                            <td>{(athlete?.thresholdWattage * 0.8).toFixed(0)}</td>
-                            <td>{(athlete?.thresholdWattage * 0.9).toFixed(0)}</td>
+                            {athlete && (
+                                <>
+                                    <td>{((athlete.thresholdWattage * 0.5).toFixed(0))}</td>
+                                    <td>{((athlete.thresholdWattage * 0.6).toFixed(0))}</td>
+                                    <td>{((athlete.thresholdWattage * 0.7).toFixed(0))}</td>
+                                    <td>{((athlete.thresholdWattage * 0.8).toFixed(0))}</td>
+                                    <td>{((athlete.thresholdWattage * 0.9).toFixed(0))}</td>
+                                </>
+                            )}
                         </tr>
                         <tr>
                             <th>Fart</th>
-                            <td>{(athlete?.thresholdSpeed * 0.5).toFixed(1)}</td>
-                            <td>{(athlete?.thresholdSpeed * 0.6).toFixed(1)}</td>
-                            <td>{(athlete?.thresholdSpeed * 0.7).toFixed(1)}</td>
-                            <td>{(athlete?.thresholdSpeed * 0.8).toFixed(1)}</td>
-                            <td>{(athlete?.thresholdSpeed * 0.9).toFixed(1)}</td>
+                            {athlete && (
+                                <>
+                                    <td>{((athlete.thresholdSpeed * 0.5).toFixed(1))}</td>
+                                    <td>{((athlete.thresholdSpeed * 0.6).toFixed(1))}</td>
+                                    <td>{((athlete.thresholdSpeed * 0.7).toFixed(1))}</td>
+                                    <td>{((athlete.thresholdSpeed * 0.8).toFixed(1))}</td>
+                                    <td>{((athlete.thresholdSpeed * 0.9).toFixed(1))}</td>
+                                </>
+                            )}
                         </tr>
                     </table>
                 </div>
@@ -106,14 +118,18 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     {athlete?.competitions.map((competition) => (
                         <Competition competitionId={competition.id} toggleEditCompetition={toggleEditCompetition}></Competition>
                     ))}
-                    {athlete?.competitions.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>}
+                    {athlete && (
+                        athlete.competitions.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>
+                    )}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
                 <div id="athlete-page-goals">
                     {athlete?.goals.map((goal) => (
                         <Goal goalId={goal.id} toggleEditGoal={toggleEditGoal}></Goal>
                     ))}
-                    {athlete?.goals.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>}
+                    {athlete && (
+                        athlete.goals.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>
+                    )}
                 </div>
             </div>
             <div id="athlete-page-sessions-spacer">
