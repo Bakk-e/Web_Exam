@@ -15,6 +15,16 @@ const tasks: Task[] = [
     text: "Dette er API oppgave 2",
     type: "subtract",
     data: "3245|100",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 3",
+    type: "subtract",
+    data: "3245|100",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 4",
+    type: "subtract",
+    data: "3245|100",
   },
 ]
 
@@ -29,8 +39,9 @@ export function PUT(request: NextRequest) {
 }
 
 export function GET(request: NextRequest) {
-  let count = -1
-  if (!count)
+  let count = parseInt(request.nextUrl.searchParams.get("count") || "-1")
+  if (count < 1 || count > 10)
     return NextResponse.json({ success: false, error: "Invalid count" })
-  return NextResponse.json({ success: true, data: tasks }, { status: 200 })
+
+  return NextResponse.json({ success: true, data: tasks.slice(0,count)}, { status: 200 })
 }

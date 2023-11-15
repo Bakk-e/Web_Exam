@@ -9,6 +9,7 @@ type TaskProps = {
 const Task: React.FC<TaskProps> = ({ task }) =>{
     // her kan legges inn logikk for å håndtere forskjellige oppgavetyper
     // For eksempel, beregning av resultatet basert på `task.type` og `task.data`
+
     let taskText = task.text
     let data = task.data.split("|")
     let type = task.type
