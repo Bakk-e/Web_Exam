@@ -1,54 +1,64 @@
-type Competition = {
-    id: string,
-    title: string,
-    location: string,
-    date: Date,
-    goal: string,
-    type: string,
-    priority: string,
-    comment: string
+export type Competition = {
+    id?: string,
+    title?: string,
+    location?: string,
+    date?: Date,
+    goal?: string,
+    type?: string,
+    priority?: "A" | "B" | "C",
+    comment?: string
 }
 
 export type Goal = {
-    id: string,
-    title: string,
-    date: Date,
-    goal: string,
-    comment: string
+    id?: string,
+    title?: string,
+    date?: Date,
+    goal?: number,
+    comment?: string
 }
 
-//Not in use yet
 type ReportInterval = {
-    minHeartRate: number,
-    maxHeartRate: number,
-    avrageHeartRate: number,
-    minSpeed: number,
-    maxSpeed: number,
-    avrageSpeed: number,
-    minWattage: number,
-    maxWattage: number,
-    avrageWattage: number,
-    time: number
+    minIntensity?: 1 | 2 | 3 | 4 | 5,
+    maxIntensitySone?: 1 | 2 | 3 | 4 | 5,
+    avrageIntensitySone?: number,
+    minHeartRate?: number,
+    maxHeartRate?: number,
+    avrageHeartRate?: number,
+    minSpeed?: number,
+    maxSpeed?: number,
+    avrageSpeed?: number,
+    minWattage?: number,
+    maxWattage?: number,
+    avrageWattage?: number,
+    duration?: number
 }
 
-//Not in use yet
 type Question = {
-    text: string,
-    answer: string
+    text?: string,
+    answer?: string
 }
 
-type ReportStatus = {
-    id: string,
-    status: "no" | "low" | "normal" | "high",
+type Report = {
+    id?: string,
+    status?: "no" | "low" | "normal" | "high",
+    reportIntervals?: ReportInterval[]
 }
 
-type Session = {
-    id: string,
-    date: Date,
-    title: string,
-    type: string,
-    tags: string[],
-    reportStatus: ReportStatus
+type Interval = {
+    duration?: number,
+    intensitySone?: 1 | 2 | 3 | 4 | 5
+}
+
+export type Session = {
+    id?: string,
+    date?: Date,
+    title?: string,
+    type?: string,
+    tags?: string[],
+    questions?: Question[],
+    intervals?: Interval[],
+    reportStatus?: Report,
+    connection?: Goal | Competition
 }
 
 export type Athlete = {
@@ -58,9 +68,9 @@ export type Athlete = {
     maxHeartRate: number,
     thresholdWattage: number,
     thresholdSpeed: number,
-    competitions: Competition[],
-    goals: Goal[],
-    sessions: Session[]
+    competitions?: Competition[],
+    goals?: Goal[],
+    sessions?: Session[]
 }
 
 export type AthleteMini = {
