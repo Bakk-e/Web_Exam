@@ -8,10 +8,13 @@ import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
 import {response} from "msw";
 import {count} from "d3-array";
+import {Simulate} from "react-dom/test-utils";
+import progress = Simulate.progress;
 
 
 export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
+    const [currentTask, setCurrentTask] = useState(0);
     let count = 6
     useEffect(() => {
         async function fetchData(){
@@ -39,11 +42,11 @@ export default function Home() {
 
           <h2>Single Task</h2>
           {tasks && tasks.data && tasks.data.length > 0 &&(
-              <Task task={tasks.data[0]}/>
+              <Task task={tasks.data[currentTask]}/>
           )}
           <Answer />
           {tasks && tasks.data &&
-              <Progress tasks={tasks.data} />}
+              <Progress tasks={tasks.data} onStateChange={setCurrentTask} />}
     </main>
   )
 }

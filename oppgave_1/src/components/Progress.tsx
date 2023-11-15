@@ -1,14 +1,17 @@
 "use client"
 
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import type { MouseEvent } from "react"
 
 import { type Task as TaskType } from "@/types"
 import Task from "@/components/Task";
 
-export default function Progress(props: { tasks: TaskType[] }) {
+export default function Progress(props: { tasks: TaskType[], onStateChange : (newState : number) => void }) {
   const [state, setState] = useState(0)
   const currentTask = props.tasks[state]
+    useEffect(() => {
+        props.onStateChange(state)
+    }, [state])
 
   const next = (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
@@ -30,7 +33,6 @@ export default function Progress(props: { tasks: TaskType[] }) {
 
   return (
     <footer className="mt-4 border-t-slate-300">
-        <Task task={currentTask} />
       <p>{currentTask.text}</p>
       <button onClick={prev} className="bg-purple-700 text-white">
         Forrige
