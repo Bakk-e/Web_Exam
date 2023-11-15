@@ -6,13 +6,14 @@ export function DateToString(date: Date) {
     return `${day}.${month}.${year}`;
 }
 
+export function GetCurrentDate() {
+    const date = new Date();
+    const day = date.getDay();
+    const month = date.getMonth() + 1;
+    const year = date.getFullYear();
+    const seconds = date.getSeconds();
+    const minutes = date.getMinutes();
+    const hours = date.getHours();
 
-/*
-function ToCSV(data) {
-    const header = Object.keys()
+    return `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`
 }
-
-export function DownloadSessionAsExcel() {
-
-}
-*/

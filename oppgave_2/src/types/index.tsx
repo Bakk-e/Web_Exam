@@ -57,7 +57,7 @@ export type Session = {
     tags?: string[],
     questions?: Question[],
     intervals?: Interval[],
-    reportStatus?: Report,
+    report?: Report,
     connection?: Goal | Competition
 }
 

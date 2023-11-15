@@ -1,6 +1,7 @@
 import { Session } from "@/types";
 import Link from "next/link";
 import { DateToString } from "./Functions";
+import DownloadSessionButton from "./SessionDownload";
 
 type sessionProps = {
     session: Session
@@ -19,8 +20,8 @@ export default function Session(props: sessionProps) {
             {session.tags && (
                 <td>{session.tags[0]}, {session.tags[1]}</td>
             )}
-            <td>{session.reportStatus?.status}</td>
-            <td>Klikk her</td>
+            <td>{session.report?.status}</td>
+            <td><DownloadSessionButton session={session}></DownloadSessionButton></td>
             <td>Klikk her</td>
             <td>Klikk her</td>
             <td>Klikk her</td>
