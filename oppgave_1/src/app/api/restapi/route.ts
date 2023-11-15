@@ -8,23 +8,23 @@ const tasks: Task[] = [
     id: crypto.randomUUID(),
     text: "Dette er API oppgave 1",
     type: "add",
-    data: "9|0",
+    data: "23|45",
   },
   {
     id: crypto.randomUUID(),
     text: "Dette er API oppgave 2",
     type: "subtract",
-    data: "3245|100",
+    data: "3214|1324",
   },{
     id: crypto.randomUUID(),
     text: "Dette er API oppgave 3",
-    type: "subtract",
-    data: "3245|100",
+    type: "divide",
+    data: "10|4",
   },{
     id: crypto.randomUUID(),
     text: "Dette er API oppgave 4",
-    type: "subtract",
-    data: "3245|100",
+    type: "multiply",
+    data: "43|11",
   },
 ]
 

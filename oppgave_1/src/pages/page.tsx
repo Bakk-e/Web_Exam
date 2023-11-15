@@ -17,7 +17,6 @@ export default function Home() {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
             const response = await fetch(`http://localhost:3000/api/restapi?${params}`);
-
             const json = await response.json()
             setTasks(json);
         }
@@ -33,7 +32,7 @@ export default function Home() {
           {tasks?.error && <p>{tasks.error}</p>}
           <h2>All Tasks</h2>
           {tasks && tasks.data &&(
-              <Tasks tasks={tasks.data}>
+          <Tasks tasks={tasks.data}>
               <Answer />
           </Tasks>
           )}
@@ -43,7 +42,8 @@ export default function Home() {
               <Task task={tasks.data[0]}/>
           )}
           <Answer />
-          { /*<Progress tasks={result} />*/}
+          {tasks && tasks.data &&
+              <Progress tasks={tasks.data} />}
     </main>
   )
 }

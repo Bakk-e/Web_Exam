@@ -2,9 +2,11 @@
 
 import { useState } from "react"
 import type { FormEvent, MouseEvent } from "react"
+import {Simulate} from "react-dom/test-utils";
+import error = Simulate.error;
 
 export default function Answer() {
-  const [answer, setAnswer] = useState(0)
+  const [answer, setAnswer] = useState<number | null>(null)
 
   const send = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -20,7 +22,7 @@ export default function Answer() {
       <label htmlFor="answer">Svar</label>
       <input
         name="answer"
-        type="text"
+        type="number"
         placeholder="Sett svar her"
         onInput={update}
       />
