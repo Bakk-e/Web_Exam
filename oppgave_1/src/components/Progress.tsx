@@ -3,7 +3,7 @@
 import { useState } from "react"
 import type { MouseEvent } from "react"
 
-import { type TaskType } from "@/types"
+import { type Task as TaskType } from "@/types"
 import Task from "@/components/Task";
 
 export default function Progress(props: { tasks: TaskType[] }) {

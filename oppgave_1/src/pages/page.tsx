@@ -12,7 +12,7 @@ import {count} from "d3-array";
 
 export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
-    let count = 5
+    let count = 6
     useEffect(() => {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
