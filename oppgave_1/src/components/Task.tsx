@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react';
-import { type Task as TaskType} from "@/types"
+import { type Task as TaskType, AnswerProps} from "@/types"
 import TaskText from "@/components/Text";
+import Answer from "@/components/Answer";
+
 
 type TaskProps = {
     task : TaskType
@@ -45,6 +47,9 @@ const Task: React.FC<TaskProps> = ({ task }) =>{
             return "-"
         }
     }
+    const checkAnswer : AnswerProps["onCheckAnswer"]= (userAnswer) => {
+        return userAnswer == correctAnswer
+    }
 
 
     return(
@@ -53,6 +58,7 @@ const Task: React.FC<TaskProps> = ({ task }) =>{
         <TaskText text={"Hva blir resultatet av regneoperasjonen?"}/>
         <p>Question : {data[0]} {convertTypeToString(type)} {data[1]}</p>
         <p>Correct Answer: {correctAnswer} </p>
+        <Answer correctAnswer = {correctAnswer} onCheckAnswer = {checkAnswer} />
     </article>
     )
 }

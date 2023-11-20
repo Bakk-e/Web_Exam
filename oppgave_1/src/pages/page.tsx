@@ -33,7 +33,6 @@ export default function Home() {
           <h2>All Tasks</h2>
           {tasks && tasks.data &&(
           <Tasks tasks={tasks.data}>
-              <Answer />
           </Tasks>
           )}
 
@@ -41,7 +40,6 @@ export default function Home() {
           {tasks && tasks.data && tasks.data.length > 0 &&(
               <Task task={tasks.data[currentTask]}/>
           )}
-          <Answer />
           {tasks && tasks.data &&
               <Progress tasks={tasks.data} onStateChange={setCurrentTask} />}
     </main>

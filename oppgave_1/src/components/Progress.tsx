@@ -34,7 +34,6 @@ export default function Progress(props: { tasks: TaskType[], onStateChange : (ne
 
   return (
     <footer className="mt-4 border-t-slate-300">
-      <p>{currentTask.text}</p>
       <button onClick={prev} className="bg-purple-700 text-white">
         Forrige
       </button>

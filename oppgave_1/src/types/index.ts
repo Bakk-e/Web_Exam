@@ -5,4 +5,9 @@ export type Task = {
   data: `${number}|${number}`
 }
 
-export type Type = "add" | "subtract" | "multiply" | "divide"
+export type OperationType = "add" | "subtract" | "multiply" | "divide"
+
+export type AnswerProps = {
+  correctAnswer: number | null
+  onCheckAnswer: (userAnswer : number | null) => boolean
+}
