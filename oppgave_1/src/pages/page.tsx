@@ -8,14 +8,13 @@ import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
 import {response} from "msw";
 import {count} from "d3-array";
-import {Simulate} from "react-dom/test-utils";
-import progress = Simulate.progress;
+
 
 
 export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
     const [currentTask, setCurrentTask] = useState(0);
-    let count = 6
+    let count = 10
     useEffect(() => {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
@@ -25,8 +24,6 @@ export default function Home() {
         }
         fetchData()
     }, []);
-    //console.log(tasks.data[0].text)
-
 
   return (
       <main>

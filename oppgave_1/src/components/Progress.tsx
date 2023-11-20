@@ -9,6 +9,7 @@ import Task from "@/components/Task";
 export default function Progress(props: { tasks: TaskType[], onStateChange : (newState : number) => void }) {
   const [state, setState] = useState(0)
   const currentTask = props.tasks[state]
+
     useEffect(() => {
         props.onStateChange(state)
     }, [state])

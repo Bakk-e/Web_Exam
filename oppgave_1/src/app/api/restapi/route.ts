@@ -25,7 +25,37 @@ const tasks: Task[] = [
     text: "Dette er API oppgave 4",
     type: "multiply",
     data: "43|11",
-  },
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 5",
+    type: "add",
+    data: "412|643",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 6",
+    type: "divide",
+    data: "2|100",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 7",
+    type: "multiply",
+    data: "11|22",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 8",
+    type: "subtract",
+    data: "43|11",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 9",
+    type: "multiply",
+    data: "43|11",
+  },{
+    id: crypto.randomUUID(),
+    text: "Dette er API oppgave 10",
+    type: "multiply",
+    data: "43|11",
+  }
 ]
 
 // TODO: Denne skal brukes til å "samle" svarene (om du ikke bruker database)
