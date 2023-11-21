@@ -5,16 +5,10 @@ import { type Task } from "@/types"
 
 const tasks: Task[] = [
   {
-    id: crypto.randomUUID(),
-    text: "Denne oppgaveteksten kommer fra API",
+    id: "124",
+    text: "Skriv resultatet av regneoperasjonen",
     type: "add",
-    data: "9|0",
-  },
-  {
-    id: crypto.randomUUID(),
-    text: "Denne oppgaveteksten kommer fra API",
-    type: "add",
-    data: "9|100",
+    data: "9|4",
   },
 ]
 
@@ -22,14 +16,14 @@ const tasks: Task[] = [
 const answers = new Map<Task["id"], { attempts: number }>()
 
 export function PUT(request: NextRequest) {
-  let count = request.nextUrl.searchParams.get("count")
+  const count = request.nextUrl.searchParams.get("count")
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
   return NextResponse.json({ success: true, data: tasks }, { status: 207 })
 }
 
 export function GET(request: NextRequest) {
-  let count = -1
+  const count = -1
   if (!count)
     return NextResponse.json({ success: false, error: "Invalid count" })
   return NextResponse.json({ success: true, data: tasks }, { status: 200 })
