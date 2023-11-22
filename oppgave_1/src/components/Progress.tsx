@@ -5,23 +5,34 @@ import type { MouseEvent } from "react"
 
 import { type Task } from "@/types"
 
-export default function Progress(props: { tasks: Task[] }) {
-  const [state, setState] = useState(0)
-  const currentTask = props.tasks[state]
+export default function Progress({tasks}: { tasks: Task[] }) {
+  const [currentStateIndex, setCurrentStateIndex] = useState(0)
+
+    if (!tasks || tasks.length === 0){
+        return <div>No tasks are avalible</div>
+    }
+  const currentTask = tasks[currentStateIndex]
+    console.log("task in progress",currentTask)
 
   const next = (event: MouseEvent<HTMLButtonElement>) => {
     console.log(event)
-    setState(state + 1)
+    setCurrentStateIndex(currentStateIndex + 1)
   }
 
   const prev = (event: MouseEvent<HTMLButtonElement>) => {
     console.log(event)
-    setState(state - 1)
+    setCurrentStateIndex(currentStateIndex - 1)
   }
+
 
   return (
     <footer className="mt-4 border-t-slate-300">
-      <p>{currentTask.id}</p>
+        {currentTask? (
+            <p>{currentTask.id}</p>
+        ) : (
+            <p>Task not found</p>
+        )}
+
       <button onClick={next} className="bg-purple-700 text-white">
         Forrige
       </button>
