@@ -9,7 +9,7 @@ export default function Progress({tasks}: { tasks: Task[] }) {
   const [currentStateIndex, setCurrentStateIndex] = useState(0)
 
     if (!tasks || tasks.length === 0){
-        return <div>No tasks are avalible</div>
+        return <div>No tasks are available</div>
     }
   const currentTask = tasks[currentStateIndex]
     console.log("task in progress",currentTask)

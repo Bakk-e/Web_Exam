@@ -6,3 +6,8 @@ export type Task = {
 }
 
 export type Type = "add" | "subtract" | "multiply" | "divide"
+
+export type AnswerProps = {
+  correctAnswer: number | null
+  onCheckAnswer: (userAnswer : number | null) => boolean
+}

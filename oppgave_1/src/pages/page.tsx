@@ -9,7 +9,8 @@ import {useEffect, useState} from "react";
 export default function Home() {
 
     const [tasks, setTasks] = useState<any>(null);
-    let count = 5
+    //const [tasks, setTasks] = useState([]);
+    let count = 1
     useEffect( () => {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
@@ -39,7 +40,7 @@ export default function Home() {
       <Tasks tasks={tasks.data} >
         <Answer />
       </Tasks>
-      <Task/>
+      <Task task={tasks.data[0]}/>
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
       <Progress tasks={tasks} />
     </main>
