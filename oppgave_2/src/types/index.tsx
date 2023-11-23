@@ -35,6 +35,7 @@ type ReportInterval = {
 
 type Question = {
     text?: string,
+    type?: "text" | "radio" | "emoji",
     answer?: string
 }
 
@@ -44,9 +45,9 @@ export type Report = {
     reportIntervals?: ReportInterval[]
 }
 
-type Interval = {
+export type Interval = {
     duration?: number,
-    intensitySone?: 1 | 2 | 3 | 4 | 5
+    intensityZone?: 1 | 2 | 3 | 4 | 5
 }
 
 export type Session = {
@@ -77,4 +78,29 @@ export type AthleteMini = {
     id: string,
     gender: string,
     sport: string
+}
+
+export type Template = {
+    id?: string,
+    title?: string,
+    type?: string,
+    tags?: string[],
+    questions?: Question[],
+    intervals?: Interval[],
+    averageIntensity?: 1 | 2 | 3 | 4 | 5,
+    averageWatt?: number,
+    averageSpeed?: number,
+    averageHeartRate?: number
+}
+
+export type IntervalData = {
+    key: number,
+    duration?: number,
+    intensityZone?: number
+}
+
+export type QuestionData = {
+    key: number,
+    text?: string,
+    type?: string
 }

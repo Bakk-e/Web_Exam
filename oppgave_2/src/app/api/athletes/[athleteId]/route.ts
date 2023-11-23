@@ -20,7 +20,7 @@ const athlets: Athlete[] = [
             {"text": "What is the main component of Earth's atmosphere?", "answer": "Nitrogen is the primary component of Earth's atmosphere."},
             {"text": "When did the first human land on the moon?", "answer": "The first human landed on the moon on July 20, 1969, during the Apollo 11 mission."},
             {"text": "What is the powerhouse of the cell?", "answer": "The mitochondria is often referred to as the powerhouse of the cell."}
-          ], intervals: [{duration: 4, intensitySone: 3}, {duration: 14, intensitySone: 2}, {duration: 8, intensitySone: 1}, {duration: 4, intensitySone: 2}, {duration: 10, intensitySone: 5}]}]}
+          ], intervals: [{duration: 4, intensityZone: 3}, {duration: 14, intensityZone: 2}, {duration: 8, intensityZone: 1}, {duration: 4, intensityZone: 2}, {duration: 10, intensityZone: 5}]}]}
 
 ]
 
