@@ -8,76 +8,126 @@ datasource db {
 }
 
 model Athlete {
-  id            String         @id @default(uuid())
-  userId        String         @unique
-  gender        String
-  sport         String
-  meta          Meta?
-  activities    Activity?
-  goalId        Goal[]
-  competitionId Competition[]
-  archivedMeta  ArchivedMeta[]
+  id           String         @id @default(uuid())
+  userId       String         @unique
+  gender       String
+  sport        String
+  heartrate    Int
+  watt         Int
+  speed        Int
+  competitions Competition[]
+  session      Session[]
+  archivedMeta ArchivedMeta[]
 }
 
-model Meta {
-  id        Int     @id @default(autoincrement())
-  heartrate Int
-  watt      Int
-  speed     Int
-  athlete   Athlete @relation(fields: [userId], references: [userId])
-  userId    String  @unique
-}
-
-model Activity {
-  id        Int        @id @default(autoincrement())
-  slug      String     @unique
-  athlete   Athlete    @relation(fields: [userId], references: [userId])
-  userId    String     @unique
-  date      DateTime
-  tags      Tag[]      @relation()
-  questions Question[]
-  intervals Interval[]
+model Competition {
+  id         String       @id @default(uuid())
+  slug       String       @unique
+  date       DateTime
+  location   String
+  goal       Goal[]
+  type       String
+  priority   String
+  comment    String
+  Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
+  athleteId  String?
+  Interval   Interval?    @relation(fields: [intervalId], references: [id])
+  intervalId String?
+  Connection Connection[]
 }
 
 model Tag {
-  id         Int        @id @default(autoincrement())
-  name       String     @unique
-  activities Activity[]
+  id        Int      @id @default(autoincrement())
+  name      String   @unique
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId String?
 }
 
 model Question {
-  id         String     @id @default(uuid())
-  question   String
-  type       String
-  activities Activity[]
-}
-
-model Interval {
-  id         String     @id @default(uuid())
-  duration   Int
-  intensity  Int
-  activities Activity[]
+  id        String   @id @default(uuid())
+  question  String
+  type      String
+  anwser    String?
+  Session   Session? @relation(fields: [sessionId], references: [id])
+  sessionId String?
+  Report    Report?  @relation(fields: [reportId], references: [id])
+  reportId  String?
 }
 
 model Goal {
-  id        String   @id @default(uuid())
-  goalName  String
-  date      DateTime
-  place     String
-  goal      Int
-  comment   String
+  id            String       @id @default(uuid())
+  goalName      String
+  date          DateTime
+  place         String
+  goal          Int
+  comment       String
+  competition   Competition? @relation(fields: [competitionId], references: [id])
+  competitionId String?
+  Connection    Connection[]
+}
+
+model Session {
+  id         String      @id @default(uuid())
+  date       DateTime
+  title      String
+  type       String
+  tags       Tag[]
+  questions  Question[]
+  intervals  Interval[]
+  report     Report?
+  connection Connection?
+
   Athlete   Athlete? @relation(fields: [athleteId], references: [id])
   athleteId String?
 }
 
-model Competition {
-  id              String   @id @default(uuid())
-  competitionName String
-  date            DateTime
-  goal            String
-  comment         String
-  Athlete         Athlete? @relation(fields: [athleteId], references: [id])
-  athleteId       String?
+model Interval {
+  id           String        @id @default(uuid())
+  session      Session       @relation(fields: [sessionId], references: [id])
+  sessionId    String
+  duration     Int
+  intensity    Int
+  competitions Competition[]
+}
+
+model Report {
+  id             String           @id @default(uuid())
+  status         String
+  intervalReport IntervalReport[]
+  questionReport Question[]
+  comments       String
+  session        Session          @relation(fields: [sessionId], references: [id])
+  sessionId      String           @unique
+}
+
+model IntervalReport {
+  id                    Int    @id @default(autoincrement())
+  report                Report @relation(fields: [reportId], references: [id])
+  reportId              String
+  intervalNumber        Int
+  perceivedIntensityMin Int
+  perceivedIntensityMax Int
+  perceivedIntensityAvg Int
+  pulseMin              Int
+  pulseMax              Int
+  pulseAvg              Int
+  speedMin              Float
+  speedMax              Float
+  speedAvg              Float
+  wattMin               Int
+  wattMax               Int
+  wattAvg               Int
+  time                  Int
+}
+
+model Connection {
+  id            Int          @id @default(autoincrement())
+  session       Session      @relation(fields: [sessionId], references: [id])
+  sessionId     String       @unique
+  goal          Goal?        @relation(fields: [goalId], references: [id])
+  Competition   Competition? @relation(fields: [competitionId], references: [id])
+  goalId        String?
+  competitionId String?
 }
 
 model ArchivedMeta {
