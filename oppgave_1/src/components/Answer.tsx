@@ -3,11 +3,14 @@
 import {useEffect, useState} from "react"
 import type { FormEvent, MouseEvent } from "react"
 import {AnswerProps} from "@/types";
+import {switchCase} from "@babel/types";
+import {Integer} from "type-fest";
 
 export default function Answer({correctAnswer, onCheckAnswer} : AnswerProps) {
     const [answer, setAnswer] = useState<number | null>(null)
     const [correct, setCorrect] = useState<boolean | null>(false)
-    const [attempts, setAttempts] = useState<number | 0>(0)
+    const [attempts, setAttempts] = useState<number >(0)
+    const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false)
 
   const send = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
@@ -29,20 +32,30 @@ export default function Answer({correctAnswer, onCheckAnswer} : AnswerProps) {
     setAnswer(event.currentTarget.valueAsNumber)
   }
 
+
   return (
     <div>
-      <label htmlFor="answer">Svar</label>
-      <input
-        name="answer"
-        type="number"
-        placeholder="Sett svar her"
-        onInput={update}
-        value={answer || ""}
-      />
-      <button onClick={send}>Send</button>
+        {attempts !== 3 || correct? (
+            <div>
+                <label htmlFor="answer">Svar</label>
+                <input
+                    name="answer"
+                    type="number"
+                    placeholder="Sett svar her"
+                    onInput={update}
+                    value={answer || ""}
+                />
+                <button onClick={send}>Send</button>
+            </div>
+        ): null}
         <p>
-            {attempts > 0 && `${attempts} av 3 forsøk brukt`}
-            {correct === true ? "Bra jobba, Riktig svar!" : null}
+            {attempts >= 0 && `${attempts} av 3 forsøk brukt`}
+            {correct ? "Bra jobba, Riktig svar!" : null}
+            {!correct && attempts ===3 && (
+                <button onClick={() => setShowCorrectAnswer(!showCorrectAnswer)}>
+                    {showCorrectAnswer? "Skjul Svaret" : "Se Svaret"}
+            </button>)}
+            {showCorrectAnswer && <p>Riktig svar er: {correctAnswer}</p>}
         </p>
     </div>
   )
