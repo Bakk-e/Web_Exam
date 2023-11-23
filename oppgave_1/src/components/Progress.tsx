@@ -19,7 +19,6 @@ export default function Progress(props: { tasks: TaskType[], onStateChange : (ne
   const next = (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       if (currentStateIndex < props.tasks.length -1){
-        //console.log(event)
         setCurrentStateIndex(currentStateIndex + 1)
       }
   }
@@ -27,7 +26,6 @@ export default function Progress(props: { tasks: TaskType[], onStateChange : (ne
   const prev = (event: MouseEvent<HTMLButtonElement>) => {
       event.preventDefault()
       if (currentStateIndex > 0){
-          //console.log(event)
           setCurrentStateIndex(currentStateIndex - 1)
       }
   }

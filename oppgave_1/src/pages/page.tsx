@@ -5,6 +5,7 @@ import Task from "@/components/Task"
 import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
+import {AnswerProps} from "@/types";
 
 export default function Home() {
 
@@ -34,12 +35,12 @@ export default function Home() {
     }
 
 
+
   return (
     <main>
       {JSON.stringify(tasks)}
       <Header />
       <Tasks tasks={tasks.data} >
-        <Answer />
       </Tasks>
         {tasks && tasks.data && tasks.data.length > 0 &&(
             <Task task={tasks.data[currentTask]}/>

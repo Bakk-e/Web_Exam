@@ -1,5 +1,6 @@
 import {type Task as TaskType, AnswerProps} from "@/types";
 import {ReactNode, useEffect, useState} from "react";
+import Answer from "@/components/Answer";
 
 type TaskProps = {
     task: TaskType
@@ -50,6 +51,7 @@ export default function Task({ task } : TaskProps){
             <p>Type : {task.type}</p>
             <p>Question : {data[0]} {convertTypeToString(type)} {data[1]}</p>
             <p>Correct Answer: {correctAnswer} </p>
+            <Answer correctAnswer = {correctAnswer} onCheckAnswer = {checkAnswer} />
         </article>
     )
 
