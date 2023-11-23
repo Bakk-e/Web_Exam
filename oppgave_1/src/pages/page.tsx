@@ -9,6 +9,7 @@ import {useEffect, useState} from "react";
 export default function Home() {
 
     const [tasks, setTasks] = useState<any>(null);
+    const [currentTask, setCurrentTask] = useState(0);
     //const [tasks, setTasks] = useState([]);
     let count = 1
     useEffect( () => {
@@ -40,9 +41,12 @@ export default function Home() {
       <Tasks tasks={tasks.data} >
         <Answer />
       </Tasks>
-      <Task task={tasks.data[0]}/>
+        {tasks && tasks.data && tasks.data.length > 0 &&(
+            <Task task={tasks.data[currentTask]}/>
+        )}
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
-      <Progress tasks={tasks} />
+        {tasks && tasks.data &&
+            <Progress tasks={tasks.data} onStateChange={setCurrentTask} />}
     </main>
   )
 }

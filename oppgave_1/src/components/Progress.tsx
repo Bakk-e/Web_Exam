@@ -1,28 +1,40 @@
 "use client"
 
-import { useState } from "react"
+import {useEffect, useState} from "react"
 import type { MouseEvent } from "react"
 
-import { type Task } from "@/types"
+import { type Task as TaskType} from "@/types"
+import {state} from "sucrase/dist/types/parser/traverser/base";
 
-export default function Progress({tasks}: { tasks: Task[] }) {
+
+export default function Progress(props: { tasks: TaskType[], onStateChange : (newState : number) => void }) {
   const [currentStateIndex, setCurrentStateIndex] = useState(0)
+    const currentTask = props.tasks[currentStateIndex]
 
-    if (!tasks || tasks.length === 0){
-        return <div>No tasks are available</div>
-    }
-  const currentTask = tasks[currentStateIndex]
-    console.log("task in progress",currentTask)
+    useEffect(() => {
+        props.onStateChange(currentStateIndex)
+    }, [currentStateIndex])
+
 
   const next = (event: MouseEvent<HTMLButtonElement>) => {
-    console.log(event)
-    setCurrentStateIndex(currentStateIndex + 1)
+      event.preventDefault()
+      if (currentStateIndex < props.tasks.length -1){
+        //console.log(event)
+        setCurrentStateIndex(currentStateIndex + 1)
+      }
   }
 
   const prev = (event: MouseEvent<HTMLButtonElement>) => {
-    console.log(event)
-    setCurrentStateIndex(currentStateIndex - 1)
+      event.preventDefault()
+      if (currentStateIndex > 0){
+          //console.log(event)
+          setCurrentStateIndex(currentStateIndex - 1)
+      }
   }
+
+    if (!props.tasks || props.tasks.length === 0){
+        return <div>No tasks are available</div>
+    }
 
 
   return (
@@ -33,10 +45,10 @@ export default function Progress({tasks}: { tasks: Task[] }) {
             <p>Task not found</p>
         )}
 
-      <button onClick={next} className="bg-purple-700 text-white">
+      <button onClick={prev} className="bg-purple-700 text-white">
         Forrige
       </button>
-      <button onClick={prev} className="bg-teal-700 text-white">
+      <button onClick={next} className="bg-teal-700 text-white">
         Neste
       </button>
     </footer>
