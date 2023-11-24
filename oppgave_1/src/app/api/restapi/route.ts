@@ -11,6 +11,7 @@ const generateRandomNumber = (min = 1, max = 100) => {
 const generateRandomData = () => {
   const number1 = generateRandomNumber()
   const number2 = generateRandomNumber()
+
   return `${number1}|${number2}`
 }
 
@@ -25,7 +26,7 @@ const createRandomTasks = (count : number, tasksArray : Task[]) =>{
   for (let i = 1; i <= count; i++){
     tasksArray.push({
       id: crypto.randomUUID(),
-      text: `Dette er API oppgave ${i}`,
+      text: `Oppgave ${i}`,
       type: generateRandomType(),
       data: generateRandomData() as `${number}|${number}`
     })

@@ -47,7 +47,6 @@ const Task: React.FC<TaskProps> = ({ task } ) => {
 
     return(
         <article>
-            <h3>Task : {task.text}</h3>
             <p>Type : {task.type}</p>
             <p>Question : {data[0]} {convertTypeToString(type)} {data[1]}</p>
             <p>Correct Answer: {correctAnswer} </p>
