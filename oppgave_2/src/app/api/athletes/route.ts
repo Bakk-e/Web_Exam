@@ -14,3 +14,8 @@ export function GET() {
         {data: Array.from(athleteInfos.values())},
         {status: 200});
 }
+
+export async function POST(request: NextResponse) {
+    const data = await request.json()
+    return NextResponse.json({ status: 200 })
+}

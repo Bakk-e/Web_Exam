@@ -1,10 +1,10 @@
 @import "Variables.css";
 
-#new-session-template-page {
+#new-session-page {
     height: 100vh;
 }
 
-#new-session-template-page-header {
+#new-session-page-header {
     display: flex;
     width: 100%;
     justify-content: space-between;
@@ -12,15 +12,15 @@
     padding: 1rem;
 }
 
-#new-session-template-page-logo {
+#new-session-page-logo {
     font-size: 1.3rem;
     align-self: flex-start;
 }
 
-#new-session-template-page-title {
+#new-session-page-title {
     font-size: 2.5rem;
 }
 
-#new-session-template-page-back {
+#new-session-page-back {
     font-size: 1.3rem;
 }

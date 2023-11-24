@@ -29,7 +29,6 @@ export default function AthletePage({ params }: { params: { id: string }}) {
         }
         getAthlete();
     }, []);
-    console.log(athlete)
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
@@ -50,7 +49,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <p id="athlete-page-id">{params.id}</p>
                 <nav id="athlete-page-nav">
                     <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
-                    <Link legacyBehavior href="/newSession"><a id="athlete-page-new-session">Ny økt</a></Link>
+                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny økt</a></Link>
                 </nav>
             </header>
             <div id="athlete-page-info">
@@ -115,19 +114,19 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <div id="athlete-page-competitions-and-goals">
                 <p id="athlete-page-competitions-title">Konkuranser: </p>
                 <div id="athlete-page-competitions">
-                    {athlete?.competitions.map((competition) => (
-                        <Competition competitionId={competition.id} toggleEditCompetition={toggleEditCompetition}></Competition>
+                    {athlete?.competitions?.map((competition) => (
+                        <Competition competition={competition} toggleEditCompetition={toggleEditCompetition}></Competition>
                     ))}
-                    {athlete && (
+                    {athlete && athlete.competitions && (
                         athlete.competitions.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>
                     )}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
                 <div id="athlete-page-goals">
-                    {athlete?.goals.map((goal) => (
-                        <Goal goalId={goal.id} toggleEditGoal={toggleEditGoal}></Goal>
+                    {athlete?.goals?.map((goal) => (
+                        <Goal goal={goal} toggleEditGoal={toggleEditGoal}></Goal>
                     ))}
-                    {athlete && (
+                    {athlete && athlete.goals && (
                         athlete.goals.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>
                     )}
                 </div>
@@ -147,8 +146,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Edit</th>
                             <th>Slett</th>
                         </tr>
-                        {athlete?.sessions.map((session) => (
-                            <Session sessionId={session.id}></Session>
+                        {athlete?.sessions?.map((session) => (
+                            <Session session={session}></Session>
                         ))}
                     </table>
                 </div>

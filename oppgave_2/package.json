@@ -50,6 +50,7 @@
     "server-only": "^0.0.1",
     "unstyled-table": "0.0.3-alpha-3",
     "usehooks-ts": "^2.9.1",
+    "xlsx": "^0.18.5",
     "zod": "^3.22.4"
   },
   "devDependencies": {
@@ -114,3 +115,4 @@
     "npm": ">=8.6.11"
   }
 }
+

@@ -5,9 +5,11 @@ import "@/styles/MainPageStyle.css"
 import Athlete from "@/components/Athlete";
 import { useEffect, useState } from "react";
 import { AthleteMini } from "@/types";
+import AthleteSearch from "@/components/AthleteSearch";
 
 export default function Home() {
   const [athleteInfos, setAthleteInfos] = useState<AthleteMini[]>([]);
+  const [searchedAthlete, setSearchedAthletes] = useState<AthleteMini[]>([]);
 
   useEffect(() =>{
     const getAthleteInfos = async () => {
@@ -16,9 +18,14 @@ export default function Home() {
       });
       const result = (await response.json()) as {data: AthleteMini[]};
       setAthleteInfos(result.data);
+      setSearchedAthletes(result.data);
     }
     getAthleteInfos();
   }, []);
+
+  function onSearch(filteredAthletes: AthleteMini[]) {
+    setSearchedAthletes(filteredAthletes);
+  }
 
   return (
     <div id="main-page">
@@ -31,10 +38,7 @@ export default function Home() {
         </nav>
       </header>
       <div id="main-page-athlete-list">
-            <form id="main-page-search">
-                <input id="main-page-search-input" type="text" placeholder="Søk"/>
-                <button id="main-page-search-button">Search</button>
-            </form>
+            <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
             <table id="main-page-athlete-table">
                 <tr>
                     <th>Id</th>
@@ -42,7 +46,7 @@ export default function Home() {
                     <th>Sport</th>
                     <th>Rapporter</th>
                 </tr>
-                {athleteInfos.map((athlete) => (
+                {searchedAthlete.map((athlete) => (
                   <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
                 ))}
             </table>
