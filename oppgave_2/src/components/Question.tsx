@@ -38,7 +38,7 @@ export default function Question(props: questionProps) {
                     <td><input className="new-session-page-question-input"
                     type="text"
                     placeholder="Spørsmål tekst"
-                    value={text}
+                    value={data.text}
                     onChange={(e) => handleTextChange(e, e.target.value)}/>
                     </td>
                 </tr>
@@ -46,7 +46,7 @@ export default function Question(props: questionProps) {
                     <td><p className="new-session-page-question-title">Type: </p></td>
                     <td>
                         <select className="new-session-page-question-dropdown"
-                        value={type}
+                        value={data.type}
                         onChange={(e) => handleTypeChange(e, e.target.value)}>
                             <option value="tekst">Tekst</option>
                             <option value="radio">Radio</option>

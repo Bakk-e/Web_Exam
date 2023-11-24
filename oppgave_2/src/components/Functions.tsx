@@ -17,3 +17,11 @@ export function GetCurrentDate() {
 
     return `${day}-${month}-${year}_${hours}-${minutes}-${seconds}`
 }
+
+export function DateToStringAlternate(date: Date) {
+    const day = date.toString().slice(8, 10);
+    const month = date.toString().slice(5, 7);
+    const year = date.toString().slice(0, 4);
+
+    return `${year}-${month}-${day}`;
+}

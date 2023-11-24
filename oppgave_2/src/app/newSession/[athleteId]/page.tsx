@@ -6,6 +6,7 @@ import { useState } from "react"
 import Interval from "@/components/Interval";
 import { IntervalData, QuestionData } from "@/types";
 import Question from "@/components/Question";
+import AddExistingQuestion from "@/components/AddExistingQuestion";
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
@@ -15,6 +16,10 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
+    const exampleQuestions: QuestionData[] = [
+        {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
+        {key: 1, text: "Hvordan har du det?", type: "tekst"}
+    ]
 
     function addInterval() {
         setIntervals((prevIntervals) => [
@@ -56,7 +61,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
             return updatedList;
         });
         setQuestionCount(questionCount - 1)
-    }
+    };
 
     function handleQuestionDataUpdate(index: number, updatedData: QuestionData) {
         setQuestions((prevQuestion) => {
@@ -64,6 +69,16 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
             updatedList[index] = updatedData;
             return updatedList;
         });
+    };
+
+    function handleAddExistingQuestion(data: QuestionData) {
+        setQuestions((prevQuestion) => {
+            const updatedList = [...prevQuestion];
+            data.key = questionCount;
+            updatedList[questionCount] = data;
+            setQuestionCount(questionCount + 1);
+            return updatedList;
+        })
     };
 
     return (
@@ -126,6 +141,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
                 <div id="new-session-page-questions">
                     <p>Questions: </p>
+                    <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                     {questions.map((question, index) => (
                         <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                     ))}

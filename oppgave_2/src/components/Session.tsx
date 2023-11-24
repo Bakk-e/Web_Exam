@@ -21,7 +21,9 @@ export default function Session(props: sessionProps) {
                 <td>{session.tags[0]}, {session.tags[1]}</td>
             )}
             <td>{session.report?.status}</td>
-            <td><DownloadSessionButton session={session}></DownloadSessionButton></td>
+            {session.report?.status != "no" && (
+                <td><DownloadSessionButton session={session}></DownloadSessionButton></td>
+            )}
             <td>Klikk her</td>
             <td>Klikk her</td>
             <td>Klikk her</td>
