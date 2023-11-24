@@ -1,12 +1,12 @@
 import {type Task as TaskType, AnswerProps} from "@/types";
-import {ReactNode, useEffect, useState} from "react";
+import React, {ReactNode, useEffect, useState} from "react";
 import Answer from "@/components/Answer";
 
 type TaskProps = {
     task: TaskType
 }
 
-export default function Task({ task } : TaskProps){
+const Task: React.FC<TaskProps> = ({ task } ) => {
     const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
     let taskText = task.text
     let data = task.data.split("|")
@@ -55,5 +55,5 @@ export default function Task({ task } : TaskProps){
         </article>
     )
 
-
 }
+export default Task

@@ -12,7 +12,7 @@ export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
     const [currentTask, setCurrentTask] = useState(0);
     //const [tasks, setTasks] = useState([]);
-    let count = 1
+    let count = 10
     useEffect( () => {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
