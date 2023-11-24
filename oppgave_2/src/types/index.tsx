@@ -46,9 +46,12 @@ type Session = {
     id: string,
     date: Date,
     title: string,
-    type: string,
     tags: string[],
-    reportStatus: ReportStatus
+    type: string,
+    questions: Question[],
+    intervals: ReportInterval[],
+    report?: Report
+    connection?: Goal | Competition
 }
 
 export type Athlete = {

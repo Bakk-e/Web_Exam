@@ -8,21 +8,22 @@ datasource db {
 }
 
 model Athlete {
-  id           String         @id @default(uuid())
-  userId       String         @unique
-  gender       String
-  sport        String
-  heartrate    Int
-  watt         Int
-  speed        Int
-  competitions Competition[]
-  session      Session[]
-  archivedMeta ArchivedMeta[]
+  id                String         @id @default(uuid())
+  userId            String         @unique
+  gender            String
+  sport             String
+  maxHearteRate     Int
+  thresholdWattrate Int
+  thresholdSpeed    Int
+  competitions      Competition[]
+  goals             Goal[]
+  session           Session[]
+  archivedMeta      ArchivedMeta[]
 }
 
 model Competition {
   id         String       @id @default(uuid())
-  slug       String       @unique
+  title      String
   date       DateTime
   location   String
   goal       Goal[]
@@ -56,22 +57,23 @@ model Question {
 
 model Goal {
   id            String       @id @default(uuid())
-  goalName      String
+  title         String
   date          DateTime
-  place         String
   goal          Int
   comment       String
   competition   Competition? @relation(fields: [competitionId], references: [id])
   competitionId String?
   Connection    Connection[]
+  Athlete       Athlete?     @relation(fields: [athleteId], references: [id])
+  athleteId     String?
 }
 
 model Session {
   id         String      @id @default(uuid())
   date       DateTime
   title      String
-  type       String
   tags       Tag[]
+  type       String
   questions  Question[]
   intervals  Interval[]
   report     Report?
