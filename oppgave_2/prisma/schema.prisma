@@ -12,7 +12,7 @@ model Athlete {
   userId            String         @unique
   gender            String
   sport             String
-  maxHearteRate     Int
+  maxHeartRate      Int
   thresholdWattrate Int
   thresholdSpeed    Int
   competitions      Competition[]
@@ -37,22 +37,13 @@ model Competition {
   Connection Connection[]
 }
 
-model Tag {
-  id        Int      @id @default(autoincrement())
-  name      String   @unique
-  Session   Session? @relation(fields: [sessionId], references: [id])
-  sessionId String?
-}
-
 model Question {
   id        String   @id @default(uuid())
-  question  String
-  type      String
-  anwser    String?
+  text      String?
+  type      String?
+  answer    String?
   Session   Session? @relation(fields: [sessionId], references: [id])
   sessionId String?
-  Report    Report?  @relation(fields: [reportId], references: [id])
-  reportId  String?
 }
 
 model Goal {
@@ -72,7 +63,7 @@ model Session {
   id         String      @id @default(uuid())
   date       DateTime
   title      String
-  tags       Tag[]
+  tags       String
   type       String
   questions  Question[]
   intervals  Interval[]
@@ -96,30 +87,27 @@ model Report {
   id             String           @id @default(uuid())
   status         String
   intervalReport IntervalReport[]
-  questionReport Question[]
   comments       String
   session        Session          @relation(fields: [sessionId], references: [id])
   sessionId      String           @unique
 }
 
 model IntervalReport {
-  id                    Int    @id @default(autoincrement())
-  report                Report @relation(fields: [reportId], references: [id])
-  reportId              String
-  intervalNumber        Int
-  perceivedIntensityMin Int
-  perceivedIntensityMax Int
-  perceivedIntensityAvg Int
-  pulseMin              Int
-  pulseMax              Int
-  pulseAvg              Int
-  speedMin              Float
-  speedMax              Float
-  speedAvg              Float
-  wattMin               Int
-  wattMax               Int
-  wattAvg               Int
-  time                  Int
+  id                  Int    @id @default(autoincrement())
+  report              Report @relation(fields: [reportId], references: [id])
+  reportId            String
+  intervalNumber      Int
+  averageIntesitySone Int
+  minHeartRate        Int
+  maxHeartRate        Int
+  averageHeartRate    Int
+  minSpeed            Float
+  maxSpeed            Float
+  averageSpeed        Float
+  minWattage          Int
+  maxWattage          Int
+  averageWattage      Int
+  duration            Int
 }
 
 model Connection {
@@ -127,7 +115,7 @@ model Connection {
   session       Session      @relation(fields: [sessionId], references: [id])
   sessionId     String       @unique
   goal          Goal?        @relation(fields: [goalId], references: [id])
-  Competition   Competition? @relation(fields: [competitionId], references: [id])
+  competition   Competition? @relation(fields: [competitionId], references: [id])
   goalId        String?
   competitionId String?
 }
