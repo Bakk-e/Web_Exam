@@ -6,13 +6,14 @@ import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
 import {AnswerProps} from "@/types";
+import Button from "@/components/Button";
 
 export default function Home() {
-
     const [tasks, setTasks] = useState<any>(null);
     const [currentTask, setCurrentTask] = useState(0);
-    //const [tasks, setTasks] = useState([]);
-    let count = 10
+    const [count, setCount] = useState(10)
+
+
     useEffect( () => {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
@@ -49,6 +50,8 @@ export default function Home() {
       <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
         {tasks && tasks.data &&
             <Progress tasks={tasks.data} onStateChange={setCurrentTask} />}
+        {(currentTask + 1  === tasks.data.length) &&
+            <button onClick={() => window.location.reload()}>Prøv på nytt</button>}
     </main>
   )
 }

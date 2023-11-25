@@ -10,4 +10,15 @@ export type Type = "add" | "subtract" | "multiply" | "divide"
 export type AnswerProps = {
   correctAnswer: number | null
   onCheckAnswer: (userAnswer : number | null) => boolean
+  onCorrect : () => void
+  onWrong : (opperationType : Type) => void
+  opperationType : Type
 }
+
+export type OpperationErrors = {
+  add : number
+  subtract: number
+  multiply : number
+  divide : number
+}
+

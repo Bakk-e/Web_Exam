@@ -9,26 +9,6 @@ type TasksProps = {
 }
 
 const Tasks: React.FC<TasksProps> = ({ tasks, children })  => {
-  /*const tasks: Task[] = [
-    {
-      id: "123",
-      text: "Skriv resultatet av regneoperasjonen",
-      data: "9|2",
-      type: "add",
-    },
-    {
-      id: "234",
-      text: "Skriv resultatet av regneoperasjonen",
-      data: "3|2",
-      type: "add",
-    },
-    {
-      id: "356",
-      text: "Skriv resultatet av regneoperasjonen",
-      data: "3|2",
-      type: "multiply",
-    },
-  ]*/
   return (
     <section>
       {tasks.map((task) => (

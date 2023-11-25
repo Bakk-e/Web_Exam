@@ -5,6 +5,7 @@ import type { MouseEvent } from "react"
 
 import { type Task as TaskType} from "@/types"
 import {state} from "sucrase/dist/types/parser/traverser/base";
+import tasks from "@/components/Tasks";
 
 
 export default function Progress(props: { tasks: TaskType[], onStateChange : (newState : number) => void }) {
@@ -49,6 +50,8 @@ export default function Progress(props: { tasks: TaskType[], onStateChange : (ne
       <button onClick={next} className="bg-teal-700 text-white">
         Neste
       </button>
+
+        <p></p>
     </footer>
   )
 }

@@ -6,7 +6,7 @@ import {AnswerProps} from "@/types";
 import {switchCase} from "@babel/types";
 import {Integer} from "type-fest";
 
-export default function Answer({correctAnswer, onCheckAnswer} : AnswerProps) {
+export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong, opperationType} : AnswerProps) {
     const [answer, setAnswer] = useState<number | null>(null)
     const [correct, setCorrect] = useState<boolean | null>(false)
     const [attempts, setAttempts] = useState<number >(0)
@@ -14,11 +14,16 @@ export default function Answer({correctAnswer, onCheckAnswer} : AnswerProps) {
 
   const send = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault()
-    console.log(answer)
       const isCorrect = onCheckAnswer(answer)
       setCorrect(isCorrect)
       if (!isCorrect && attempts < 3){
           setAttempts(attempts+1)
+      }
+      if (isCorrect){
+          onCorrect()
+      }
+      else if (!isCorrect){
+          onWrong(opperationType)
       }
   }
 
@@ -56,6 +61,7 @@ export default function Answer({correctAnswer, onCheckAnswer} : AnswerProps) {
                     {showCorrectAnswer? "Skjul Svaret" : "Se Svaret"}
             </button>)}
             {showCorrectAnswer && <p>Riktig svar er: {correctAnswer}</p>}
+
         </p>
     </div>
   )
