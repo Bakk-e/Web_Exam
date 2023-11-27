@@ -14,10 +14,7 @@ export function GET(request: NextRequest, context: any) {
 import { NextApiRequest, NextApiResponse } from 'next';
 import { NextRequest, NextResponse } from "next/server";
 
-
-
 import { Athlete } from "@/types";
-
 
 const prisma = new PrismaClient();
 
