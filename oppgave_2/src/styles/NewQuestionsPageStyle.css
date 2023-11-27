@@ -17,19 +17,21 @@
     align-self: flex-start;
 }
 
-#new-questions-page-title {
-    font-size: 2.5rem;
-}
-
-#new-questions-page-back {
+#new-questions-page-nav {
     font-size: 1.3rem;
+    display: flex;
 }
 
 #new-questions-page-create {
     display: flex;
     justify-content: center;
     align-items: center;
-    padding-top: 5rem;
+    flex-direction: column;
+}
+
+#new-questions-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 4rem;
 }
 
 #new-questions-page-create-table {

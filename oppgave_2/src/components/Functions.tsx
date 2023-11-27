@@ -1,7 +1,7 @@
-export function DateToString(date: Date) {
-    const day = date.toString().slice(8, 10);
-    const month = date.toString().slice(5, 7);
-    const year = date.toString().slice(0, 4);
+export function DateToString(date: string) {
+    const day = date.slice(8, 10);
+    const month = date.slice(5, 7);
+    const year = date.slice(0, 4);
 
     return `${day}.${month}.${year}`;
 }

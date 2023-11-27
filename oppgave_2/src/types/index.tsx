@@ -19,8 +19,8 @@ export type Goal = {
 
 type ReportInterval = {
     minIntensity?: 1 | 2 | 3 | 4 | 5,
-    maxIntensitySone?: 1 | 2 | 3 | 4 | 5,
-    avrageIntensitySone?: number,
+    maxIntensity?: 1 | 2 | 3 | 4 | 5,
+    avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,
     avrageHeartRate?: number,
@@ -42,7 +42,8 @@ type Question = {
 export type Report = {
     id?: string,
     status?: "no" | "low" | "normal" | "high",
-    reportIntervals?: ReportInterval[]
+    reportIntervals?: ReportInterval[],
+    comment?: string
 }
 
 export type Interval = {
@@ -103,4 +104,22 @@ export type QuestionData = {
     key: number,
     text?: string,
     type?: string
+}
+
+export type ReportIntervalInfo = {
+    durationExpected?: number,
+    intensityZone?: 1 | 2 | 3 | 4 | 5,
+    minIntensity?: 1 | 2 | 3 | 4 | 5,
+    maxIntensity?: 1 | 2 | 3 | 4 | 5,
+    avrageIntensity?: number,
+    minHeartRate?: number,
+    maxHeartRate?: number,
+    avrageHeartRate?: number,
+    minSpeed?: number,
+    maxSpeed?: number,
+    avrageSpeed?: number,
+    minWattage?: number,
+    maxWattage?: number,
+    avrageWattage?: number,
+    durationAchieved?: number
 }

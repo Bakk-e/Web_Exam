@@ -5,6 +5,7 @@ import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
 import GoalCard from "@/components/GoalCard";
+import Notifications from "@/components/Notifications";
 import Session from "@/components/Session";
 import "@/styles/AthletePageStyle.css"
 import { Athlete, Competition, Goal } from "@/types";
@@ -21,7 +22,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [editingGoal, setEditingGoal] = useState<Goal>({})
     const [athlete, setAthlete] = useState<Athlete>()
 
-    useEffect(() =>{
+    useEffect(() => {
         const getAthlete = async () => {
           const response = await fetch(`/api/athletes/${params.id}`, {
             method: "get",
@@ -48,13 +49,14 @@ export default function AthletePage({ params }: { params: { id: string }}) {
         <div id="athlete-page">
             <header id="athlete-page-header">
                 <Link legacyBehavior href="/"><a id="athlete-page-logo">Logo</a></Link>
-                <p id="athlete-page-id">{params.id}</p>
                 <nav id="athlete-page-nav">
+                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
                     <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
-                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny økt</a></Link>
+                    <Notifications></Notifications>
                 </nav>
             </header>
             <div id="athlete-page-info">
+                <p id="athlete-page-id">{params.id}</p>
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
                 <p id="athlete-page-info-heartrate">Maks puls: {athlete?.maxHeartRate}</p>

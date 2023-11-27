@@ -19,7 +19,7 @@ export default function GoalCard(props: goalProps) {
         <div className="athlete-page-goals-card">
             <div className="athlete-page-goals-card-header">
                 <p className="athlete-page-goals-card-title">{goal.title}</p>
-                <p className="athlete-page-goals-card-date">{goal && goal.date && DateToString(goal.date)}</p>
+                <p className="athlete-page-goals-card-date">{goal && goal.date && DateToString(goal.date.toString())}</p>
             </div>
             <p className="athlete-page-goals-card-goal">Mål: {goal.goal}</p>
             <p className="athlete-page-goals-card-comment">Kommentar: {goal.comment}</p>

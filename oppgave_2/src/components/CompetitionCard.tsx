@@ -21,7 +21,7 @@ export default function CompetitionCard(props: competitionProps) {
             <div className="athlete-page-competitions-card-header">
                 <p className="athlete-page-competitions-card-title">{competition.title}</p>
                 <p className="athlete-page-competitions-card-location">{competition.location}</p>
-                <p className="athlete-page-competitions-card-date">{competition && competition.date && DateToString(competition.date)}</p>
+                <p className="athlete-page-competitions-card-date">{competition.date && DateToString(competition.date.toString())}</p>
             </div>
             <p className="athlete-page-competitions-card-goal">Mål: {competition.goal}</p>
             <div className="athlete-page-competitions-card-section">

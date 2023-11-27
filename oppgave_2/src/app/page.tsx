@@ -6,6 +6,7 @@ import Athlete from "@/components/Athlete";
 import { useEffect, useState } from "react";
 import { AthleteMini } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
+import Notifications from "@/components/Notifications";
 
 export default function Home() {
   const [athleteInfos, setAthleteInfos] = useState<AthleteMini[]>([]);
@@ -35,6 +36,7 @@ export default function Home() {
           <Link legacyBehavior href="/newSessionTemplate"><a id="goto-new-session-template">Ny økt mal</a></Link>
           <Link legacyBehavior href="/newQuestions"><a id="goto-new-questions">Opprett spørsmål</a></Link>
           <Link  legacyBehavior href="/newAthlete"><a id="goto-new-athlete">Ny utøver</a></Link>
+          <Notifications></Notifications>
         </nav>
       </header>
       <div id="main-page-athlete-list">

@@ -7,6 +7,7 @@ import Interval from "@/components/Interval";
 import { IntervalData, QuestionData } from "@/types";
 import Question from "@/components/Question";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
+import Notifications from "@/components/Notifications";
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
@@ -85,10 +86,13 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         <div id="new-session-page">
             <header id="new-session-page-header">
                 <Link legacyBehavior href="/"><a id="new-session-page-logo">Logo</a></Link>
-                <p id="new-session-page-title">Ny økt</p>
-                <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="new-session-page-back">Tilbake</a></Link>
+                <nav id="new-session-page-nav">
+                    <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="new-session-page-back">Tilbake</a></Link>
+                    <Notifications></Notifications>
+                </nav>
             </header>
             <div id="new-session-page-create">
+                <p id="new-session-page-title">Ny økt</p>
                 <table id="new-session-page-table">
                 <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Template: </td>

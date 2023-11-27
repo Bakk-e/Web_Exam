@@ -17,18 +17,21 @@
     align-self: flex-start;
 }
 
-#new-athlete-page-title {
-    font-size: 2.5rem;
-}
-
-#new-athlete-page-back {
+#new-athlete-page-nav {
     font-size: 1.3rem;
+    display: flex;
 }
 
 #new-athlete-page-create {
     display: flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+}
+
+#new-athlete-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
 }
 
 #new-athlete-page-create-table {

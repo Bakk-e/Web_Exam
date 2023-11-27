@@ -1,5 +1,6 @@
 "use client"
 
+import Notifications from "@/components/Notifications"
 import "@/styles/NewAthletePageStyle.css"
 import Link from "next/link"
 
@@ -8,10 +9,13 @@ export default function NewAthletePage() {
         <div id="new-athlete-page">
             <header id="new-athlete-page-header">
                 <Link legacyBehavior href="/"><a id="new-athlete-page-logo">Logo</a></Link>
-                <p id="new-athlete-page-title">Ny utøver</p>
-                <Link legacyBehavior href="/"><a id="new-athlete-page-back">Tilbake</a></Link>
+                <nav id="new-athlete-page-nav">
+                    <Link legacyBehavior href="/"><a id="new-athlete-page-back">Tilbake</a></Link>
+                    <Notifications></Notifications>
+                </nav>
             </header>
             <div id="new-athlete-page-create">
+                <p id="new-athlete-page-title">Ny utøver</p>
                 <table id="new-athlete-page-create-table">
                     <tr className="new-athlete-page-create-point">
                         <td className="new-athlete-page-create-point-title">Fornavn: </td>

@@ -1,5 +1,6 @@
 "use client"
 
+import Notifications from "@/components/Notifications"
 import "@/styles/NewQuestionsPageStyle.css"
 import Link from "next/link"
 
@@ -8,11 +9,14 @@ export default function NewQuestionsPage() {
         <div id="new-questions-page">
             <header id="new-questions-page-header">
                 <Link legacyBehavior href="/"><a id="new-questions-page-logo">Logo</a></Link>
-                <p id="new-questions-page-title">Opprett spørsmål</p>
-                <Link legacyBehavior href="/"><a id="new-questions-page-back">Tilbake</a></Link>
+                <nav id="new-questions-page-nav">
+                    <Link legacyBehavior href="/"><a id="new-questions-page-back">Tilbake</a></Link>
+                    <Notifications></Notifications>
+                </nav>
             </header>
             <div id="new-questions-page-create">
-            <table id="new-questions-page-create-table">
+                <p id="new-questions-page-title">Opprett spørsmål</p>
+                <table id="new-questions-page-create-table">
                     <tr className="new-questions-page-create-point">
                         <td className="new-questions-page-create-point-title">Text: </td>
                         <td><input className="new-questions-page-create-point-input"/></td>
