@@ -30,7 +30,8 @@ export default function CompetitionCard(props: competitionProps) {
             </div>
             <p className="athlete-page-competitions-card-comment">Kommentar: {competition.comment}</p>
             <div className="athlete-page-competitions-card-button-spacer">
-                <button className="athlete-page-competitions-card-button" onClick={handleEditClick}>Edit</button>
+                <button className="athlete-page-competitions-card-button-remove">Fjern</button>
+                <button className="athlete-page-competitions-card-button-edit" onClick={handleEditClick}>Edit</button>
             </div>
         </div>
     )

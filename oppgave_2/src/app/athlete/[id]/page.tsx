@@ -122,7 +122,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         <CompetitionCard competition={competition} toggleEditCompetition={toggleEditCompetition} setEditingCompetiion={setEditingCompetition}></CompetitionCard>
                     ))}
                     {athlete && athlete.competitions && (
-                        athlete.competitions.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>
+                        athlete.competitions.length < 3 && (
+                        <div id="athlete-page-competitions-card-add">
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                        </div>
+                        )
                     )}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
@@ -131,7 +135,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         <GoalCard goal={goal} toggleEditGoal={toggleEditGoal} setEditingGoal={setEditingGoal}></GoalCard>
                     ))}
                     {athlete && athlete.goals && (
-                        athlete.goals.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>
+                        athlete.goals.length < 3 && (
+                            <div id="athlete-page-goals-card-add">
+                                <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                            </div>
+                        )
                     )}
                 </div>
             </div>
@@ -145,13 +153,14 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Type</th>
                             <th>Tags</th>
                             <th>Status</th>
+                            <th>Rapporter</th>
                             <th>Last ned</th>
                             <th>Dupliser</th>
                             <th>Edit</th>
                             <th>Slett</th>
                         </tr>
                         {athlete?.sessions?.map((session) => (
-                            <Session session={session}></Session>
+                            <Session athleteId={params.id} session={session}></Session>
                         ))}
                     </table>
                 </div>

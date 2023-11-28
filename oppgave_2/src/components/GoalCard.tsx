@@ -25,7 +25,7 @@ export default function GoalCard(props: goalProps) {
             <p className="athlete-page-goals-card-comment">Kommentar: {goal.comment}</p>
             <div className="athlete-page-goals-card-button-spacer">
                 <button className="athlete-page-goals-card-button-remove">Fjern</button>
-                <button className="athlete-page-goals-card-button" onClick={handleEditClick}>Edit</button>
+                <button className="athlete-page-goals-card-button-edit" onClick={handleEditClick}>Edit</button>
             </div>
         </div>
     )
