@@ -226,10 +226,17 @@
 
 .athlete-page-competitions-card-button-spacer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-.athlete-page-competitions-card-button {
+.athlete-page-competitions-card-button-remove {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.athlete-page-competitions-card-button-edit {
     margin-top: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -298,10 +305,17 @@
 
 .athlete-page-goals-card-button-spacer {
     display: flex;
-    justify-content: flex-end;
+    justify-content: space-between;
 }
 
-.athlete-page-goals-card-button {
+.athlete-page-goals-card-button-remove {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.athlete-page-goals-card-button-edit {
     margin-top: 1rem;
     margin-right: 1rem;
     margin-bottom: 1rem;
@@ -525,4 +539,8 @@
     padding: 0.6rem;
     border: none;
     border-bottom: 1px solid #ddd;
+}
+
+#athlete-page-sessions-table-status {
+    text-align: center;
 }

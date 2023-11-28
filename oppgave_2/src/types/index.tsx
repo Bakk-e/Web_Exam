@@ -33,7 +33,7 @@ type ReportInterval = {
     duration?: number
 }
 
-type Question = {
+export type Question = {
     text?: string,
     type?: "text" | "radio" | "emoji",
     answer?: string

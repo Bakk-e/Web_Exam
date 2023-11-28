@@ -1,0 +1,42 @@
+@import "Variables.css";
+
+#new-report-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+#new-report-page-logo {
+    font-size: 1.3rem;
+}
+
+#new-report-page-nav {
+    font-size: 1.3rem;
+    display: flex;
+}
+
+#new-report-page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+#new-report-page-title {
+    font-size: 2.5rem;
+}
+
+#new-report-page-id {
+    font-size: 1.2rem;
+    margin-bottom: 2.5rem;
+}
+
+#new-report-page-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+}

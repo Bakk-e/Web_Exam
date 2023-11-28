@@ -1,26 +1,40 @@
 "use client"
 
-import Link from "next/link"
-import "@/styles/NewSessionPageStyle.css"
-import { useState } from "react"
-import Interval from "@/components/Interval";
-import { IntervalData, QuestionData } from "@/types";
-import Question from "@/components/Question";
-import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Notifications from "@/components/Notifications";
+import Link from "next/link";
+import "@/styles/EditSessionPageStyle.css";
+import { useEffect, useState } from "react";
+import { Athlete, IntervalData, QuestionData, Session } from "@/types";
+import Interval from "@/components/Interval";
+import AddExistingQuestion from "@/components/AddExistingQuestion";
+import Question from "@/components/Question";
 
-export default function NewSessionPage({params}: {params: {athleteId: string}}) {
+export default function EditSessionPage({params}: {params: {athleteId: string, sessionId: string}}) {
+    const [session, setSession] = useState<Session>({});
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
 
     const tempList = ["Rough", "Uphill"];
-    const tempList2 = ["none", "Template 3"];
     const exampleQuestions: QuestionData[] = [
         {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
         {key: 1, text: "Hvordan har du det?", type: "tekst"}
     ]
+
+    useEffect(() => {
+        const getSession = async () => {
+            const response = await fetch(`/api/athletes/${params.athleteId}`, {
+                method: "get",
+            });
+            const result = (await response.json()) as {data: Athlete};
+            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            if (sessionTemp) {
+                setSession(sessionTemp);
+            };
+        };
+        getSession();
+    }, []);
 
     function addInterval() {
         setIntervals((prevIntervals) => [
@@ -83,27 +97,17 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     };
 
     return (
-        <div id="new-session-page">
-            <header id="new-session-page-header">
-                <Link legacyBehavior href="/"><a id="new-session-page-logo">Logo</a></Link>
-                <nav id="new-session-page-nav">
-                    <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="new-session-page-back">Tilbake</a></Link>
+        <div id="edit-session-page">
+            <header id="edit-session-page-header">
+                <Link legacyBehavior href="/"><a id="edit-session-page-logo">Logo</a></Link>
+                <nav id="edit-session-page-nav">
+                    <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="edit-session-page-back">Tilbake</a></Link>
                     <Notifications></Notifications>
                 </nav>
             </header>
-            <div id="new-session-page-create">
-                <p id="new-session-page-title">Ny økt</p>
+            <div id="edit-session-page-content">
+                <p id="edit-session-page-title">Økt: {session.title}</p>
                 <table id="new-session-page-table">
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Mal: </td>
-                        <td>
-                            <select className="new-session-page-create-point-dropdown">
-                                {tempList2.map((template) => (
-                                    <option value={template}>{template}</option>
-                                ))}
-                            </select>
-                        </td>
-                    </tr>
                     <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Dato: </td>
                         <td><input className="new-session-page-create-point-input"/></td>
@@ -156,10 +160,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
                 <div>
                     <button>Lagre</button>
-                    <button>Lagre mal</button>
                 </div>
             </div>
-            
         </div>
     )
 }
