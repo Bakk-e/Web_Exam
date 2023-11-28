@@ -22,7 +22,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
   try {
     // Fetch data from external API
     //const apiUrl = "https://webapp-api.vercel.app/api/users"
-    const response = await fetch(apiUrl)
+    //const response = await fetch(apiUrl)
 
     if (!response.ok) {
       throw new Error(
