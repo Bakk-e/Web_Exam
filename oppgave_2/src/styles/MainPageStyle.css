@@ -13,6 +13,7 @@
 
 #main-page-nav {
     font-size: 1.3rem;
+    display: flex;
 }
 
 #goto-new-questions {

@@ -1,13 +1,14 @@
 "use client"
 
-import Competition from "@/components/Competition";
+import CompetitionCard from "@/components/CompetitionCard";
 import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
-import Goal from "@/components/Goal";
+import GoalCard from "@/components/GoalCard";
+import Notifications from "@/components/Notifications";
 import Session from "@/components/Session";
 import "@/styles/AthletePageStyle.css"
-import { Athlete } from "@/types";
+import { Athlete, Competition, Goal } from "@/types";
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -17,9 +18,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
+    const [editingCompetition, setEditingCompetition] = useState<Competition>({})
+    const [editingGoal, setEditingGoal] = useState<Goal>({})
     const [athlete, setAthlete] = useState<Athlete>()
 
-    useEffect(() =>{
+    useEffect(() => {
         const getAthlete = async () => {
           const response = await fetch(`/api/athletes/${params.id}`, {
             method: "get",
@@ -46,13 +49,14 @@ export default function AthletePage({ params }: { params: { id: string }}) {
         <div id="athlete-page">
             <header id="athlete-page-header">
                 <Link legacyBehavior href="/"><a id="athlete-page-logo">Logo</a></Link>
-                <p id="athlete-page-id">{params.id}</p>
                 <nav id="athlete-page-nav">
+                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
                     <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
-                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny økt</a></Link>
+                    <Notifications></Notifications>
                 </nav>
             </header>
             <div id="athlete-page-info">
+                <p id="athlete-page-id">{params.id}</p>
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
                 <p id="athlete-page-info-heartrate">Maks puls: {athlete?.maxHeartRate}</p>
@@ -115,7 +119,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <p id="athlete-page-competitions-title">Konkuranser: </p>
                 <div id="athlete-page-competitions">
                     {athlete?.competitions?.map((competition) => (
-                        <Competition competition={competition} toggleEditCompetition={toggleEditCompetition}></Competition>
+                        <CompetitionCard competition={competition} toggleEditCompetition={toggleEditCompetition} setEditingCompetiion={setEditingCompetition}></CompetitionCard>
                     ))}
                     {athlete && athlete.competitions && (
                         athlete.competitions.length < 3 && <div id="athlete-page-competitions-card-add"><button id="athlete-page-competitions-card-add-button">Legg til</button></div>
@@ -124,7 +128,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <p id="athlete-page-goals-title">Mål: </p>
                 <div id="athlete-page-goals">
                     {athlete?.goals?.map((goal) => (
-                        <Goal goal={goal} toggleEditGoal={toggleEditGoal}></Goal>
+                        <GoalCard goal={goal} toggleEditGoal={toggleEditGoal} setEditingGoal={setEditingGoal}></GoalCard>
                     ))}
                     {athlete && athlete.goals && (
                         athlete.goals.length < 3 && <div id="athlete-page-goals-card-add"><button id="athlete-page-goals-card-add-button">Legg til</button></div>
@@ -152,10 +156,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     </table>
                 </div>
             </div>
-
-            <EditAthlete id={params.id} isEditOpen={isEditOpen} toggleEdit={toggleEdit}></EditAthlete>
-            <EditCompetition competitionId="Abc-123-456" isEditCompetitionOpen={isEditCompetitionOpen} toggleEditCompetition={toggleEditCompetition}></EditCompetition>
-            <EditGoal goalId="Abc-123-456" isEditGoalOpen={isEditGoalOpen} toggleEditGoal={toggleEditGoal}></EditGoal>
+            {athlete && (
+                <EditAthlete isEditOpen={isEditOpen} toggleEdit={toggleEdit} editingAthlete={athlete}></EditAthlete>
+            )}
+            <EditCompetition isEditCompetitionOpen={isEditCompetitionOpen} toggleEditCompetition={toggleEditCompetition} editingCompetition={editingCompetition}></EditCompetition>
+            <EditGoal isEditGoalOpen={isEditGoalOpen} toggleEditGoal={toggleEditGoal} editingGoal={editingGoal}></EditGoal>
         </div>
     )
 }

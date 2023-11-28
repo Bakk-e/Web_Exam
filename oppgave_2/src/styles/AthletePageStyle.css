@@ -17,29 +17,27 @@
     align-self: flex-start;
 }
 
-#athlete-page-id {
-    font-size: 2.5rem;
+#athlete-page-new-session {
+    font-size: 1.3rem;
+    margin-right: 1rem;
 }
 
 #athlete-page-nav {
-    display: flex;
-    flex-direction: column;
     font-size: 1.3rem;
-    justify-content: center;
-    align-items: center;
-}
-
-#athlete-page-new-session {
-    margin-top: 0.5rem;
+    display: flex;
 }
 
 #athlete-page-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
     flex-direction: column;
     font-size: 1.2rem;
+}
+
+#athlete-page-id {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 #athlete-page-inteval-zones {

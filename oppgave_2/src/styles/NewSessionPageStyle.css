@@ -17,10 +17,19 @@
     align-self: flex-start;
 }
 
-#new-session-page-title {
-    font-size: 2.5rem;
+#new-session-page-nav {
+    font-size: 1.3rem;
+    display: flex;
 }
 
-#new-session-page-back {
-    font-size: 1.3rem;
+#new-session-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+}
+
+#new-session-page-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
 }

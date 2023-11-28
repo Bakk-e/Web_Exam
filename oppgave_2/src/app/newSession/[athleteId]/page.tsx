@@ -6,6 +6,8 @@ import { useState } from "react"
 import Interval from "@/components/Interval";
 import { IntervalData, QuestionData } from "@/types";
 import Question from "@/components/Question";
+import AddExistingQuestion from "@/components/AddExistingQuestion";
+import Notifications from "@/components/Notifications";
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
@@ -15,6 +17,10 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
+    const exampleQuestions: QuestionData[] = [
+        {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
+        {key: 1, text: "Hvordan har du det?", type: "tekst"}
+    ]
 
     function addInterval() {
         setIntervals((prevIntervals) => [
@@ -56,7 +62,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
             return updatedList;
         });
         setQuestionCount(questionCount - 1)
-    }
+    };
 
     function handleQuestionDataUpdate(index: number, updatedData: QuestionData) {
         setQuestions((prevQuestion) => {
@@ -66,14 +72,27 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         });
     };
 
+    function handleAddExistingQuestion(data: QuestionData) {
+        setQuestions((prevQuestion) => {
+            const updatedList = [...prevQuestion];
+            data.key = questionCount;
+            updatedList[questionCount] = data;
+            setQuestionCount(questionCount + 1);
+            return updatedList;
+        })
+    };
+
     return (
         <div id="new-session-page">
             <header id="new-session-page-header">
                 <Link legacyBehavior href="/"><a id="new-session-page-logo">Logo</a></Link>
-                <p id="new-session-page-title">Ny økt</p>
-                <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="new-session-page-back">Tilbake</a></Link>
+                <nav id="new-session-page-nav">
+                    <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="new-session-page-back">Tilbake</a></Link>
+                    <Notifications></Notifications>
+                </nav>
             </header>
             <div id="new-session-page-create">
+                <p id="new-session-page-title">Ny økt</p>
                 <table id="new-session-page-table">
                 <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Template: </td>
@@ -126,6 +145,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
                 <div id="new-session-page-questions">
                     <p>Questions: </p>
+                    <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                     {questions.map((question, index) => (
                         <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                     ))}

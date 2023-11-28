@@ -5,5 +5,6 @@
     --slightGray: rgb(221, 221, 221);
     --darkBlue: rgb(0, 86, 179);
     --blue: rgb(0, 123, 255);
-    --grayBackground: rgba(0, 0, 0, 0.5)
+    --grayBackground: rgba(0, 0, 0, 0.5);
+    --candyAppleRed: rgba(226, 6, 44, 1);
 }
