@@ -89,10 +89,7 @@ export type Template = {
     tags?: string[],
     questions?: Question[],
     intervals?: Interval[],
-    averageIntensity?: 1 | 2 | 3 | 4 | 5,
-    averageWatt?: number,
-    averageSpeed?: number,
-    averageHeartRate?: number
+    parameters?: string[]
 }
 
 export type IntervalData = {
