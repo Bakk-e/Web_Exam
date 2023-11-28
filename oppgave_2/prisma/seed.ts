@@ -13,15 +13,15 @@ const fetchAthletesFromAPI = async (url: string) => {
   return response.json()
 }
 
-const main = async () => {
+async function main() {
   try {
-    await prisma.
+    await prisma.athlete.deleteMany({})
 
     const jsonURL = "https://webapp-api.vercel.app/api/users"
     const athleteData = await fetchAthletesFromAPI(jsonURL)
 
     await Promise.all(
-      athleteData.map(async (data) = {
+      athleteData.map(async () = {
         await prisma.athlete.create({ data })
       })
     ) 
@@ -37,5 +37,4 @@ main()
   console.error(e)
   await prisma.$disconnect()
   process.exit(1)
-
 })
