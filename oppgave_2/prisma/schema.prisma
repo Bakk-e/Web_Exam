@@ -32,8 +32,7 @@ model Competition {
   comment    String
   Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
   athleteId  String?
-  Interval   Interval?    @relation(fields: [intervalId], references: [id])
-  intervalId String?
+  Interval   Interval[]
   Connection Connection[]
 }
 
@@ -75,12 +74,13 @@ model Session {
 }
 
 model Interval {
-  id           String        @id @default(uuid())
-  session      Session       @relation(fields: [sessionId], references: [id])
-  sessionId    String
-  duration     Int
-  intensity    Int
-  competitions Competition[]
+  id            String       @id @default(uuid())
+  session       Session      @relation(fields: [sessionId], references: [id])
+  sessionId     String
+  duration      Int
+  intensity     Int
+  Competition   Competition? @relation(fields: [competitionId], references: [id])
+  competitionId String?
 }
 
 model Report {
