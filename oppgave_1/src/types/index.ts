@@ -3,6 +3,7 @@ export type Task = {
   text: string
   type: "add" | "divide" | "multiply" | "subtract"
   data: `${number}|${number}`
+  attempts : number
 }
 
 export type Type = "add" | "subtract" | "multiply" | "divide"
@@ -12,7 +13,7 @@ export type AnswerProps = {
   onCheckAnswer: (userAnswer : number | null) => boolean
   onCorrect : () => void
   onWrong : (opperationType : Type) => void
-  opperationType : Type
+  task : Task
 }
 
 export type OpperationErrors = {
@@ -20,5 +21,33 @@ export type OpperationErrors = {
   subtract: number
   multiply : number
   divide : number
+}
+
+export type PutRequestBody = {
+  taskId : string
+  isCorrect : boolean
+}
+
+export type GetAnswerResponse = {
+  success : boolean
+  data : Record<Task["id"], {attempts : number}>
+}
+
+/*export type AnswerResponse = {
+  [key : string] : {attempts : number}
+}*/
+export type AnswerResponse = {
+  success : boolean
+  data : {
+    [key : string] : {attempts : number}
+  }
+}
+
+export type StateProps = {
+  data : {
+    [key : string] : {attempts : number}
+  }
+  isComplete : boolean
+
 }
 

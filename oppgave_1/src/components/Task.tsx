@@ -1,4 +1,4 @@
-import {type Task as TaskType, AnswerProps, OpperationErrors, Type} from "@/types";
+import {type Task as TaskType, AnswerProps, OpperationErrors, Type, AnswerResponse} from "@/types";
 import React, {ReactNode, useEffect, useState} from "react";
 import Answer from "@/components/Answer";
 
@@ -10,6 +10,7 @@ type TaskProps = {
 const Task: React.FC<TaskProps> = ({ task } ) => {
     const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
+    const [attempts, setAttempts] = useState(0)
     const [opperationFails, setOpperationFails] =
         useState<OpperationErrors>({add:0, subtract:0, multiply:0, divide:0})
     let taskText = task.text
@@ -34,6 +35,29 @@ const Task: React.FC<TaskProps> = ({ task } ) => {
                 console.error("Invalid operation")
         }
     }, [task])
+
+    /*async function getAttempts ()   {
+        async function fetchAttempts(){
+            try {
+                const answersResponse = await fetch(`http://localhost:3000/api/restapi`, {
+                    method : 'GET'
+                })
+                const answerData = await answersResponse.json() as AnswerResponse
+               // const attemptsForTask = answerData.data[task.id]?.attempts || 0
+                setAttempts( answerData.data[task.id]?.attempts || 0)
+
+                console.log("answerData.data", answerData.data)
+                //setAttempts(attemptsForTask)
+                console.log("attemptsForTask",  answerData.data[task.id]?.attempts || 0)
+            }catch (error){
+                console.log("Error getting data: ", error)
+            }
+        }
+        if (task.id){
+            fetchAttempts();
+        }
+    }*/
+
     function convertTypeToString(type: String){
         switch (type) {
             case "add":
@@ -73,7 +97,7 @@ const Task: React.FC<TaskProps> = ({ task } ) => {
                 onCheckAnswer = {checkAnswer}
                 onCorrect={handleCorrectAnswer}
                 onWrong={handleWrongAnswer}
-                opperationType={task.type}/>
+                task={task}/>
             <p>Correct: {score}</p>
             <p>Wrong add: {opperationFails.add}</p>
             <p>Wrong divide: {opperationFails.divide}</p>

@@ -2,36 +2,79 @@
 
 import {useEffect, useState} from "react"
 import type { FormEvent, MouseEvent } from "react"
-import {AnswerProps} from "@/types";
+import {AnswerProps, AnswerResponse} from "@/types";
 import {switchCase} from "@babel/types";
 import {Integer} from "type-fest";
+import {response} from "msw";
+//import {body} from "msw";
 
-export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong, opperationType} : AnswerProps) {
+export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong,  task,/* getAttempts*/} : AnswerProps) {
     const [answer, setAnswer] = useState<number | null>(null)
     const [correct, setCorrect] = useState<boolean | null>(false)
-    const [attempts, setAttempts] = useState<number >(0)
+    const [attempts , setAttempts] = useState<number>(0)
     const [showCorrectAnswer, setShowCorrectAnswer] = useState<boolean>(false)
+    let opperationType = task.type
 
-  const send = (event: MouseEvent<HTMLButtonElement>) => {
-    event.preventDefault()
+  const send = async (event: MouseEvent<HTMLButtonElement>) => {
+        setShowCorrectAnswer(false)
+        const taskId = task.id
+      event.preventDefault()
       const isCorrect = onCheckAnswer(answer)
       setCorrect(isCorrect)
+      try {
+          const response = await fetch(`http://localhost:3000/api/restapi?`, {
+              method : 'PUT',
+              headers : {'Content-Type' : 'Application/json'},
+              body: JSON.stringify({
+                  taskId,
+                  isCorrect
+              })
+          })
+      }catch (error){
+        console.error("Feil i PUT" , error)
+      }
+     // getAttempts()
+      //setAttempts(task.attempts)
+      /*
       if (!isCorrect && attempts < 3){
           setAttempts(attempts+1)
-      }
-      if (isCorrect){
+      }*/
+       if (isCorrect){
           onCorrect()
       }
       else if (!isCorrect){
           onWrong(opperationType)
       }
+
+
   }
+    async function fetchAttempts(){
+        try {
+            const answersResponse = await fetch(`http://localhost:3000/api/restapi`, {
+                method : 'GET'
+            })
+            const answerData = await answersResponse.json() as AnswerResponse
+            // const attemptsForTask = answerData.data[task.id]?.attempts || 0
+            setAttempts( answerData.data[task.id]?.attempts || 0)
+
+            console.log("answerData.data", answerData.data)
+            //setAttempts(attemptsForTask)
+            console.log("attemptsForTask",  answerData.data[task.id]?.attempts || 0)
+        }catch (error){
+            console.log("Error getting data: ", error)
+        }
+    }
+    if (task.id){
+        fetchAttempts();
+    }
 
     useEffect(() => {
         setAnswer(null)
         setCorrect(false)
         setAttempts(0)
     }, [correctAnswer]);
+
+
 
   const update = (event: FormEvent<HTMLInputElement>) => {
     setAnswer(event.currentTarget.valueAsNumber)
@@ -40,7 +83,7 @@ export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong
 
   return (
     <div>
-        {attempts !== 3 || correct? (
+        { task.attempts !== 3 || correct? (
             <div>
                 <label htmlFor="answer">Svar</label>
                 <input
@@ -50,19 +93,22 @@ export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong
                     onInput={update}
                     value={answer || ""}
                 />
-                <button onClick={send}>Send</button>
+                {attempts < 3 &&<button onClick={send}>Send</button>}
+
             </div>
         ): null}
-        <p>
+        <div>
             {attempts >= 0 && `${attempts} av 3 forsøk brukt`}
             {correct ? "Bra jobba, Riktig svar!" : null}
             {!correct && attempts ===3 && (
-                <button onClick={() => setShowCorrectAnswer(!showCorrectAnswer)}>
-                    {showCorrectAnswer? "Skjul Svaret" : "Se Svaret"}
-            </button>)}
-            {showCorrectAnswer && <p>Riktig svar er: {correctAnswer}</p>}
-
-        </p>
+                <div>
+                    <button onClick={() => setShowCorrectAnswer(!showCorrectAnswer)}>
+                        {showCorrectAnswer? "Skjul Svaret" : "Se Svaret"}
+                    </button>
+                    {showCorrectAnswer && <p>Riktig svar er: {correctAnswer}</p>}
+                </div>
+            )}
+        </div>
     </div>
   )
 }

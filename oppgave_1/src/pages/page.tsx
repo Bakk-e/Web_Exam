@@ -7,6 +7,7 @@ import TaskText from "@/components/Text"
 import {useEffect, useState} from "react";
 import {AnswerProps} from "@/types";
 import Button from "@/components/Button";
+import {response} from "msw";
 
 export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
@@ -18,18 +19,26 @@ export default function Home() {
         async function fetchData(){
             const params = new URLSearchParams({count : `${count}` })
             try {
-                const response = await fetch(`http://localhost:3000/api/restapi?${params}`, {
+                const tasksResponse = await fetch(`http://localhost:3000/api/restapi/tasks?${params}`, {
                     method: "get",
                 })
-                const result = await response.json()
-                console.log(result)
-                setTasks(result)
-                console.log("tasks in page", tasks)
+                const tasksData = await tasksResponse.json()
+                setTasks(tasksData)
             }catch (error){
                 console.log("Error getting data: ", error)
             }
         }
+        async function resetAttempts (){
+            try {
+                const resetAttemptsResponse = await fetch(`http://localhost:3000/api/restapi`, {
+                    method : 'POST'
+                })
+            }catch (error){
+                console.log("Error resting result ", error)
+            }
+        }
         fetchData();
+        resetAttempts();
     }, [])
     if (tasks === null){
         return <div>Loading....</div>
@@ -39,9 +48,9 @@ export default function Home() {
 
   return (
     <main>
-      {JSON.stringify(tasks)}
-      <Tasks tasks={tasks.data} >
-      </Tasks>
+      {/*JSON.stringify(tasks)*/}
+        {/*<Tasks tasks={tasks.data} >
+      </Tasks>*/}
 
         <Header task={tasks.data[currentTask]}/>
         {tasks && tasks.data && tasks.data.length > 0 &&(
