@@ -13,6 +13,11 @@ export default function Home() {
     const [tasks, setTasks] = useState<any>(null);
     const [currentTask, setCurrentTask] = useState(0);
     const [count, setCount] = useState(10)
+    const [showResults , setShowResults] = useState(false)
+
+    const handleSubmit = () => {
+        setShowResults(true)
+    }
 
 
     useEffect( () => {
@@ -44,23 +49,46 @@ export default function Home() {
         return <div>Loading....</div>
     }
 
+    if (showResults){
+        return (
+            <main>
+                <h1>Resultater</h1>
+                <div></div>
+                <button onClick={() => window.location.reload()}>Prøv på nytt</button>
+            </main>
+        )
+
+    }
+
+    return (
+        <main>
+            {/*JSON.stringify(tasks)*/}
+            {/*<Tasks tasks={tasks.data} >
+                </Tasks>*/}
+
+            <Header
+                task={tasks.data[currentTask]}
+            />
+            {tasks && tasks.data && tasks.data.length > 0 &&(
+                <Task
+                    task={tasks.data[currentTask]}
+                />
+            )}
+            <TaskText
+                text={"Hva blir resultatet av regneoperasjonen?"}
+            />
+            {tasks && tasks.data &&
+                <Progress
+                    tasks={tasks.data}
+                    // onStateChange={setCurrentTask}
+                    currentStateIndex={currentTask}
+                    setCurrentState={setCurrentTask}
+                    onSubmit={handleSubmit}
+                />}
+            {/*(currentTask + 1  === tasks.data.length) &&
+                <button onClick={() => window.location.reload()}>Prøv på nytt</button>*/}
+        </main>
+    )
 
 
-  return (
-    <main>
-      {/*JSON.stringify(tasks)*/}
-        {/*<Tasks tasks={tasks.data} >
-      </Tasks>*/}
-
-        <Header task={tasks.data[currentTask]}/>
-        {tasks && tasks.data && tasks.data.length > 0 &&(
-            <Task task={tasks.data[currentTask]}/>
-        )}
-      <TaskText text={"Hva blir resultatet av regneoperasjonen?"} />
-        {tasks && tasks.data &&
-            <Progress tasks={tasks.data} onStateChange={setCurrentTask} />}
-        {(currentTask + 1  === tasks.data.length) &&
-            <button onClick={() => window.location.reload()}>Prøv på nytt</button>}
-    </main>
-  )
 }

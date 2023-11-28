@@ -16,6 +16,13 @@ export type AnswerProps = {
   task : Task
 }
 
+export type ProgressProps = {
+  tasks: Task[]
+  currentStateIndex : number
+  setCurrentState : (index : number) => void
+  onSubmit : () => void
+}
+
 export type OpperationErrors = {
   add : number
   subtract: number
