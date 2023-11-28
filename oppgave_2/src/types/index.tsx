@@ -18,8 +18,8 @@ export type Goal = {
 }
 
 type ReportInterval = {
-    minIntensity?: 1 | 2 | 3 | 4 | 5,
-    maxIntensity?: 1 | 2 | 3 | 4 | 5,
+    minIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+    maxIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,
@@ -59,6 +59,7 @@ export type Session = {
     tags?: string[],
     questions?: Question[],
     intervals?: Interval[],
+    parameters?: string[],
     report?: Report,
     connection?: Goal | Competition
 }
@@ -88,10 +89,7 @@ export type Template = {
     tags?: string[],
     questions?: Question[],
     intervals?: Interval[],
-    averageIntensity?: 1 | 2 | 3 | 4 | 5,
-    averageWatt?: number,
-    averageSpeed?: number,
-    averageHeartRate?: number
+    parameters?: string[]
 }
 
 export type IntervalData = {
