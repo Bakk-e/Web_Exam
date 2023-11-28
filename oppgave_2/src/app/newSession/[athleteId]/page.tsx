@@ -9,11 +9,18 @@ import Question from "@/components/Question";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Notifications from "@/components/Notifications";
 
+type parameter = {
+    eng: string,
+    no: string
+}
+
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
+    const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];  
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
@@ -82,6 +89,18 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         })
     };
 
+    function handleParameterSelect(e: any) {
+        const selectedParameter: string = e.target.value;
+        if (!chosenParameters.includes(selectedParameter)) {
+            setChosenParameters([...chosenParameters, selectedParameter]);
+        }
+    }
+
+    function handleParameterRemove(parameter: string) {
+        const updatedParameter = chosenParameters.filter((p) => p !== parameter);
+        setChosenParameters(updatedParameter)
+    }
+
     return (
         <div id="new-session-page">
             <header id="new-session-page-header">
@@ -131,6 +150,25 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         </td>
                     </tr>
                 </table>
+                <div id="new-session-page-parameters">
+                    <select onChange={handleParameterSelect} value="">
+                        <option value="" disabled>Velg måleparameter</option>
+                        {availableParameters.map((parameter) => (
+                            !chosenParameters.includes(parameter.eng) && (
+                                <option key={parameter.eng} value={parameter.eng}>{parameter.no}</option>
+                            )
+                        ))}
+                    </select>
+                    <div id="new-session-page-selected-parameters">
+                        <ul>
+                            {chosenParameters.map((parameter) => (
+                                <li key={parameter}>
+                                    {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
                 <div id="new-session-page-interval-and-question">
                     <div id="new-session-page-intervals">
                         <p>Intervals: </p>

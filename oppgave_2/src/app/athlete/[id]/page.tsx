@@ -146,6 +146,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <div id="athlete-page-sessions-spacer">
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
+                    <div id="athlete-page-sessions-filters">
+                    </div>
                     <table id="athlete-page-sessions-table">
                         <tr>
                             <th>Dato</th>
