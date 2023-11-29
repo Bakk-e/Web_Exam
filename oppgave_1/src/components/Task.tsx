@@ -4,15 +4,17 @@ import Answer from "@/components/Answer";
 
 type TaskProps = {
     task: TaskType
+    onOperationFail : (operationType : Type) => void
+    onCorrectAnswer : () => void
 }
 
 
-const Task: React.FC<TaskProps> = ({ task } ) => {
+const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) => {
     const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
     const [attempts, setAttempts] = useState(0)
-    const [opperationFails, setOpperationFails] =
-        useState<OpperationErrors>({add:0, subtract:0, multiply:0, divide:0})
+   /* const [opperationFails, setOpperationFails] =
+        useState<OpperationErrors>({add:0, subtract:0, multiply:0, divide:0})*/
     let taskText = task.text
     let data = task.data.split("|")
     let type = task.type
@@ -75,14 +77,16 @@ const Task: React.FC<TaskProps> = ({ task } ) => {
     }
 
     const handleCorrectAnswer = () => {
-        setScore(score + 1)
+        onCorrectAnswer()
+        //setScore(score + 1)
     }
 
     const handleWrongAnswer = (operationType : Type) => {
-        setOpperationFails(prevErrors => ({
+        /*setOpperationFails(prevErrors => ({
             ...prevErrors,
             [operationType] : prevErrors[operationType] + 1
-        }))
+        }))*/
+        onOperationFail(operationType)
     }
 
 
@@ -98,11 +102,6 @@ const Task: React.FC<TaskProps> = ({ task } ) => {
                 onCorrect={handleCorrectAnswer}
                 onWrong={handleWrongAnswer}
                 task={task}/>
-            <p>Correct: {score}</p>
-            <p>Wrong add: {opperationFails.add}</p>
-            <p>Wrong divide: {opperationFails.divide}</p>
-            <p>Wrong multiply: {opperationFails.multiply}</p>
-            <p>Wrong subtract: {opperationFails.subtract}</p>
         </article>
     )
 

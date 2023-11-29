@@ -14,7 +14,7 @@ export default function Progress({ tasks, currentStateIndex, setCurrentState, on
     const [complete, setComplete] = useState(false)
    // const currentTask = props.tasks[currentStateIndex-1]
    const currentTask = tasks[currentStateIndex]
-    const isLastTask = currentStateIndex === tasks.length - 1
+    const isLastTask = currentStateIndex === tasks.length -1
 
     /*useEffect(() => {
         tasks.onStateChange(currentStateIndex -1)
@@ -65,7 +65,7 @@ export default function Progress({ tasks, currentStateIndex, setCurrentState, on
         Forrige
       </button>
         <button onClick={next} className="bg-teal-700 text-white">
-        Neste
+            {isLastTask ? "Send inn" : "Neste"}
       </button>
     </footer>
   )
