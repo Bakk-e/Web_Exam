@@ -41,7 +41,7 @@ export type Question = {
 
 export type Report = {
     id?: string,
-    status?: "no" | "low" | "normal" | "high",
+    status?: "ingen" | "no" | "low" | "normal" | "high",
     reportIntervals?: ReportInterval[],
     comment?: string
 }

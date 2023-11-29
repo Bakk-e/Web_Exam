@@ -17,8 +17,6 @@ export default function NewSessionTemplatePage() {
     const [questionCount, setQuestionCount] = useState(1);
     const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
-    const tempList = ["Rough", "Uphill"];
-    const tempList2 = ["none", "Template 3"];
     const exampleQuestions: QuestionData[] = [
         {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
         {key: 1, text: "Hvordan har du det?", type: "tekst"}

@@ -16,6 +16,7 @@ import { useEffect, useState } from "react"
 const initialState = {open: false};
 
 export default function AthletePage({ params }: { params: { id: string }}) {
+    const availableReportFilters: string[] = ["ingen", "no", "low", "normal", "high"];
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
@@ -25,7 +26,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [searchedSessions, setSearchedSessions] = useState<Session[]>([{}]);
     const [chosenTypes, setChosenTypes] = useState<string[]>([]);
     const [chosenTags, setChosenTags] = useState<string[]>([]);
-    const [reportFilter, setReportFilter] = useState<string>("Any");
+    const [reportFilters, setReportFilters] = useState<string[]>([]);
     const [sessionTypes, setSessionTypes] = useState<string[]>([]);
     const [sessionTags, setSessionTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<string>("ascending");
@@ -64,17 +65,22 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 if (chosenTypes.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
                         session.type && (
-                            chosenTypes.includes(session.type))
+                            chosenTypes.includes(session.type)
                         )
-                    );
+                    
+                    ));
                 };
                 if (chosenTags.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
                         chosenTags.every((tag) => session.tags?.includes(tag))
                     ));
                 };
-                if (reportFilter !== "Any") {
-                    tempSortedSessions = tempSortedSessions.filter((session) => session.report?.status === reportFilter.toLowerCase());
+                if (reportFilters.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        session.report && session.report?.status && (
+                            reportFilters.includes(session.report.status)
+                        )
+                    ));
                 };
                 if (sortOrder === "ascending") {
                     tempSortedSessions.sort((a, b) => {
@@ -96,8 +102,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             
         };
         getAthlete();
-        console.log("Bop")
-    }, [sortOrder, chosenTypes, chosenTags, reportFilter]);
+    }, [sortOrder, chosenTypes, chosenTags, reportFilters]);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
@@ -110,6 +115,16 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     function toggleEditGoal() {
         setIsEditGoalOpen(!isEditGoalOpen);
     };
+
+    function displayClearAll() {
+        return (chosenTypes.length > 0 || chosenTags.length > 0 || reportFilters.length > 0);
+    }
+
+    function handleClearAllButton() {
+        setChosenTypes([]);
+        setChosenTags([]);
+        setReportFilters([]);
+    }
 
     function handleTypeChange(e: any) {
         const selectedType: string = e.target.value;
@@ -137,7 +152,15 @@ export default function AthletePage({ params }: { params: { id: string }}) {
 
     function handleReportChange(e: any) {
         const selectedReportStatus: string = e.target.value;
-        setReportFilter(selectedReportStatus);
+        if (!reportFilters.includes(selectedReportStatus)) {
+            setReportFilters([...reportFilters, selectedReportStatus]);
+        };
+        console.log([...selectedReportStatus, selectedReportStatus].toString());
+    };
+
+    function handleReportRemove(status: string) {
+        const updatedParameter = reportFilters.filter((s) => s !== status);
+        setReportFilters(updatedParameter);
     };
 
     function handleButtonSort(e: any, order: string) {
@@ -279,17 +302,20 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             </div>
                             <div>
                                 <p>Rapport</p>
-                                <select onChange={handleReportChange}>
-                                    <option key="Any" value="Any">Any</option>
-                                    <option key="Ingen" value="Ingen">Ingen</option>
-                                    <option key="No" value="No">No</option>
-                                    <option key="Low" value="Low">Low</option>
-                                    <option key="Normal" value="Normal">Normal</option>
-                                    <option key="High" value="High">High</option>
+                                <select onChange={handleReportChange} value="">
+                                    <option value="" disabled>Any</option>
+                                    {availableReportFilters.map((status) => (
+                                        !reportFilters.includes(status) && (
+                                            <option key={status} value={status}>{status}</option>
+                                        )
+                                    ))}
                                 </select>
                             </div>
                             <div>
                                 <ul>
+                                    {displayClearAll() && (
+                                        <button onClick={handleClearAllButton}>Clear all</button>
+                                    )}
                                     {chosenTypes.map((type) => (
                                         <li key={type}>
                                             {type} <button onClick={() => handleTypeRemove(type)}>x</button>
@@ -298,6 +324,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                     {chosenTags.map((tag) => (
                                         <li key={tag}>
                                             {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                        </li>
+                                    ))}
+                                    {reportFilters.map((status) => (
+                                        <li key={status}>
+                                            {status} <button onClick={() => handleReportRemove(status)}>x</button>
                                         </li>
                                     ))}
                                 </ul>
