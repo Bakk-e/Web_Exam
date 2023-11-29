@@ -4,15 +4,10 @@ import Link from "next/link"
 import "@/styles/NewSessionPageStyle.css"
 import { useState } from "react"
 import Interval from "@/components/Interval";
-import { IntervalData, QuestionData } from "@/types";
+import { IntervalData, QuestionData, parameter } from "@/types";
 import Question from "@/components/Question";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Notifications from "@/components/Notifications";
-
-type parameter = {
-    eng: string,
-    no: string
-}
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];  
@@ -93,13 +88,13 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         const selectedParameter: string = e.target.value;
         if (!chosenParameters.includes(selectedParameter)) {
             setChosenParameters([...chosenParameters, selectedParameter]);
-        }
-    }
+        };
+    };
 
     function handleParameterRemove(parameter: string) {
         const updatedParameter = chosenParameters.filter((p) => p !== parameter);
-        setChosenParameters(updatedParameter)
-    }
+        setChosenParameters(updatedParameter);
+    };
 
     return (
         <div id="new-session-page">

@@ -8,7 +8,7 @@ type sessionProps = {
     session: Session
 }
 
-export default function Session(props: sessionProps) {
+export default function ViewSession(props: sessionProps) {
     const {athleteId, session} = props;
 
     return (

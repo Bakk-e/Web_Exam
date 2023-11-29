@@ -6,9 +6,9 @@ import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
 import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
-import Session from "@/components/Session";
+import ViewSession from "@/components/ViewSession";
 import "@/styles/AthletePageStyle.css"
-import { Athlete, Competition, Goal } from "@/types";
+import { Athlete, Competition, Goal, Session } from "@/types";
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
@@ -18,31 +18,139 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
-    const [editingCompetition, setEditingCompetition] = useState<Competition>({})
-    const [editingGoal, setEditingGoal] = useState<Goal>({})
-    const [athlete, setAthlete] = useState<Athlete>()
+    const [editingCompetition, setEditingCompetition] = useState<Competition>({});
+    const [editingGoal, setEditingGoal] = useState<Goal>({});
+    const [athlete, setAthlete] = useState<Athlete>();
+    const [searchedSessions, setSearchedSessions] = useState<Session[]>([]);
+    const [chosenTypes, setChosenTypes] = useState<string[]>([]);
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
+    const [reportFilter, setReportFilter] = useState<string>("");
+    const [sessionTypes, setSessionTypes] = useState<string[]>([]);
+    const [sessionTags, setSessionTags] = useState<string[]>([]);
+    const [sortOrder, setSortOrder] = useState<string>("ascending");
 
     useEffect(() => {
         const getAthlete = async () => {
-          const response = await fetch(`/api/athletes/${params.id}`, {
-            method: "get",
-          });
-          const result = (await response.json()) as {data: Athlete};
-          setAthlete(result.data);
-        }
+            const response = await fetch(`/api/athletes/${params.id}`, {
+                method: "get",
+            });
+            const result = (await response.json()) as {data: Athlete};
+            setAthlete(result.data);
+            let typesTemp: string[] = [];
+            let tagsTemp: string[] = [];
+            if (result.data.sessions) {
+                for (const session of result.data.sessions) {
+                    if (session.type) {
+                        if (!typesTemp.includes(session.type)) {
+                            typesTemp.push(session.type);
+                        };
+                    };
+                    if (session.tags) {
+                        for (const tag of session.tags) {
+                            if (!tagsTemp.includes(tag)) {
+                                tagsTemp.push(tag);
+                            };
+                        };
+                    };
+                };
+            };
+            setSessionTypes(typesTemp);
+            setSessionTags(tagsTemp);
+            
+            let tempSortedSessions: Session[] = [];
+            if (result.data.sessions) {
+                tempSortedSessions = [...result.data.sessions];
+                /*
+                if (chosenTypes.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        session.type && (
+                            chosenTypes.includes(session.type))
+                        )
+                    );
+                };
+                if (chosenTags.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        chosenTags.every((tag) => session.tags?.includes(tag))
+                    ));
+                };
+                if (reportFilter !== "Any") {
+                    tempSortedSessions = tempSortedSessions.filter((session) => session.report?.status === reportFilter);
+                };
+                */
+                if (sortOrder === "ascending") {
+                    tempSortedSessions.sort((a, b) => {
+                        if (a.date && b.date) {
+                            if (a.date > b.date) {
+                                console.log("ascending")
+                                return 1;
+                            };
+                        };
+                        return 0;
+                    });
+                } else if (sortOrder === "descending") {
+                    tempSortedSessions.sort((a, b) => {
+                        if (a.date && b.date) {
+                            if (a.date < b.date) {
+                                console.log("descending")
+                                return 1;
+                            };
+                        };
+                        return 0;
+                    });
+                };
+                
+            };
+            setSearchedSessions(tempSortedSessions);
+            
+        };
         getAthlete();
     }, []);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
-    }
+    };
 
     function toggleEditCompetition() {
         setIsCompetitionOpen(!isEditCompetitionOpen);
-    }
+    };
 
     function toggleEditGoal() {
         setIsEditGoalOpen(!isEditGoalOpen);
+    };
+
+    function handleTypeChange(e: any) {
+        const selectedType: string = e.target.value;
+        if (!chosenTypes.includes(selectedType)) {
+            setChosenTypes([...chosenTypes, selectedType]);
+        };
+    };
+
+    function handleTypeRemove(type: string) {
+        const updatedParameter = chosenTypes.filter((t) => t !== type);
+        setChosenTypes(updatedParameter);
+    };
+
+    function handleTagChange(e: any) {
+        const selectedTag: string = e.target.value;
+        if (!chosenTags.includes(selectedTag)) {
+            setChosenTags([...chosenTags, selectedTag]);
+        };
+    };
+
+    function handleTagRemove(tag: string) {
+        const updatedParameter = chosenTags.filter((t) => t !== tag);
+        setChosenTags(updatedParameter);
+    };
+
+    function handleReportChange(e: any) {
+        const selectedReportStatus: string = e.target.value;
+        setReportFilter(selectedReportStatus);
+    };
+
+    function handleButtonSort(e: any, order: string) {
+        e.preventDefault();
+
+        setSortOrder(order);
     }
 
     return (
@@ -147,6 +255,61 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
+                        <p>Filter</p>
+                        <div>
+                            <p>Dato:</p>
+                            <button onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
+                            <button onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                        </div>
+                        <div>
+                            <div>
+                                <p>Type</p>
+                                <select onChange={handleTypeChange} value="">
+                                    <option value="" disabled>Any</option>
+                                    {sessionTypes.map((type) => (
+                                    !chosenTypes.includes(type) && (
+                                        <option key={type} value={type}>{type}</option>
+                                    )
+                                ))}
+                                </select>
+                            </div>
+                            <div>
+                                <p>Tags</p>
+                                <select onChange={handleTagChange} value="">
+                                <option value="" disabled>Any</option>
+                                    {sessionTags.map((tag) => (
+                                        !chosenTags.includes(tag) && (
+                                            <option key={tag} value={tag}>{tag}</option>
+                                        )
+                                    ))}
+                                </select>
+                            </div>
+                            <div>
+                                <p>Rapport</p>
+                                <select onChange={handleReportChange}>
+                                    <option key="Any" value="Any">Any</option>
+                                    <option key="Ingen" value="Ingen">Ingen</option>
+                                    <option key="No" value="No">No</option>
+                                    <option key="Low" value="Low">Low</option>
+                                    <option key="Normal" value="Normal">Normal</option>
+                                    <option key="High" value="High">High</option>
+                                </select>
+                            </div>
+                            <div>
+                                <ul>
+                                    {chosenTypes.map((type) => (
+                                        <li key={type}>
+                                            {type} <button onClick={() => handleTypeRemove(type)}>x</button>
+                                        </li>
+                                    ))}
+                                    {chosenTags.map((tag) => (
+                                        <li key={tag}>
+                                            {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <table id="athlete-page-sessions-table">
                         <tr>
@@ -161,8 +324,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Edit</th>
                             <th>Slett</th>
                         </tr>
-                        {athlete?.sessions?.map((session) => (
-                            <Session athleteId={params.id} session={session}></Session>
+                        {searchedSessions.map((session) => (
+                            <ViewSession athleteId={params.id} session={session}></ViewSession>
                         ))}
                     </table>
                 </div>

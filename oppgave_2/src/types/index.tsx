@@ -121,3 +121,8 @@ export type ReportIntervalInfo = {
     avrageWattage?: number,
     durationAchieved?: number
 }
+
+export type parameter = {
+    eng: string,
+    no: string
+}

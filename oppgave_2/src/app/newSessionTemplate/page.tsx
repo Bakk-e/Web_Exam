@@ -4,16 +4,18 @@ import Link from "next/link"
 import "@/styles/NewSessionTemplatePageStyle.css"
 import Notifications from "@/components/Notifications"
 import { useState } from "react";
-import { IntervalData, QuestionData } from "@/types";
+import { IntervalData, QuestionData, parameter } from "@/types";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Question from "@/components/Question";
 import Interval from "@/components/Interval";
 
 export default function NewSessionTemplatePage() {
+    const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
@@ -82,6 +84,18 @@ export default function NewSessionTemplatePage() {
         })
     };
 
+    function handleParameterSelect(e: any) {
+        const selectedParameter: string = e.target.value;
+        if (!chosenParameters.includes(selectedParameter)) {
+            setChosenParameters([...chosenParameters, selectedParameter]);
+        }
+    }
+
+    function handleParameterRemove(parameter: string) {
+        const updatedParameter = chosenParameters.filter((p) => p !== parameter);
+        setChosenParameters(updatedParameter)
+    }
+
     return (
         <div id="new-session-template-page">
             <header id="new-session-template-page-header">
@@ -107,6 +121,25 @@ export default function NewSessionTemplatePage() {
                         <td><input className="new-session-template-page-create-point-input"/></td>
                     </tr>
                 </table>
+                <div id="new-session-template-page-parameters">
+                    <select onChange={handleParameterSelect} value="">
+                        <option value="" disabled>Velg måleparameter</option>
+                        {availableParameters.map((parameter) => (
+                            !chosenParameters.includes(parameter.eng) && (
+                                <option key={parameter.eng} value={parameter.eng}>{parameter.no}</option>
+                            )
+                        ))}
+                    </select>
+                    <div id="new-session-template-page-selected-parameters">
+                        <ul>
+                            {chosenParameters.map((parameter) => (
+                                <li key={parameter}>
+                                    {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
                 <div id="new-session-template-page-interval-and-question">
                     <div id="new-session-template-page-intervals">
                         <p>Intervals: </p>
