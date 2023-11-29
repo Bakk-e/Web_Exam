@@ -4,6 +4,7 @@ import CompetitionCard from "@/components/CompetitionCard";
 import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
+import { DateToNumber } from "@/components/Functions";
 import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
 import ViewSession from "@/components/ViewSession";
@@ -21,10 +22,10 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [editingCompetition, setEditingCompetition] = useState<Competition>({});
     const [editingGoal, setEditingGoal] = useState<Goal>({});
     const [athlete, setAthlete] = useState<Athlete>();
-    const [searchedSessions, setSearchedSessions] = useState<Session[]>([]);
+    const [searchedSessions, setSearchedSessions] = useState<Session[]>([{}]);
     const [chosenTypes, setChosenTypes] = useState<string[]>([]);
     const [chosenTags, setChosenTags] = useState<string[]>([]);
-    const [reportFilter, setReportFilter] = useState<string>("");
+    const [reportFilter, setReportFilter] = useState<string>("Any");
     const [sessionTypes, setSessionTypes] = useState<string[]>([]);
     const [sessionTags, setSessionTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<string>("ascending");
@@ -56,11 +57,10 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             };
             setSessionTypes(typesTemp);
             setSessionTags(tagsTemp);
-            
             let tempSortedSessions: Session[] = [];
             if (result.data.sessions) {
                 tempSortedSessions = [...result.data.sessions];
-                /*
+
                 if (chosenTypes.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
                         session.type && (
@@ -74,37 +74,30 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     ));
                 };
                 if (reportFilter !== "Any") {
-                    tempSortedSessions = tempSortedSessions.filter((session) => session.report?.status === reportFilter);
+                    tempSortedSessions = tempSortedSessions.filter((session) => session.report?.status === reportFilter.toLowerCase());
                 };
-                */
                 if (sortOrder === "ascending") {
                     tempSortedSessions.sort((a, b) => {
                         if (a.date && b.date) {
-                            if (a.date > b.date) {
-                                console.log("ascending")
-                                return 1;
-                            };
-                        };
+                            return  DateToNumber(a.date) - DateToNumber(b.date);
+                        }
                         return 0;
                     });
                 } else if (sortOrder === "descending") {
                     tempSortedSessions.sort((a, b) => {
                         if (a.date && b.date) {
-                            if (a.date < b.date) {
-                                console.log("descending")
-                                return 1;
-                            };
-                        };
+                            return DateToNumber(b.date) - DateToNumber(a.date);
+                        }
                         return 0;
                     });
                 };
-                
             };
             setSearchedSessions(tempSortedSessions);
             
         };
         getAthlete();
-    }, []);
+        console.log("Bop")
+    }, [sortOrder, chosenTypes, chosenTags, reportFilter]);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
