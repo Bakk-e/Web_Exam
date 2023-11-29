@@ -31,22 +31,22 @@ export default function Interval(props: intervalProps) {
     }
 
     return (
-        <div id="new-session-page-interval">
-            <table id="new-session-page-interval-table">
+        <div id="session-interval">
+            <table id="session-interval-table">
                 <tr>
-                    <td><p className="new-session-page-interval-title">Varighet: </p></td>
-                    <td><input className="new-session-page-interval-input"
+                    <td><p className="session-interval-table-title">Varighet: </p></td>
+                    <td><input className="session-interval-table-input"
                     type="number"
                     placeholder="0"
                     value={duration}
                     onChange={(e) => handleDurationChange(e, e.target.value)}/>
                     </td>
-                    <td><p className="new-session-page-interval-subtitle">min</p></td>
+                    <td><p className="session-interval-table-subtitle">min</p></td>
                 </tr>
                 <tr>
-                    <td><p className="new-session-page-interval-title">Intensitetssone: </p></td>
+                    <td><p className="session-interval-table-title">Intensitetssone: </p></td>
                     <td>
-                        <select className="new-session-page-interval-dropdown"
+                        <select className="session-interval-table-dropdown"
                         value={intensityZone}
                         onChange={(e) => handleIntensityZoneChange(e, e.target.value)}>
                             <option value="1">1</option>

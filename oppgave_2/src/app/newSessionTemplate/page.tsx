@@ -150,7 +150,7 @@ export default function NewSessionTemplatePage() {
                     </ul>
                 </div>
                 <div id="new-session-template-page-parameters">
-                    <select onChange={handleParameterSelect} value="">
+                    <select id="new-session-template-page-parameters-select" onChange={handleParameterSelect} value="">
                         <option value="" disabled>Velg måleparameter</option>
                         {availableParameters.map((parameter) => (
                             !chosenParameters.includes(parameter.eng) && (
@@ -158,7 +158,7 @@ export default function NewSessionTemplatePage() {
                             )
                         ))}
                     </select>
-                    <div id="new-session-template-page-selected-parameters">
+                    <div id="new-session-template-page-parameters-selected">
                         <ul>
                             {chosenParameters.map((parameter) => (
                                 <li key={parameter}>
@@ -170,11 +170,11 @@ export default function NewSessionTemplatePage() {
                 </div>
                 <div id="new-session-template-page-interval-and-question">
                     <div id="new-session-template-page-intervals">
-                        <p>Intervals: </p>
+                        <p id="new-session-template-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
-                        <div>
+                        <div id="new-session-template-page-intervals-title-buttons">
                             <button id="new-session-template-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="new-session-template-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
@@ -185,13 +185,13 @@ export default function NewSessionTemplatePage() {
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div>
-                            <button id="new-session-template-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="new-session-template-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                        <div id="new-session-template-page-questions-title-buttons">
+                            <button id="new-session-template-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="new-session-template-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
-                    <div>
-                        <button>Save</button>
+                    <div id="new-session-template-page-save">
+                        <button id="new-session-template-page-save-button">Save</button>
                     </div>
                 </div>
             

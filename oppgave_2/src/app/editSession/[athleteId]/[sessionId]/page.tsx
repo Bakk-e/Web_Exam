@@ -15,6 +15,8 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [tagTemp, setTagTemp] = useState("");
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
 
     const tempList = ["Rough", "Uphill"];
     const exampleQuestions: QuestionData[] = [
@@ -96,6 +98,24 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
         })
     };
 
+    function handleTagsChange(e: any) {
+        const chosenTag: string = e.target.value;
+        setTagTemp(chosenTag);
+    }
+
+    function handleTagAdd() {
+        const chosenTag: string = tagTemp;
+        chosenTag.replace(/\s{2,}/g, ' ').trim();
+        if (!chosenTags.includes(chosenTag)) {
+            setChosenTags([...chosenTags, chosenTag]);
+        }
+    }
+
+    function handleTagRemove(tag: string) {
+        const updatedTags = chosenTags.filter((p) => p !== tag);
+        setChosenTags(updatedTags)
+    }
+
     return (
         <div id="edit-session-page">
             <header id="edit-session-page-header">
@@ -107,27 +127,37 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
             </header>
             <div id="edit-session-page-content">
                 <p id="edit-session-page-title">Økt: {session.title}</p>
-                <table id="new-session-page-table">
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Dato: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
+                <table id="edit-session-page-table">
+                    <tr className="edit-session-page-create-point">
+                        <td className="edit-session-page-create-point-title">Dato: </td>
+                        <td><input className="edit-session-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Titel: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
+                    <tr className="edit-session-page-create-point">
+                        <td className="edit-session-page-create-point-title">Titel: </td>
+                        <td><input className="edit-session-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
+                    <tr className="edit-session-page-create-point">
+                        <td className="edit-session-page-create-point-title">Type: </td>
+                        <td><input className="edit-session-page-create-point-input"/></td>
                     </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Type: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
+                    <tr className="edit-session-page-create-point">
+                        <td className="edit-session-page-create-point-title">Tags: </td>
+                        <td><input className="edit-session-page-create-point-input" onChange={(e) => handleTagsChange(e)}/></td>
+                        <td><button className="edit-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
                     </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Mål/konkuranse: </td>
+                    <div id="edit-session-page-types">
+                        <ul>
+                            {chosenTags.map((tag) => (
+                                <li key={tag}>
+                                    {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <tr className="edit-session-page-create-point">
+                        <td className="edit-session-page-create-point-title">Mål/konkuranse: </td>
                         <td>
-                            <select className="new-session-page-create-point-dropdown">
+                            <select className="edit-session-page-create-point-dropdown">
                                 {tempList.map((goalCompetion) => (
                                     <option value={goalCompetion}>{goalCompetion}</option>
                                 ))}
@@ -135,26 +165,26 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         </td>
                     </tr>
                 </table>
-                <div id="new-session-page-interval-and-question">
-                    <div id="new-session-page-intervals">
+                <div id="edit-session-page-interval-and-question">
+                    <div id="edit-session-page-intervals">
                         <p>Intervals: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
                         <div>
-                            <button id="new-session-page-intervals-add" onClick={addInterval}>Add interval</button>
-                            <button id="new-session-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
+                            <button id="edit-session-page-intervals-add" onClick={addInterval}>Add interval</button>
+                            <button id="edit-session-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
                     </div>
-                    <div id="new-session-page-questions">
+                    <div id="edit-session-page-questions">
                         <p>Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
                         <div>
-                            <button id="new-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="new-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                            <button id="edit-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="edit-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>

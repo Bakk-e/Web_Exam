@@ -23,45 +23,46 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
             </header>
             <div id="new-competition-page-content">
                 <p id="new-competition-page-title">Ny Konkuranse</p>
-                <table>
-                    <tr>
-                        <td>Titel: </td>
-                        <td><input/></td>
+                <table id="new-competition-page-table">
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Titel: </td>
+                        <td className="new-competition-page-create-point-input"><input/></td>
                     </tr>
-                    <tr>
-                        <td>Dato: </td>
-                        <td><input type="date"
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Dato: </td>
+                        <td><input className="new-competition-page-create-point-input"
+                        type="date"
                         min={currentdate}/></td>
                     </tr>
-                    <tr>
-                        <td>Sted: </td>
-                        <td><input/></td>
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Sted: </td>
+                        <td><input className="new-competition-page-create-point-input"/></td>
                     </tr>
-                    <tr>
-                        <td>Mål: </td>
-                        <td><textarea></textarea></td>
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Mål: </td>
+                        <td><textarea className="new-competition-page-create-point-input"></textarea></td>
                     </tr>
-                    <tr>
-                        <td>Type: </td>
-                        <td><input/></td>
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Type: </td>
+                        <td><input className="new-competition-page-create-point-input"/></td>
                     </tr>
-                    <tr>
-                        <td>Prioritet: </td>
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Prioritet: </td>
                         <td>
-                            <select>
+                            <select className="new-competition-page-create-point-select">
                                 <option>A</option>
                                 <option>B</option>
                                 <option>C</option>
                             </select>
                         </td>
                     </tr>
-                    <tr>
-                        <td>Kommentar: </td>
-                        <td><textarea></textarea></td>
+                    <tr className="new-competition-page-create-point">
+                        <td className="new-competition-page-create-point-title">Kommentar: </td>
+                        <td><textarea className="new-competition-page-create-point-"></textarea></td>
                     </tr>
                 </table>
-                <div>
-                    <button>Lagre</button>
+                <div id="new-competition-page-save">
+                    <button id="new-competition-page-save-button">Lagre</button>
                 </div>
             </div>
         </div>

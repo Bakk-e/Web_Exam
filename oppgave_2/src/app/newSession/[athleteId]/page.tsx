@@ -155,7 +155,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <td><input className="new-session-page-create-point-input"  onChange={(e) => handleTagsChange(e)}/></td>
                         <td><button className="new-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
                     </tr>
-                    <div>
+                    <div id="new-session-page-tags-chosen">
                         <ul>
                             {chosenTags.map((tag) => (
                                 <li key={tag}>
@@ -176,7 +176,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     </tr>
                 </table>
                 <div id="new-session-page-parameters">
-                    <select onChange={handleParameterSelect} value="">
+                    <select id="new-session-page-parameters-dropdown" onChange={handleParameterSelect} value="">
                         <option value="" disabled>Velg måleparameter</option>
                         {availableParameters.map((parameter) => (
                             !chosenParameters.includes(parameter.eng) && (
@@ -196,7 +196,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
                 <div id="new-session-page-interval-and-question">
                     <div id="new-session-page-intervals">
-                        <p>Intervals: </p>
+                        <p id="new-session-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
@@ -206,20 +206,20 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         </div>
                     </div>
                     <div id="new-session-page-questions">
-                        <p>Questions: </p>
+                        <p id="new-session-page-questions-title">Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div>
+                        <div id="new-session-page-questions-title-buttons">
                             <button id="new-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
                             <button id="new-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button>Lagre</button>
-                    <button>Lagre mal</button>
+                <div id="new-session-page-save">
+                    <button id="new-session-page-save-button">Lagre</button>
+                    <button id="new-session-page-save-template-button">Lagre mal</button>
                 </div>
             </div>
             

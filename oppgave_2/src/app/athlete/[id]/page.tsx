@@ -271,16 +271,16 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
-                        <p>Filter</p>
-                        <div>
-                            <p>Dato:</p>
-                            <button onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
-                            <button onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                        <p id="athlete-page-sessions-filters-title">Filter</p>
+                        <div id="athlete-page-sessions-filters-date">
+                            <p id="athlete-page-sessions-filters-date-title">Dato:</p>
+                            <button id="athlete-page-sessions-filters-date-ascend" onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
+                            <button id="athlete-page-sessions-filters-date-decend" onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
                         </div>
-                        <div>
-                            <div>
-                                <p>Type</p>
-                                <select onChange={handleTypeChange} value="">
+                        <div id="athlete-page-sessions-filters-dropdowns">
+                            <div id="athlete-page-sessions-filters-dropdowns-type">
+                                <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
                                     <option value="" disabled>Any</option>
                                     {sessionTypes.map((type) => (
                                     !chosenTypes.includes(type) && (
@@ -289,9 +289,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                 ))}
                                 </select>
                             </div>
-                            <div>
-                                <p>Tags</p>
-                                <select onChange={handleTagChange} value="">
+                            <div id="athlete-page-sessions-filters-dropdowns-tags"> 
+                                <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
                                 <option value="" disabled>Any</option>
                                     {sessionTags.map((tag) => (
                                         !chosenTags.includes(tag) && (
@@ -300,9 +300,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                     ))}
                                 </select>
                             </div>
-                            <div>
-                                <p>Rapport</p>
-                                <select onChange={handleReportChange} value="">
+                            <div id="athlete-page-sessions-filters-dropdowns-report">
+                                <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-report-title" onChange={handleReportChange} value="">
                                     <option value="" disabled>Any</option>
                                     {availableReportFilters.map((status) => (
                                         !reportFilters.includes(status) && (
@@ -311,7 +311,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                     ))}
                                 </select>
                             </div>
-                            <div>
+                            <div id="athlete-page-sessions-filters-dropdowns-chosen">
                                 <ul>
                                     {displayClearAll() && (
                                         <button onClick={handleClearAllButton}>Clear all</button>

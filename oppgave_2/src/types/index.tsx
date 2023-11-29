@@ -107,8 +107,8 @@ export type QuestionData = {
 export type ReportIntervalInfo = {
     durationExpected?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5,
-    minIntensity?: 1 | 2 | 3 | 4 | 5,
-    maxIntensity?: 1 | 2 | 3 | 4 | 5,
+    minIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+    maxIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,

@@ -38,8 +38,8 @@ export default function NewReport({params}: {params: {athleteId: string, session
                 <p id="new-report-page-title">Rapport: {session?.title}</p>
                 <p id="new-report-page-id">Id: {session?.id}</p>
                 <div id="new-report-page-status-section">
-                    <p>Status: </p>
-                    <select>
+                    <p id="new-report-page-status-section-titel">Status: </p>
+                    <select id="new-report-page-status-section-select">
                         <option>No</option>
                         <option>Low</option>
                         <option>Normal</option>

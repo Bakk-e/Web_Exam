@@ -61,35 +61,35 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
             <div id="report-page-info">
                 <p id="report-page-id">Report</p>
                 <table id="report-page-table">
-                    <tr>
-                        <td>Navn:</td>
-                        <th>{session?.title}</th>
+                    <tr className="report-page-create-point">
+                        <td className="report-page-create-point-titel">Navn:</td>
+                        <th className="report-page-create-point-text">{session?.title}</th>
                     </tr>
-                    <tr>
-                        <td>Dato:</td>
+                    <tr className="report-page-create-point">
+                        <td className="report-page-create-point-titel">Dato:</td>
                         {session?.date ? (
-                            <th>{DateToString(session?.date?.toString())}</th>
+                            <th className="report-page-create-point-text">{DateToString(session?.date?.toString())}</th>
                         ) : (
-                            <th>Null</th>
+                            <th className="report-page-create-point-text">Null</th>
                         )}
                     </tr>
-                    <tr>
-                        <td>Type:</td>
-                        <th>{session?.type}</th>
+                    <tr className="report-page-create-point">
+                        <td className="report-page-create-point-titel">Type:</td>
+                        <th className="report-page-create-point-text">{session?.type}</th>
                     </tr>
-                    <tr>
-                        <td>Status:</td>
-                        <th>{session?.report?.status}</th>
+                    <tr className="report-page-create-point">
+                        <td className="report-page-create-point-titel">Status:</td>
+                        <th className="report-page-create-point-text">{session?.report?.status}</th>
                     </tr>
                 </table>
                 <div id="report-page-intervals">
-                    <p>Intervaller:</p>
+                    <p id="report-page-intervals-titel">Intervaller:</p>
                     {intervals.map((interval) => (
                         <ReportPageInterval reportIntervalInfo={interval}></ReportPageInterval>
                     ))}
                 </div>
                 <div id="report-page-questions">
-                    <p>Spørsmål:</p>
+                    <p id="report-page-questions-titel">Spørsmål:</p>
                     {session?.questions?.map((question) => (
                         <div className="report-page-question-card">
                             <p id="report-page-question-card-question">Tekst: {question.text}</p>
@@ -98,8 +98,8 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
                     ))}
                 </div>
                 <div id="report-page-comment-section">
-                    <p>Kommentar:</p>
-                    <p>{session?.report?.comment}</p>
+                    <p id="report-page-comment-section-titel">Kommentar:</p>
+                    <p id="report-page-comment-section-text">{session?.report?.comment}</p>
                 </div>
             </div>
         </div>

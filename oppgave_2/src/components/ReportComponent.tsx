@@ -13,14 +13,14 @@ export default function ReportComponent(props: reportProps) {
     return (
         <tr>
             {session.date ? (
-                <td>{DateToString(session.date?.toString())}</td>
+                <td className="reports-page-reports-text">{DateToString(session.date?.toString())}</td>
             ) : (
                 <td>null</td>
             )}
-            <td>{session.title}</td>
-            <td>{session.type}</td>
-            <td>{session.report?.status}</td>
-            <td><Link legacyBehavior href="/report/[athleteId]/[sessionId]" as={`/report/${athleteId}/${session.id}`}><a id="reports-page-goto-report">Klikk her</a></Link></td>
+            <td className="reports-page-reports-text">{session.title}</td>
+            <td className="reports-page-reports-text">{session.type}</td>
+            <td className="reports-page-reports-text">{session.report?.status}</td>
+            <td className="reports-page-reports-link"><Link legacyBehavior href="/report/[athleteId]/[sessionId]" as={`/report/${athleteId}/${session.id}`}><a id="reports-page-goto-report">Klikk her</a></Link></td>
         </tr>
     )
 }
