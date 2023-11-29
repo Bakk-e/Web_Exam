@@ -15,6 +15,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [tagTemp, setTagTemp] = useState("");
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
     const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
     const tempList = ["Rough", "Uphill"];
@@ -84,6 +86,24 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         })
     };
 
+    function handleTagsChange(e: any) {
+        const chosenTag: string = e.target.value;
+        setTagTemp(chosenTag);
+    }
+
+    function handleTagAdd() {
+        const chosenTag: string = tagTemp;
+        chosenTag.replace(/\s{2,}/g, ' ').trim();
+        if (!chosenTags.includes(chosenTag)) {
+            setChosenTags([...chosenTags, chosenTag]);
+        }
+    }
+
+    function handleTagRemove(tag: string) {
+        const updatedTags = chosenTags.filter((p) => p !== tag);
+        setChosenTags(updatedTags)
+    }
+
     function handleParameterSelect(e: any) {
         const selectedParameter: string = e.target.value;
         if (!chosenParameters.includes(selectedParameter)) {
@@ -127,13 +147,23 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <td><input className="new-session-page-create-point-input"/></td>
                     </tr>
                     <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Type: </td>
                         <td><input className="new-session-page-create-point-input"/></td>
                     </tr>
+                    <tr className="new-session-page-create-point">
+                        <td className="new-session-page-create-point-title">Tags: </td>
+                        <td><input className="new-session-page-create-point-input"  onChange={(e) => handleTagsChange(e)}/></td>
+                        <td><button className="new-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
+                    </tr>
+                    <div>
+                        <ul>
+                            {chosenTags.map((tag) => (
+                                <li key={tag}>
+                                    {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                     <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Mål/konkuranse: </td>
                         <td>
