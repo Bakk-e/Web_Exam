@@ -41,13 +41,13 @@ export default function ReportsPage({params}: {params: {athleteId: string}}) {
             <div id="reports-page-info">
                 <p id="reports-page-title">Rapporter</p>
                 <div id="reports-page-reports">
-                    <table>
-                        <tr>
-                            <th>Dato</th>
-                            <th>Navn</th>
-                            <th>Type</th>
-                            <th>Status</th>
-                            <th>Åpne</th>
+                    <table id="reports-page-reports-table">
+                        <tr className="reports-page-reports-point">
+                            <th className="reports-page-reports-titel">Dato</th>
+                            <th className="reports-page-reports-titel">Navn</th>
+                            <th className="reports-page-reports-titel">Type</th>
+                            <th className="reports-page-reports-titel">Status</th>
+                            <th className="reports-page-reports-titel">Åpne</th>
                         </tr>
                         {sessions.map((session) => (
                             <ReportComponent session={session} athleteId={params.athleteId}></ReportComponent>

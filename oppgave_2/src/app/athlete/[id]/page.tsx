@@ -4,45 +4,169 @@ import CompetitionCard from "@/components/CompetitionCard";
 import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
+import { DateToNumber } from "@/components/Functions";
 import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
-import Session from "@/components/Session";
+import ViewSession from "@/components/ViewSession";
 import "@/styles/AthletePageStyle.css"
-import { Athlete, Competition, Goal } from "@/types";
+import { Athlete, Competition, Goal, Session } from "@/types";
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const initialState = {open: false};
 
 export default function AthletePage({ params }: { params: { id: string }}) {
+    const availableReportFilters: string[] = ["ingen", "no", "low", "normal", "high"];
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
-    const [editingCompetition, setEditingCompetition] = useState<Competition>({})
-    const [editingGoal, setEditingGoal] = useState<Goal>({})
-    const [athlete, setAthlete] = useState<Athlete>()
+    const [editingCompetition, setEditingCompetition] = useState<Competition>({});
+    const [editingGoal, setEditingGoal] = useState<Goal>({});
+    const [athlete, setAthlete] = useState<Athlete>();
+    const [searchedSessions, setSearchedSessions] = useState<Session[]>([{}]);
+    const [chosenTypes, setChosenTypes] = useState<string[]>([]);
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
+    const [reportFilters, setReportFilters] = useState<string[]>([]);
+    const [sessionTypes, setSessionTypes] = useState<string[]>([]);
+    const [sessionTags, setSessionTags] = useState<string[]>([]);
+    const [sortOrder, setSortOrder] = useState<string>("ascending");
 
     useEffect(() => {
         const getAthlete = async () => {
-          const response = await fetch(`/api/athletes/${params.id}`, {
-            method: "get",
-          });
-          const result = (await response.json()) as {data: Athlete};
-          setAthlete(result.data);
-        }
+            const response = await fetch(`/api/athletes/${params.id}`, {
+                method: "get",
+            });
+            const result = (await response.json()) as {data: Athlete};
+            setAthlete(result.data);
+            let typesTemp: string[] = [];
+            let tagsTemp: string[] = [];
+            if (result.data.sessions) {
+                for (const session of result.data.sessions) {
+                    if (session.type) {
+                        if (!typesTemp.includes(session.type)) {
+                            typesTemp.push(session.type);
+                        };
+                    };
+                    if (session.tags) {
+                        for (const tag of session.tags) {
+                            if (!tagsTemp.includes(tag)) {
+                                tagsTemp.push(tag);
+                            };
+                        };
+                    };
+                };
+            };
+            setSessionTypes(typesTemp);
+            setSessionTags(tagsTemp);
+            let tempSortedSessions: Session[] = [];
+            if (result.data.sessions) {
+                tempSortedSessions = [...result.data.sessions];
+
+                if (chosenTypes.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        session.type && (
+                            chosenTypes.includes(session.type)
+                        )
+                    
+                    ));
+                };
+                if (chosenTags.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        chosenTags.every((tag) => session.tags?.includes(tag))
+                    ));
+                };
+                if (reportFilters.length > 0) {
+                    tempSortedSessions = tempSortedSessions.filter((session) => (
+                        session.report && session.report?.status && (
+                            reportFilters.includes(session.report.status)
+                        )
+                    ));
+                };
+                if (sortOrder === "ascending") {
+                    tempSortedSessions.sort((a, b) => {
+                        if (a.date && b.date) {
+                            return  DateToNumber(a.date) - DateToNumber(b.date);
+                        }
+                        return 0;
+                    });
+                } else if (sortOrder === "descending") {
+                    tempSortedSessions.sort((a, b) => {
+                        if (a.date && b.date) {
+                            return DateToNumber(b.date) - DateToNumber(a.date);
+                        }
+                        return 0;
+                    });
+                };
+            };
+            setSearchedSessions(tempSortedSessions);
+            
+        };
         getAthlete();
-    }, []);
+    }, [sortOrder, chosenTypes, chosenTags, reportFilters]);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
-    }
+    };
 
     function toggleEditCompetition() {
         setIsCompetitionOpen(!isEditCompetitionOpen);
-    }
+    };
 
     function toggleEditGoal() {
         setIsEditGoalOpen(!isEditGoalOpen);
+    };
+
+    function displayClearAll() {
+        return (chosenTypes.length > 0 || chosenTags.length > 0 || reportFilters.length > 0);
+    }
+
+    function handleClearAllButton() {
+        setChosenTypes([]);
+        setChosenTags([]);
+        setReportFilters([]);
+    }
+
+    function handleTypeChange(e: any) {
+        const selectedType: string = e.target.value;
+        if (!chosenTypes.includes(selectedType)) {
+            setChosenTypes([...chosenTypes, selectedType]);
+        };
+    };
+
+    function handleTypeRemove(type: string) {
+        const updatedParameter = chosenTypes.filter((t) => t !== type);
+        setChosenTypes(updatedParameter);
+    };
+
+    function handleTagChange(e: any) {
+        const selectedTag: string = e.target.value;
+        if (!chosenTags.includes(selectedTag)) {
+            setChosenTags([...chosenTags, selectedTag]);
+        };
+    };
+
+    function handleTagRemove(tag: string) {
+        const updatedParameter = chosenTags.filter((t) => t !== tag);
+        setChosenTags(updatedParameter);
+    };
+
+    function handleReportChange(e: any) {
+        const selectedReportStatus: string = e.target.value;
+        if (!reportFilters.includes(selectedReportStatus)) {
+            setReportFilters([...reportFilters, selectedReportStatus]);
+        };
+        console.log([...selectedReportStatus, selectedReportStatus].toString());
+    };
+
+    function handleReportRemove(status: string) {
+        const updatedParameter = reportFilters.filter((s) => s !== status);
+        setReportFilters(updatedParameter);
+    };
+
+    function handleButtonSort(e: any, order: string) {
+        e.preventDefault();
+
+        setSortOrder(order);
     }
 
     return (
@@ -147,6 +271,69 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
+                        <p id="athlete-page-sessions-filters-title">Filter</p>
+                        <div id="athlete-page-sessions-filters-date">
+                            <p id="athlete-page-sessions-filters-date-title">Dato:</p>
+                            <button id="athlete-page-sessions-filters-date-ascend" onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
+                            <button id="athlete-page-sessions-filters-date-decend" onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                        </div>
+                        <div id="athlete-page-sessions-filters-dropdowns">
+                            <div id="athlete-page-sessions-filters-dropdowns-type">
+                                <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
+                                    <option value="" disabled>Any</option>
+                                    {sessionTypes.map((type) => (
+                                    !chosenTypes.includes(type) && (
+                                        <option key={type} value={type}>{type}</option>
+                                    )
+                                ))}
+                                </select>
+                            </div>
+                            <div id="athlete-page-sessions-filters-dropdowns-tags"> 
+                                <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
+                                <option value="" disabled>Any</option>
+                                    {sessionTags.map((tag) => (
+                                        !chosenTags.includes(tag) && (
+                                            <option key={tag} value={tag}>{tag}</option>
+                                        )
+                                    ))}
+                                </select>
+                            </div>
+                            <div id="athlete-page-sessions-filters-dropdowns-report">
+                                <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
+                                <select id="athlete-page-sessions-filters-dropdowns-report-title" onChange={handleReportChange} value="">
+                                    <option value="" disabled>Any</option>
+                                    {availableReportFilters.map((status) => (
+                                        !reportFilters.includes(status) && (
+                                            <option key={status} value={status}>{status}</option>
+                                        )
+                                    ))}
+                                </select>
+                            </div>
+                            <div id="athlete-page-sessions-filters-dropdowns-chosen">
+                                <ul>
+                                    {displayClearAll() && (
+                                        <button onClick={handleClearAllButton}>Clear all</button>
+                                    )}
+                                    {chosenTypes.map((type) => (
+                                        <li key={type}>
+                                            {type} <button onClick={() => handleTypeRemove(type)}>x</button>
+                                        </li>
+                                    ))}
+                                    {chosenTags.map((tag) => (
+                                        <li key={tag}>
+                                            {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                        </li>
+                                    ))}
+                                    {reportFilters.map((status) => (
+                                        <li key={status}>
+                                            {status} <button onClick={() => handleReportRemove(status)}>x</button>
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                     <table id="athlete-page-sessions-table">
                         <tr>
@@ -161,8 +348,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Edit</th>
                             <th>Slett</th>
                         </tr>
-                        {athlete?.sessions?.map((session) => (
-                            <Session athleteId={params.id} session={session}></Session>
+                        {searchedSessions.map((session) => (
+                            <ViewSession athleteId={params.id} session={session}></ViewSession>
                         ))}
                     </table>
                 </div>

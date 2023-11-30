@@ -36,7 +36,7 @@ export default function Session({params}: {params: {athleteId: string, sessionId
             </header>
             <div id="session-page-content">
                 <p id="session-page-title">Økt: {session.title}</p>
-                <table>
+                <table id="session-page-table">
                     <tr>
                         <th>Titel: </th>
                         <td>{session.title}</td>
@@ -62,8 +62,8 @@ export default function Session({params}: {params: {athleteId: string, sessionId
                         <td>{session.report?.status}</td>
                     </tr>
                 </table>
-                <div id="intervals">
-                    <p>Intervaller: </p>
+                <div id="session-page-intervals">
+                    <p id="session-page-intervals-title">Intervaller: </p>
                     {session.intervals?.map((interval) => (
                         <ViewInterval interval={interval}></ViewInterval>
                     ))}

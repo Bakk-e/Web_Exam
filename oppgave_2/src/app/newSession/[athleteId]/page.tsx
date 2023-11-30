@@ -4,15 +4,10 @@ import Link from "next/link"
 import "@/styles/NewSessionPageStyle.css"
 import { useState } from "react"
 import Interval from "@/components/Interval";
-import { IntervalData, QuestionData } from "@/types";
+import { IntervalData, QuestionData, parameter } from "@/types";
 import Question from "@/components/Question";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Notifications from "@/components/Notifications";
-
-type parameter = {
-    eng: string,
-    no: string
-}
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];  
@@ -20,6 +15,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [tagTemp, setTagTemp] = useState("");
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
     const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
     const tempList = ["Rough", "Uphill"];
@@ -89,17 +86,35 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         })
     };
 
+    function handleTagsChange(e: any) {
+        const chosenTag: string = e.target.value;
+        setTagTemp(chosenTag);
+    }
+
+    function handleTagAdd() {
+        const chosenTag: string = tagTemp;
+        chosenTag.replace(/\s{2,}/g, ' ').trim();
+        if (!chosenTags.includes(chosenTag)) {
+            setChosenTags([...chosenTags, chosenTag]);
+        }
+    }
+
+    function handleTagRemove(tag: string) {
+        const updatedTags = chosenTags.filter((p) => p !== tag);
+        setChosenTags(updatedTags)
+    }
+
     function handleParameterSelect(e: any) {
         const selectedParameter: string = e.target.value;
         if (!chosenParameters.includes(selectedParameter)) {
             setChosenParameters([...chosenParameters, selectedParameter]);
-        }
-    }
+        };
+    };
 
     function handleParameterRemove(parameter: string) {
         const updatedParameter = chosenParameters.filter((p) => p !== parameter);
-        setChosenParameters(updatedParameter)
-    }
+        setChosenParameters(updatedParameter);
+    };
 
     return (
         <div id="new-session-page">
@@ -132,13 +147,23 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <td><input className="new-session-page-create-point-input"/></td>
                     </tr>
                     <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Type: </td>
                         <td><input className="new-session-page-create-point-input"/></td>
                     </tr>
+                    <tr className="new-session-page-create-point">
+                        <td className="new-session-page-create-point-title">Tags: </td>
+                        <td><input className="new-session-page-create-point-input"  onChange={(e) => handleTagsChange(e)}/></td>
+                        <td><button className="new-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
+                    </tr>
+                    <div id="new-session-page-tags-chosen">
+                        <ul>
+                            {chosenTags.map((tag) => (
+                                <li key={tag}>
+                                    {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                     <tr className="new-session-page-create-point">
                         <td className="new-session-page-create-point-title">Mål/konkuranse: </td>
                         <td>
@@ -151,7 +176,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     </tr>
                 </table>
                 <div id="new-session-page-parameters">
-                    <select onChange={handleParameterSelect} value="">
+                    <select id="new-session-page-parameters-dropdown" onChange={handleParameterSelect} value="">
                         <option value="" disabled>Velg måleparameter</option>
                         {availableParameters.map((parameter) => (
                             !chosenParameters.includes(parameter.eng) && (
@@ -171,7 +196,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
                 <div id="new-session-page-interval-and-question">
                     <div id="new-session-page-intervals">
-                        <p>Intervals: </p>
+                        <p id="new-session-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
@@ -181,20 +206,20 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         </div>
                     </div>
                     <div id="new-session-page-questions">
-                        <p>Questions: </p>
+                        <p id="new-session-page-questions-title">Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div>
+                        <div id="new-session-page-questions-title-buttons">
                             <button id="new-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
                             <button id="new-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button>Lagre</button>
-                    <button>Lagre mal</button>
+                <div id="new-session-page-save">
+                    <button id="new-session-page-save-button">Lagre</button>
+                    <button id="new-session-page-save-template-button">Lagre mal</button>
                 </div>
             </div>
             

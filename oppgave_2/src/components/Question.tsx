@@ -31,11 +31,11 @@ export default function Question(props: questionProps) {
     }
 
     return (
-        <div id="new-session-page-question">
-            <table id="new-session-page-question-table">
+        <div id="session-question">
+            <table id="session-question-table">
                 <tr>
-                    <td><p className="new-session-page-question-title">Tekst: </p></td>
-                    <td><input className="new-session-page-question-input"
+                    <td><p className="session-question-table-title">Tekst: </p></td>
+                    <td><input className="session-question-table-input"
                     type="text"
                     placeholder="Spørsmål tekst"
                     value={data.text}
@@ -43,9 +43,9 @@ export default function Question(props: questionProps) {
                     </td>
                 </tr>
                 <tr>
-                    <td><p className="new-session-page-question-title">Type: </p></td>
+                    <td><p className="session-question-table-title">Type: </p></td>
                     <td>
-                        <select className="new-session-page-question-dropdown"
+                        <select className="session-question-table-dropdown"
                         value={data.type}
                         onChange={(e) => handleTypeChange(e, e.target.value)}>
                             <option value="tekst">Tekst</option>

@@ -41,7 +41,7 @@ export type Question = {
 
 export type Report = {
     id?: string,
-    status?: "no" | "low" | "normal" | "high",
+    status?: "ingen" | "no" | "low" | "normal" | "high",
     reportIntervals?: ReportInterval[],
     comment?: string
 }
@@ -107,8 +107,8 @@ export type QuestionData = {
 export type ReportIntervalInfo = {
     durationExpected?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5,
-    minIntensity?: 1 | 2 | 3 | 4 | 5,
-    maxIntensity?: 1 | 2 | 3 | 4 | 5,
+    minIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
+    maxIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,
@@ -120,4 +120,9 @@ export type ReportIntervalInfo = {
     maxWattage?: number,
     avrageWattage?: number,
     durationAchieved?: number
+}
+
+export type parameter = {
+    eng: string,
+    no: string
 }

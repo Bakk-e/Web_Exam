@@ -4,19 +4,21 @@ import Link from "next/link"
 import "@/styles/NewSessionTemplatePageStyle.css"
 import Notifications from "@/components/Notifications"
 import { useState } from "react";
-import { IntervalData, QuestionData } from "@/types";
+import { IntervalData, QuestionData, parameter } from "@/types";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Question from "@/components/Question";
 import Interval from "@/components/Interval";
 
 export default function NewSessionTemplatePage() {
+    const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
+    const [tagTemp, setTagTemp] = useState("");
+    const [chosenTags, setChosenTags] = useState<string[]>([]);
+    const [chosenParameters, setChosenParameters] = useState<string[]>([]);
 
-    const tempList = ["Rough", "Uphill"];
-    const tempList2 = ["none", "Template 3"];
     const exampleQuestions: QuestionData[] = [
         {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
         {key: 1, text: "Hvordan har du det?", type: "tekst"}
@@ -82,6 +84,36 @@ export default function NewSessionTemplatePage() {
         })
     };
 
+    function handleTagsChange(e: any) {
+        const chosenTag: string = e.target.value;
+        setTagTemp(chosenTag);
+    }
+
+    function handleTagAdd() {
+        const chosenTag: string = tagTemp;
+        chosenTag.replace(/\s{2,}/g, ' ').trim();
+        if (!chosenTags.includes(chosenTag)) {
+            setChosenTags([...chosenTags, chosenTag]);
+        }
+    }
+
+    function handleTagRemove(tag: string) {
+        const updatedTags = chosenTags.filter((p) => p !== tag);
+        setChosenTags(updatedTags)
+    }
+
+    function handleParameterSelect(e: any) {
+        const selectedParameter: string = e.target.value;
+        if (!chosenParameters.includes(selectedParameter)) {
+            setChosenParameters([...chosenParameters, selectedParameter]);
+        }
+    }
+
+    function handleParameterRemove(parameter: string) {
+        const updatedParameter = chosenParameters.filter((p) => p !== parameter);
+        setChosenParameters(updatedParameter)
+    }
+
     return (
         <div id="new-session-template-page">
             <header id="new-session-template-page-header">
@@ -99,21 +131,50 @@ export default function NewSessionTemplatePage() {
                         <td><input className="new-session-template-page-create-point-input"/></td>
                     </tr>
                     <tr className="new-session-template-page-create-point">
-                        <td className="new-session-template-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-template-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-template-page-create-point">
                         <td className="new-session-template-page-create-point-title">Type: </td>
                         <td><input className="new-session-template-page-create-point-input"/></td>
                     </tr>
+                    <tr className="new-session-template-page-create-point">
+                        <td className="new-session-template-page-create-point-title">Tags: </td>
+                        <td><input className="new-session-template-page-create-point-input" onChange={(e) => handleTagsChange(e)}/></td>
+                        <td><button className="new-session-template-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
+                    </tr>
                 </table>
+                <div id="new-session-template-page-types">
+                    <ul>
+                        {chosenTags.map((tag) => (
+                            <li key={tag}>
+                                {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                            </li>
+                        ))}
+                    </ul>
+                </div>
+                <div id="new-session-template-page-parameters">
+                    <select id="new-session-template-page-parameters-select" onChange={handleParameterSelect} value="">
+                        <option value="" disabled>Velg måleparameter</option>
+                        {availableParameters.map((parameter) => (
+                            !chosenParameters.includes(parameter.eng) && (
+                                <option key={parameter.eng} value={parameter.eng}>{parameter.no}</option>
+                            )
+                        ))}
+                    </select>
+                    <div id="new-session-template-page-parameters-selected">
+                        <ul>
+                            {chosenParameters.map((parameter) => (
+                                <li key={parameter}>
+                                    {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                </div>
                 <div id="new-session-template-page-interval-and-question">
                     <div id="new-session-template-page-intervals">
-                        <p>Intervals: </p>
+                        <p id="new-session-template-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
-                        <div>
+                        <div id="new-session-template-page-intervals-title-buttons">
                             <button id="new-session-template-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="new-session-template-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
@@ -124,13 +185,13 @@ export default function NewSessionTemplatePage() {
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div>
-                            <button id="new-session-template-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="new-session-template-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                        <div id="new-session-template-page-questions-title-buttons">
+                            <button id="new-session-template-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="new-session-template-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
-                    <div>
-                        <button>Save</button>
+                    <div id="new-session-template-page-save">
+                        <button id="new-session-template-page-save-button">Save</button>
                     </div>
                 </div>
             

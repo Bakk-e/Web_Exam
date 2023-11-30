@@ -28,26 +28,26 @@ export default function EditGoal(params: editGoalProps) {
                         <td className="athlete-page-edit-goal-point-title">Navn: </td>
                         <td><input className="athlete-page-edit-goal-point-input"
                         type="text"
-                        value={editingGoal?.title}/></td>
+                        defaultValue={editingGoal?.title}/></td>
                     </tr>
                     <tr className="athlete-page-edit-goal-point">
                         <td className="athlete-page-edit-goal-point-title">Dato: </td>
                         <td><input className="athlete-page-edit-goal-point-input"
                         min={currentdate}
-                        value={editingGoal.date && DateToStringAlternate(editingGoal?.date)}
+                        defaultValue={editingGoal.date && DateToStringAlternate(editingGoal?.date)}
                         type="date"/></td>
                     </tr>
                     <tr className="athlete-page-edit-goal-point">
                         <td className="athlete-page-edit-goal-point-title">Mål: </td>
                         <td><input className="athlete-page-edit-goal-point-input"
                         type="text"
-                        value={editingGoal?.goal}/></td>
+                        defaultValue={editingGoal?.goal}/></td>
                     </tr>
                     <tr className="athlete-page-edit-goal-point">
                         <td className="athlete-page-edit-goal-point-title">Kommentar: </td>
                         <td><textarea className="athlete-page-edit-goal-point-textarea"
                         typeof="text"
-                        value={editingGoal?.comment}></textarea></td>
+                        defaultValue={editingGoal?.comment}></textarea></td>
                     </tr>
                 </table>
                 <article id="athlete-page-edit-goal-footer">
