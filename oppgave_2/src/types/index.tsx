@@ -68,12 +68,17 @@ export type Athlete = {
     id: string,
     gender: string,
     sport: string,
-    maxHeartRate: number,
-    thresholdWattage: number,
-    thresholdSpeed: number,
+    maxHeartRate?: number,
+    thresholdWattage?: number,
+    thresholdSpeed?: number,
+    meta? : {
+        heartrate? : number,
+        watt? : number,
+        speed? : number,
+    },
+    sessions?: Session[]
     competitions?: Competition[],
     goals?: Goal[],
-    sessions?: Session[]
 }
 
 export type AthleteMini = {
@@ -125,4 +130,13 @@ export type ReportIntervalInfo = {
 export type parameter = {
     eng: string,
     no: string
+}
+
+export type ApiProps = {
+    pages : number
+    success : boolean
+    hasMore : boolean
+    page : number
+    data : Athlete[]
+
 }

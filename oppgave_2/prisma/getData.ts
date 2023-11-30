@@ -1,24 +1,38 @@
 import { PrismaClient } from "@prisma/client"
 
-import { Athlete } from "@/types"
+import { Athlete , ApiProps} from "@/types"
 
 const prisma = new PrismaClient()
 
 //const fetchAthletesFromAPI = async (url: string): Promise<Athlete[]> => {
 async function fetchAthletesFromAPI(): Promise<Athlete[]> {
-  const response = await fetch("https://webapp-api.vercel.app/api/users")
+  let hasMore = true
+  let page = 1
+  let allAthletes : Athlete[] = []
 
-  if (!response.ok) {
-    throw new Error(`Failed to fetch data from API: ${response.statusText}`)
+  while (hasMore){
+    const response = await fetch(`https://webapp-api.vercel.app/api/users?page=${page}`)
+
+    if (!response.ok) {
+      throw new Error(`Failed to fetch data from API: ${response.statusText}`)
+    }
+    const pageData = await response.json() as ApiProps
+    allAthletes = [...allAthletes, ...pageData.data]
+    hasMore = pageData.hasMore
+    page++
   }
+  return allAthletes
 
-  return response.json() as Promise<Athlete[]>
+
+ // return response.json() as Promise<Athlete[]>
 
   //return response.json() as Promise<Athlete[]>
 }
 
-const loadData = async () => {
-  await prisma.athlete.deleteMany()
+async function insertAthleteData (athlete : Athlete) {
+  await prisma.athlete.create({
+
+  })
 
   //const jsonURL = "https://webapp-api.vercel.app/api/users"
   //const athleteData = await fetchAthletesFromAPI(jsonURL)
