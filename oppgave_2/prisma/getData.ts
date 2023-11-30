@@ -1,8 +1,7 @@
-import { PrismaClient } from "@prisma/client"
+import prisma from "@/lib/db"
+import { Athlete, Competition } from "@/types"
+import { Activity } from "lucide-react"
 
-import { Athlete } from "@/types"
-
-const prisma = new PrismaClient()
 
 //const fetchAthletesFromAPI = async (url: string): Promise<Athlete[]> => {
 async function fetchAthletesFromAPI(): Promise<Athlete[]> {
@@ -12,9 +11,125 @@ async function fetchAthletesFromAPI(): Promise<Athlete[]> {
     throw new Error(`Failed to fetch data from API: ${response.statusText}`)
   }
 
-  return response.json() as Promise<Athlete[]>
+  const apiData = await response.json()
+
+  return apiData.map(fromAPIToAthlete)
 
   //return response.json() as Promise<Athlete[]>
+  
+}
+
+function fromAPIToAthlete(apiAthlete: any): Athlete {
+    return {
+        id: apiAthlete.id,
+        gender: apiAthlete.gender,
+          sport: apiAthlete.sport,
+          maxHeartRate: apiAthlete.maxHeartRate,
+          thresholdWattrate: apiAthlete.thresholdWattage,
+          thresholdSpeed: apiAthlete.thresholdSpeed,
+          competitions: {
+            create: apiAthlete.activities.map((activity: Competition) => ({
+                id: activity.id,
+                title: activity.title || "",
+                date: new Date(activity.date),
+                location: activity.location,
+                goal: activity.goal,
+                type: activity.type,
+                priority: activity.priority,
+                comment: activity.comment,
+
+            }))
+          },
+          goals: {
+            create: [
+              {
+                id: user.goals.id,
+                title: user.goals.title,
+                date: user.goals.date,
+                goal: user.goals.goal,
+                comment: user.goals.comment,
+              },
+            ],
+          },
+          session: {
+            create: [
+              {
+                id: user.sessions.id,
+                date: user.sessions.date,
+                title: user.sessions.title,
+                type: user.sessions.type,
+                tags: user.sessions.tags,
+                questions: {
+                  create: [
+                    {
+                      id: user.sessions.questions.id,
+                      text: user.sessions.questions.question,
+                      type: user.sessions.questions.type,
+                      answer: user.sessions.questions.answer,
+                    },
+                  ],
+                },
+                intervals: {
+                  create: [
+                    {
+                      id: user.sessions.intervals.id,
+                      duration: user.sessions.intervals.duration,
+                      intensity: user.sessions.intervals.intensity,
+                    },
+                  ],
+                },
+                report: {
+                  create: {
+                    id: user.sessions.report.id,
+                    status: user.sessions.report.status,
+                    intervalReport: {
+                      create: {
+                        id: user.sessions.report.intervalReport.id,
+                        intervalNumber:
+                          user.sessions.report.intervalReport.intervalNumber,
+                        averageIntesitySone:
+                          user.sessions.report.intervalReport
+                            .averageIntesitySone,
+                        minHeartRate:
+                          user.sessions.report.intervalReport.minHeartRate,
+                        maxHeartRate:
+                          user.sessions.report.intervalReport.maxHeartRate,
+                        averageHeartRate:
+                          user.sessions.report.intervalReport.averageHeartRate,
+                        minSpeed: user.sessions.report.intervalReport.minSpeed,
+                        maxSpeed: user.sessions.report.intervalReport.maxSpeed,
+                        averageSpeed:
+                          user.sessions.report.intervalReport.averageSpeed,
+                        minWattage:
+                          user.sessions.report.intervalReport.minWattage,
+                        maxWattage:
+                          user.sessions.report.intervalReport.maxWattage,
+                        averageWattage:
+                          user.sessions.report.intervalReport.averageWattage,
+                        duration: user.sessions.report.intervalReport.duration,
+                      },
+                    },
+                    comments: user.sessions.report.comments,
+                  },
+                },
+                connection: {
+                  create: {
+                    goal: {
+                      connect: {
+                        id: user.sessions.connection.goalId,
+                      },
+                    },
+                    competition: {
+                      connect: {
+                        id: user.sessions.connection.competitionId,
+                      },
+                    },
+                  },
+                },
+              },
+            ],
+          },
+        }
 }
 
 const loadData = async () => {
@@ -27,11 +142,12 @@ const loadData = async () => {
 
   for (const athlete of athleteData) {
     await prisma.athlete.create({
-        data: athleteData,
+        data: athlete,
     });
 
   }
 
+  /*
     for (let athlete of athleteData) {
       await prisma.athlete.createMany({
         //data: athlete,
@@ -152,6 +268,7 @@ const loadData = async () => {
       console.log(`Created athlete with id: ${athlete.id}`)
     }
   }
+  */
 
 export { loadData }
 

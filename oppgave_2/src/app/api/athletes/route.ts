@@ -1,5 +1,7 @@
+import prisma from "@/lib/db";
 import { AthleteMini } from "@/types";
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 const athleteInfos: AthleteMini[] = [
     { id: "ola-nor-123", gender: "Hankjønn", sport: "Sykling"},
@@ -9,13 +11,47 @@ const athleteInfos: AthleteMini[] = [
     { id: "tur-kle-546", gender: "Hunkjønn", sport: "Roing"}
 ]
 
-export function GET() {
-    return NextResponse.json(
-        {data: Array.from(athleteInfos.values())},
-        {status: 200});
+export async function GET(request: NextApiRequest, response: NextApiResponse) {
+    if (request.method === "GET") {
+        try {
+            //const athleteId = request.query.athleteId
+
+            const athletes = prisma.athlete.findMany({
+                select: {
+                    id: true,
+                    sport: true,
+                    gender: true,
+                }
+            });
+
+            return NextResponse.json(
+                { data: (await athletes).map((athlete) =>(
+                    { id: athlete.id, sport: athlete.sport, gender: athlete.gender}
+                )) }, 
+                { status: 200 })
+        } catch (error) {
+            console.error(error)
+            return NextResponse.json({ error: "Internal Server Error" }, { status: 500 })
+        }
+    }
 }
 
+export async function POST(request: NextRequest) {
+    if (request.method === "POST") {
+        try {
+            const data = await request.json()
+
+            const createAthlete = await prisma
+            
+        } catch (error) {
+            
+        }
+    }
+}
+
+/*
 export async function POST(request: NextResponse) {
     const data = await request.json()
     return NextResponse.json({ status: 200 })
 }
+*/

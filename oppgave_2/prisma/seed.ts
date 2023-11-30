@@ -1,24 +1,15 @@
-import { PrismaClient } from "@prisma/client"
-import { loadData } from "./getData"
+import prisma from "@/lib/db"
+//import { loadData } from "./getData"
 
 
-const prisma = new PrismaClient()
 
 async function main() {
 //const main = async () => {
   //try {
-    await loadData()
+    //await loadData()
 
     console.log("Data loaded")
   } 
-  /*
-  catch (e) {
-    console.error(e)
-  } finally {
-    await prisma.$disconnect()
-  }
-}
-  */
 
 main()
   .catch(async (e) => {
