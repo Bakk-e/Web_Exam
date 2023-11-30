@@ -48,7 +48,17 @@
     border: none;
     border-radius: 1.8rem;
     outline: none;
+}
 
+#main-page-search-clear {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: black;
+    margin-left: -1.5rem;
+    margin-right: 1.5rem;
+    margin-top: -0.15rem;
 }
 
 #main-page-search-button {
