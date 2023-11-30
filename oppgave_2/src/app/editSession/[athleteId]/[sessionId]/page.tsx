@@ -4,27 +4,35 @@ import Notifications from "@/components/Notifications";
 import Link from "next/link";
 import "@/styles/EditSessionPageStyle.css";
 import { useEffect, useState } from "react";
-import { Athlete, IntervalData, QuestionData, Session } from "@/types";
+import { Athlete, Competition, Goal, IntervalData, QuestionData, Session } from "@/types";
 import Interval from "@/components/Interval";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Question from "@/components/Question";
+import { DateToStringAlternate } from "@/components/Functions";
 
 export default function EditSessionPage({params}: {params: {athleteId: string, sessionId: string}}) {
+    const [currentdate, setCurrentdate] = useState("");
     const [session, setSession] = useState<Session>({});
+    const [competitionsAndGoals, setCompetitionsAndGoals] = useState<(Goal | Competition)[]>([]);
+    const [competitionsAndGoalsString, setCompetitionsAndGoalsString] = useState<string[]>([]);
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
     const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
     const [questionCount, setQuestionCount] = useState(1);
     const [tagTemp, setTagTemp] = useState("");
     const [chosenTags, setChosenTags] = useState<string[]>([]);
+    const [date, setDate] = useState("");
+    const [titel, setTitel] = useState("");
+    const [type, setType] = useState("");
+    const [goalCompetition, setGoalCompetition] = useState<Goal | Competition>();
 
-    const tempList = ["Rough", "Uphill"];
     const exampleQuestions: QuestionData[] = [
         {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
         {key: 1, text: "Hvordan har du det?", type: "tekst"}
     ]
 
     useEffect(() => {
+        setCurrentdate(new Date().toISOString().split("T")[0]);
         const getSession = async () => {
             const response = await fetch(`/api/athletes/${params.athleteId}`, {
                 method: "get",
@@ -33,10 +41,35 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
             const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
             if (sessionTemp) {
                 setSession(sessionTemp);
+                if (sessionTemp.tags) {
+                    setChosenTags(sessionTemp.tags);
+                };
             };
+            const tempCopetitionsAndGoals: (Goal | Competition)[] = [];
+            result.data.competitions?.map((competition) => (
+                competition && (
+                    tempCopetitionsAndGoals.push(competition)
+                )
+            ))
+            result.data.goals?.map((goal) => (
+                goal && (
+                    tempCopetitionsAndGoals.push(goal)
+                )
+            ))
+            const tempCopetitionsAndGoalsString: string[] = [];
+            tempCopetitionsAndGoals.map((object) => (
+                object.title && (
+                    tempCopetitionsAndGoalsString.push(object.title)
+                )
+            ))
+            setCompetitionsAndGoals(tempCopetitionsAndGoals);
+            setCompetitionsAndGoalsString(tempCopetitionsAndGoalsString);
         };
         getSession();
     }, []);
+
+    const putSession = async (athlete: Session) => {
+    }
 
     function addInterval() {
         setIntervals((prevIntervals) => [
@@ -116,6 +149,41 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
         setChosenTags(updatedTags)
     }
 
+    function handleDateChange(e: any) {
+        const update: string = e.target.value;
+        setDate(update);
+    }
+
+    function handleTitelChange(e: any) {
+        const update: string = e.target.value;
+        setTitel(update);
+    }
+
+    function handleTypeChange(e: any) {
+        const update: string = e.target.value;
+        setType(update);
+    }
+
+    function handleGoalCompetitionChange(e: any) {
+        let update: Goal | Competition = {};
+        const string: string = e.target.value;
+        const temp = competitionsAndGoals.find((object) => object.title === string);
+        if (temp) {
+            update = temp;
+        }
+        setGoalCompetition(update);
+    }
+
+    function handleSaveButton(e: any) {
+        e.preventDefault();
+        const updatedSession: Session = {
+            title: titel, date: new Date(date),
+            type: type, tags: chosenTags,
+            connection: goalCompetition
+        }
+        putSession(updatedSession);
+    }
+
     return (
         <div id="edit-session-page">
             <header id="edit-session-page-header">
@@ -130,15 +198,23 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                 <table id="edit-session-page-table">
                     <tr className="edit-session-page-create-point">
                         <td className="edit-session-page-create-point-title">Dato: </td>
-                        <td><input className="edit-session-page-create-point-input"/></td>
+                        <td><input className="edit-session-page-create-point-input"
+                        type="date"
+                        min={currentdate}
+                        onChange={handleDateChange}
+                        defaultValue={session?.date && DateToStringAlternate(session.date)}/></td>
                     </tr>
                     <tr className="edit-session-page-create-point">
                         <td className="edit-session-page-create-point-title">Titel: </td>
-                        <td><input className="edit-session-page-create-point-input"/></td>
+                        <td><input className="edit-session-page-create-point-input"
+                        onChange={handleTitelChange}
+                        defaultValue={session.title}/></td>
                     </tr>
                     <tr className="edit-session-page-create-point">
                         <td className="edit-session-page-create-point-title">Type: </td>
-                        <td><input className="edit-session-page-create-point-input"/></td>
+                        <td><input className="edit-session-page-create-point-input"
+                        onChange={handleTypeChange}
+                        defaultValue={session.type}/></td>
                     </tr>
                     <tr className="edit-session-page-create-point">
                         <td className="edit-session-page-create-point-title">Tags: </td>
@@ -157,8 +233,10 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                     <tr className="edit-session-page-create-point">
                         <td className="edit-session-page-create-point-title">Mål/konkuranse: </td>
                         <td>
-                            <select className="edit-session-page-create-point-dropdown">
-                                {tempList.map((goalCompetion) => (
+                            <select className="edit-session-page-create-point-dropdown"
+                            onChange={handleGoalCompetitionChange}
+                            defaultValue={session.connection?.title}>
+                                {competitionsAndGoalsString.map((goalCompetion) => (
                                     <option value={goalCompetion}>{goalCompetion}</option>
                                 ))}
                             </select>
@@ -188,10 +266,9 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         </div>
                     </div>
                 </div>
-                
             </div>
             <div id="edit-session-page-save">
-                <button id="edit-session-page-save-button">Lagre</button>
+                <button id="edit-session-page-save-button" onClick={(e) => handleSaveButton(e)}>Lagre</button>
             </div>
         </div>
     )

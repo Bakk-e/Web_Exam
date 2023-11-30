@@ -61,6 +61,7 @@ export type Session = {
     intervals?: Interval[],
     parameters?: string[],
     report?: Report,
+    template?: Template,
     connection?: Goal | Competition
 }
 
@@ -73,7 +74,8 @@ export type Athlete = {
     thresholdSpeed: number,
     competitions?: Competition[],
     goals?: Goal[],
-    sessions?: Session[]
+    sessions?: Session[],
+    templates?: Template[]
 }
 
 export type AthleteMini = {
