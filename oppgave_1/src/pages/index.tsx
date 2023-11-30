@@ -1,13 +1,10 @@
-import Answer from "@/components/Answer"
 import Header from "@/components/Header"
 import Progress from "@/components/Progress"
 import Task from "@/components/Task"
-import Tasks from "@/components/Tasks"
 import TaskText from "@/components/Text"
 import React, {useEffect, useState} from "react";
 import {AnswerProps, OpperationErrors, Type} from "@/types";
-import Button from "@/components/Button";
-import {response} from "msw";
+
 
 export default function Home() {
     const [tasks, setTasks] = useState<any>(null);

@@ -13,7 +13,6 @@ const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) 
     const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
     const [attempts, setAttempts] = useState(0)
-    let taskText = task.text
     let data = task.data.split("|")
     let type = task.type
 

@@ -1,8 +1,6 @@
 import React, { type ReactNode } from "react"
 
 import { type Task as TaskType } from "@/types"
-import Task from "@/components/Task";
-import task from "@/components/Task";
 type TasksProps = {
   tasks: TaskType[];
   children : ReactNode;
