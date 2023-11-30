@@ -30,3 +30,52 @@
     font-size: 2.5rem;
     margin-bottom: 2.5rem;
 }
+
+#new-competition-page-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#new-competition-page-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.new-competition-page-create-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.new-competition-page-create-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+.new-competition-page-create-point-select {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+.new-competition-page-create-point-textarea {
+    border-radius: 1.8rem;
+    width: 25rem;
+    height: 10rem;
+}
+
+#new-competition-page-save {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#new-competition-page-save-button {
+    font-size: 2rem;
+    margin-top: 1.4rem;
+    margin-right: 1.4rem;
+}

@@ -92,8 +92,8 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
                     <p id="report-page-questions-titel">Spørsmål:</p>
                     {session?.questions?.map((question) => (
                         <div className="report-page-question-card">
-                            <p id="report-page-question-card-question">Tekst: {question.text}</p>
-                            <p id="report-page-question-card-answer">Svar: {question.answer}</p>
+                            <p className="report-page-question-card-question">Tekst: {question.text}</p>
+                            <p className="report-page-question-card-answer">Svar: {question.answer}</p>
                         </div>
                     ))}
                 </div>

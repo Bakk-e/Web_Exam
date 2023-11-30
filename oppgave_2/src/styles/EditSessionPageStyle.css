@@ -30,3 +30,155 @@
     font-size: 2.5rem;
     margin-bottom: 2.5rem;
 }
+
+#edit-session-page-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#edit-session-page-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.edit-session-page-create-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.edit-session-page-create-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+#edit-session-page-tags {
+    margin-bottom: 0.5rem;
+}
+
+#edit-session-page-tags ul {
+    display: flex;
+    flex-direction: row;
+}
+
+#edit-session-page-tags ul li {
+    margin-right: 0.8rem;
+}
+
+.edit-session-page-create-point-dropdown {
+    border-radius: 1.8rem;
+    width: 16rem;
+}
+
+#edit-session-page-interval-and-question {
+    display: flex;
+    flex-direction: row;
+}
+
+#edit-session-page-intervals {
+    margin-right: 2rem;
+}
+
+#session-interval-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#session-interval-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.session-interval-table-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.session-interval-table-input {
+    border-radius: 1.8rem;
+    width: 12rem;
+}
+
+.session-interval-table-dropdown {
+    border-radius: 1.8rem;
+    width: 12rem;
+}
+
+#edit-session-page-intervals-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#session-questions-existing-select {
+    border-radius: 1.8rem;
+    width: 18rem;
+}
+
+#session-questions-existing-button {
+    margin-left: 0.7rem;
+}
+
+#edit-session-page-questions {
+    margin-left: 2rem;
+}
+
+#session-question-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#session-question-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.session-question-table-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.session-question-table-input {
+    border-radius: 1.8rem;
+    width: 16rem;
+}
+
+.session-question-table-dropdown {
+    border-radius: 1.8rem;
+    width: 16rem;
+}
+
+#edit-session-page-questions-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+#edit-session-page-save {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#edit-session-page-save-button {
+    margin-top: 1.4rem;
+    margin-right: 1.4rem;
+    font-size: 1.7rem;
+}

@@ -44,9 +44,10 @@ export default function NewGoal({params}: {params: {athleteId: string}}) {
                         <td><textarea className="new-goal-page-create-point-textarea"></textarea></td>
                     </tr>
                 </table>
-                <div id="new-goal-page-save">
-                    <button id="new-goal-page-save-button">Lagre</button>
-                </div>
+                
+            </div>
+            <div id="new-goal-page-save">
+                <button id="new-goal-page-save-button">Lagre</button>
             </div>
         </div>
     )

@@ -26,7 +26,7 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
                 <table id="new-competition-page-table">
                     <tr className="new-competition-page-create-point">
                         <td className="new-competition-page-create-point-title">Titel: </td>
-                        <td className="new-competition-page-create-point-input"><input/></td>
+                        <td><input className="new-competition-page-create-point-input"/></td>
                     </tr>
                     <tr className="new-competition-page-create-point">
                         <td className="new-competition-page-create-point-title">Dato: </td>
@@ -40,7 +40,7 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
                     </tr>
                     <tr className="new-competition-page-create-point">
                         <td className="new-competition-page-create-point-title">Mål: </td>
-                        <td><textarea className="new-competition-page-create-point-input"></textarea></td>
+                        <td><textarea className="new-competition-page-create-point-textarea"></textarea></td>
                     </tr>
                     <tr className="new-competition-page-create-point">
                         <td className="new-competition-page-create-point-title">Type: </td>
@@ -58,12 +58,13 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
                     </tr>
                     <tr className="new-competition-page-create-point">
                         <td className="new-competition-page-create-point-title">Kommentar: </td>
-                        <td><textarea className="new-competition-page-create-point-"></textarea></td>
+                        <td><textarea className="new-competition-page-create-point-textarea"></textarea></td>
                     </tr>
                 </table>
-                <div id="new-competition-page-save">
-                    <button id="new-competition-page-save-button">Lagre</button>
-                </div>
+                
+            </div>
+            <div id="new-competition-page-save">
+                <button id="new-competition-page-save-button">Lagre</button>
             </div>
         </div>
     )

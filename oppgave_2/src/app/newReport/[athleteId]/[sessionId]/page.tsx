@@ -48,7 +48,7 @@ export default function NewReport({params}: {params: {athleteId: string, session
                 </div>
                 <div id="new-report-page-intervals-section">
                     {session.intervals?.map((interval) => (
-                        <AnswerInterval interval={interval}></AnswerInterval>
+                        <AnswerInterval session={session} interval={interval}></AnswerInterval>
                     ))}
                 </div>
                 <div id="new-report-page-questions-section">
@@ -58,8 +58,11 @@ export default function NewReport({params}: {params: {athleteId: string, session
                 </div>
                 <div id="new-report-page-comment-section">
                     <p>Kommentar: </p>
-                    <textarea></textarea>
+                    <textarea id="new-report-page-comment-textarea"></textarea>
                 </div>
+            </div>
+            <div id="new-report-page-save">
+                <button id="new-report-page-save-button">Lagre</button>
             </div>
         </div>
     )

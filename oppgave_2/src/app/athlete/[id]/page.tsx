@@ -30,6 +30,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [sessionTypes, setSessionTypes] = useState<string[]>([]);
     const [sessionTags, setSessionTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<string>("ascending");
+    const [acendButton, setAcendButton] = useState<boolean>(true);
+    const [dcendButton, setDcendButton] = useState<boolean>(false);
 
     useEffect(() => {
         const getAthlete = async () => {
@@ -166,7 +168,15 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     function handleButtonSort(e: any, order: string) {
         e.preventDefault();
 
-        setSortOrder(order);
+        if (order === "ascending") {
+            setAcendButton(true);
+            setDcendButton(false);
+            setSortOrder(order);
+        } else if (order === "descending") {
+            setAcendButton(false);
+            setDcendButton(true);
+            setSortOrder(order);
+        }
     }
 
     return (
@@ -271,68 +281,72 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
-                        <p id="athlete-page-sessions-filters-title">Filter</p>
-                        <div id="athlete-page-sessions-filters-date">
-                            <p id="athlete-page-sessions-filters-date-title">Dato:</p>
-                            <button id="athlete-page-sessions-filters-date-ascend" onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
-                            <button id="athlete-page-sessions-filters-date-decend" onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                        <p id="athlete-page-sessions-filters-title">Filters</p>
+                        <div id="athlete-page-sessions-filters-section">
+                            <div id="athlete-page-sessions-filters-date">
+                                <p id="athlete-page-sessions-filters-date-title">Dato:</p>
+                                <button className={`athlete-page-sessions-filters-date-acend ${acendButton ? "pressed" : ""}`} onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
+                                <button className={`athlete-page-sessions-filters-date-dcend ${dcendButton ? "pressed" : ""}`} onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                            </div>
+                            <div id="athlete-page-sessions-filters-dropdowns">
+                                <div id="athlete-page-sessions-filters-dropdowns-type">
+                                    <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
+                                    <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
+                                        <option value="" disabled>Any</option>
+                                        {sessionTypes.map((type) => (
+                                        !chosenTypes.includes(type) && (
+                                            <option key={type} value={type}>{type}</option>
+                                        )
+                                    ))}
+                                    </select>
+                                </div>
+                                <div id="athlete-page-sessions-filters-dropdowns-tags"> 
+                                    <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
+                                    <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
+                                    <option value="" disabled>Any</option>
+                                        {sessionTags.map((tag) => (
+                                            !chosenTags.includes(tag) && (
+                                                <option key={tag} value={tag}>{tag}</option>
+                                            )
+                                        ))}
+                                    </select>
+                                </div>
+                                <div id="athlete-page-sessions-filters-dropdowns-report">
+                                    <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
+                                    <select id="athlete-page-sessions-filters-dropdowns-report-select" onChange={handleReportChange} value="">
+                                        <option value="" disabled>Any</option>
+                                        {availableReportFilters.map((status) => (
+                                            !reportFilters.includes(status) && (
+                                                <option key={status} value={status}>{status}</option>
+                                            )
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div id="athlete-page-sessions-filters-dropdowns">
-                            <div id="athlete-page-sessions-filters-dropdowns-type">
-                                <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
-                                    <option value="" disabled>Any</option>
-                                    {sessionTypes.map((type) => (
-                                    !chosenTypes.includes(type) && (
-                                        <option key={type} value={type}>{type}</option>
-                                    )
+                        <div id="athlete-page-sessions-filters-dropdowns-clear-all">
+                            {displayClearAll() && (
+                                <button id="athlete-page-sessions-filters-dropdowns-clear-all-button" onClick={handleClearAllButton}>Clear all</button>
+                            )}
+                        </div>
+                        <div id="athlete-page-sessions-filters-dropdowns-chosen">
+                            <ul>
+                                {chosenTypes.map((type) => (
+                                    <li key={type}>
+                                        {type} <button onClick={() => handleTypeRemove(type)}>x</button>
+                                    </li>
                                 ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-tags"> 
-                                <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
-                                <option value="" disabled>Any</option>
-                                    {sessionTags.map((tag) => (
-                                        !chosenTags.includes(tag) && (
-                                            <option key={tag} value={tag}>{tag}</option>
-                                        )
-                                    ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-report">
-                                <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-report-title" onChange={handleReportChange} value="">
-                                    <option value="" disabled>Any</option>
-                                    {availableReportFilters.map((status) => (
-                                        !reportFilters.includes(status) && (
-                                            <option key={status} value={status}>{status}</option>
-                                        )
-                                    ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-chosen">
-                                <ul>
-                                    {displayClearAll() && (
-                                        <button onClick={handleClearAllButton}>Clear all</button>
-                                    )}
-                                    {chosenTypes.map((type) => (
-                                        <li key={type}>
-                                            {type} <button onClick={() => handleTypeRemove(type)}>x</button>
-                                        </li>
-                                    ))}
-                                    {chosenTags.map((tag) => (
-                                        <li key={tag}>
-                                            {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
-                                        </li>
-                                    ))}
-                                    {reportFilters.map((status) => (
-                                        <li key={status}>
-                                            {status} <button onClick={() => handleReportRemove(status)}>x</button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                {chosenTags.map((tag) => (
+                                    <li key={tag}>
+                                        {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                    </li>
+                                ))}
+                                {reportFilters.map((status) => (
+                                    <li key={status}>
+                                        {status} <button onClick={() => handleReportRemove(status)}>x</button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                     <table id="athlete-page-sessions-table">

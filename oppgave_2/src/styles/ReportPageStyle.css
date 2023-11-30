@@ -28,3 +28,66 @@
     font-size: 2.5rem;
     margin-bottom: 2.5rem;
 }
+
+#report-page-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+#report-page-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.report-page-interval-expected-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.report-page-interval-expected-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.report-page-interval-achived-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+.report-page-interval-achived-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+#report-page-questions {
+    display: flex;
+    flex-direction: column;
+}
+
+#report-page-question-card {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#report-page-comment-section {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+}

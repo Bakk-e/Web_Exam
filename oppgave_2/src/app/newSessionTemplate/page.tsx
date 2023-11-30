@@ -140,7 +140,7 @@ export default function NewSessionTemplatePage() {
                         <td><button className="new-session-template-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
                     </tr>
                 </table>
-                <div id="new-session-template-page-types">
+                <div id="new-session-template-page-tags">
                     <ul>
                         {chosenTags.map((tag) => (
                             <li key={tag}>
@@ -170,17 +170,17 @@ export default function NewSessionTemplatePage() {
                 </div>
                 <div id="new-session-template-page-interval-and-question">
                     <div id="new-session-template-page-intervals">
-                        <p id="new-session-template-page-intervals-title">Intervals: </p>
+                        <p id="new-session-template-page-intervals-title">Intervaller: </p>
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
-                        <div id="new-session-template-page-intervals-title-buttons">
+                        <div id="new-session-template-page-intervals-buttons">
                             <button id="new-session-template-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="new-session-template-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
                     </div>
                     <div id="new-session-template-page-questions">
-                        <p>Questions: </p>
+                        <p>Spørsmål: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
@@ -190,13 +190,12 @@ export default function NewSessionTemplatePage() {
                             <button id="new-session-template-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
-                    <div id="new-session-template-page-save">
-                        <button id="new-session-template-page-save-button">Save</button>
-                    </div>
+                    
                 </div>
-            
             </div>
-            
+            <div id="new-session-template-page-save">
+                <button id="new-session-template-page-save-button">Lagre</button>
+            </div>
         </div>
     )
 }

@@ -33,7 +33,7 @@ export default function Question(props: questionProps) {
     return (
         <div id="session-question">
             <table id="session-question-table">
-                <tr>
+                <tr className="session-question-table-point">
                     <td><p className="session-question-table-title">Tekst: </p></td>
                     <td><input className="session-question-table-input"
                     type="text"
@@ -42,7 +42,7 @@ export default function Question(props: questionProps) {
                     onChange={(e) => handleTextChange(e, e.target.value)}/>
                     </td>
                 </tr>
-                <tr>
+                <tr className="session-question-table-point">
                     <td><p className="session-question-table-title">Type: </p></td>
                     <td>
                         <select className="session-question-table-dropdown"

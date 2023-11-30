@@ -200,7 +200,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
-                        <div>
+                        <div id="new-session-page-intervals-buttons">
                             <button id="new-session-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="new-session-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
@@ -211,18 +211,17 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div id="new-session-page-questions-title-buttons">
-                            <button id="new-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="new-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                        <div id="new-session-page-questions-buttons">
+                            <button id="new-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="new-session-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>
-                <div id="new-session-page-save">
-                    <button id="new-session-page-save-button">Lagre</button>
-                    <button id="new-session-page-save-template-button">Lagre mal</button>
-                </div>
             </div>
-            
+            <div id="new-session-page-save">
+                <button id="new-session-page-save-button">Lagre</button>
+                <button id="new-session-page-save-template-button">Lagre som mal</button>
+            </div>
         </div>
     )
 }

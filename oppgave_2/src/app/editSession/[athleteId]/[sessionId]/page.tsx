@@ -106,7 +106,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     function handleTagAdd() {
         const chosenTag: string = tagTemp;
         chosenTag.replace(/\s{2,}/g, ' ').trim();
-        if (!chosenTags.includes(chosenTag)) {
+        if (!chosenTags.includes(chosenTag) && chosenTag !== "") {
             setChosenTags([...chosenTags, chosenTag]);
         }
     }
@@ -145,7 +145,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         <td><input className="edit-session-page-create-point-input" onChange={(e) => handleTagsChange(e)}/></td>
                         <td><button className="edit-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
                     </tr>
-                    <div id="edit-session-page-types">
+                    <div id="edit-session-page-tags">
                         <ul>
                             {chosenTags.map((tag) => (
                                 <li key={tag}>
@@ -171,7 +171,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         {intervals.map((interval, index) => (
                             <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
-                        <div>
+                        <div id="edit-session-page-intervals-buttons">
                             <button id="edit-session-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="edit-session-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
@@ -182,15 +182,16 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         {questions.map((question, index) => (
                             <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
-                        <div>
-                            <button id="edit-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="edit-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                        <div id="edit-session-page-questions-buttons">
+                            <button id="edit-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="edit-session-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>
-                <div>
-                    <button>Lagre</button>
-                </div>
+                
+            </div>
+            <div id="edit-session-page-save">
+                <button id="edit-session-page-save-button">Lagre</button>
             </div>
         </div>
     )

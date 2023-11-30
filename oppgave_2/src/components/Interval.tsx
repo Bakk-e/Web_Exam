@@ -33,7 +33,7 @@ export default function Interval(props: intervalProps) {
     return (
         <div id="session-interval">
             <table id="session-interval-table">
-                <tr>
+                <tr className="session-interval-table-point">
                     <td><p className="session-interval-table-title">Varighet: </p></td>
                     <td><input className="session-interval-table-input"
                     type="number"
@@ -43,7 +43,7 @@ export default function Interval(props: intervalProps) {
                     </td>
                     <td><p className="session-interval-table-subtitle">min</p></td>
                 </tr>
-                <tr>
+                <tr className="session-interval-table-point">
                     <td><p className="session-interval-table-title">Intensitetssone: </p></td>
                     <td>
                         <select className="session-interval-table-dropdown"

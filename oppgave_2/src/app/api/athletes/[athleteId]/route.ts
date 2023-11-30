@@ -19,7 +19,7 @@ const athlets: Athlete[] = [
             {"text": "What is the main component of Earth's atmosphere?", type: "text"},
             {"text": "When did the first human land on the moon?", type: "emoji"},
             {"text": "What is the powerhouse of the cell?", type: "text"}
-          ], intervals: [{duration: 4, intensityZone: 3}, {duration: 14, intensityZone: 2}, {duration: 8, intensityZone: 1}, {duration: 4, intensityZone: 2}, {duration: 10, intensityZone: 5}]}]}
+          ], intervals: [{duration: 4, intensityZone: 3}, {duration: 14, intensityZone: 2}, {duration: 8, intensityZone: 1}, {duration: 4, intensityZone: 2}, {duration: 10, intensityZone: 5}], parameters: ["intensity", "speed", "wattage"]}]}
 
 ]
 

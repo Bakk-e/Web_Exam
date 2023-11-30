@@ -1,62 +1,75 @@
-import { Interval } from "@/types"
+import { Interval, Session } from "@/types"
 
 type answerIntervalProps = {
+    session: Session,
     interval: Interval
 }
 
 export default function AnswerInterval(props: answerIntervalProps) {
-    const {interval} = props;
+    const {session, interval} = props;
 
     return (
-        <div>
-            <div id="expected">
-                <table>
-                    <tr>
+        <div id="new-report-page-interval">
+            <div id="new-report-page-interval-expected">
+                <table id="new-report-page-interval-expected-table">
+                    <tr className="new-report-page-interval-expected-point">
                         <th></th>
                         <th>Tid</th>
-                        <th>Sone</th>
+                        <th>Intensitet</th>
                     </tr>
-                    <tr>
+                    <tr className="new-report-page-interval-expected-point">
                         <th>Forventet</th>
                         <td>{interval?.duration}</td>
                         <td>{interval?.intensityZone}</td>
                     </tr>
                 </table>
             </div>
-            <div id="achived">
-                <table>
-                    <tr>
+            <div id="new-report-page-interval-achived">
+                <table id="new-report-page-interval-achived-table">
+                    <tr className="new-report-page-interval-achived-point">
                         <th></th>
                         <th>Min</th>
                         <th>Max</th>
                         <th>Avg</th>
                     </tr>
-                    <tr>
-                        <th>Intensitet</th>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                    </tr>
-                    <tr>
-                        <th>Puls</th>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
-                    </tr>
-                    <tr>
+                    {session && session.parameters && session.parameters?.includes("intensity") && (
+                        <tr className="new-report-page-interval-achived-point">
+                            <th>Intensitet</th>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        </tr>
+                    )}
+                    {session && session.parameters && session.parameters?.includes("heartbeat") && (
+                        <tr className="new-report-page-interval-achived-point">
+                            <th>Puls</th>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                            <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        </tr>
+                    )}
+                    {session && session.parameters && session.parameters?.includes("speed") && (
+                    <tr className="new-report-page-interval-achived-point">
                         <th>Fart</th>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
                     </tr>
-                    <tr>
+                    )}
+                    {session && session.parameters && session.parameters?.includes("wattage") && (
+                    <tr className="new-report-page-interval-achived-point">
                         <th>Watt</th>
-                        <td><input/></td>
-                        <td><input/></td>
-                        <td><input/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
+                    </tr>
+                    )}
+                    <tr>
+                        <th></th>
+                        <th>Tid</th>
+                        <td><input className="new-report-page-interval-achived-point-input"/></td>
                     </tr>
                 </table>
-                <p>Tid: </p>
             </div>
         </div>
     )
