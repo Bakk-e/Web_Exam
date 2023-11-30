@@ -13,8 +13,6 @@ const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) 
     const [correctAnswer, setCorrectAnswer] = useState<number | null>(null)
     const [score, setScore] = useState(0)
     const [attempts, setAttempts] = useState(0)
-   /* const [opperationFails, setOpperationFails] =
-        useState<OpperationErrors>({add:0, subtract:0, multiply:0, divide:0})*/
     let taskText = task.text
     let data = task.data.split("|")
     let type = task.type
@@ -38,28 +36,6 @@ const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) 
         }
     }, [task])
 
-    /*async function getAttempts ()   {
-        async function fetchAttempts(){
-            try {
-                const answersResponse = await fetch(`http://localhost:3000/api/restapi`, {
-                    method : 'GET'
-                })
-                const answerData = await answersResponse.json() as AnswerResponse
-               // const attemptsForTask = answerData.data[task.id]?.attempts || 0
-                setAttempts( answerData.data[task.id]?.attempts || 0)
-
-                console.log("answerData.data", answerData.data)
-                //setAttempts(attemptsForTask)
-                console.log("attemptsForTask",  answerData.data[task.id]?.attempts || 0)
-            }catch (error){
-                console.log("Error getting data: ", error)
-            }
-        }
-        if (task.id){
-            fetchAttempts();
-        }
-    }*/
-
     function convertTypeToString(type: String){
         switch (type) {
             case "add":
@@ -82,10 +58,6 @@ const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) 
     }
 
     const handleWrongAnswer = (operationType : Type) => {
-        /*setOpperationFails(prevErrors => ({
-            ...prevErrors,
-            [operationType] : prevErrors[operationType] + 1
-        }))*/
         onOperationFail(operationType)
     }
 
@@ -93,9 +65,7 @@ const Task: React.FC<TaskProps> = ({ task, onOperationFail, onCorrectAnswer } ) 
 
     return(
         <article>
-            <p>Type : {task.type}</p>
-            <p>Question : {data[0]} {convertTypeToString(type)} {data[1]}</p>
-            <p>Correct Answer: {correctAnswer} </p>
+            <p>Spørsmål : {data[0]} {convertTypeToString(type)} {data[1]}</p>
             <Answer
                 correctAnswer = {correctAnswer}
                 onCheckAnswer = {checkAnswer}

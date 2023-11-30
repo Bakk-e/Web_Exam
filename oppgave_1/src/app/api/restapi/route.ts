@@ -4,9 +4,6 @@ import crypto from "crypto"
 
 import { type Task, Type, PutRequestBody, GetAnswerResponse} from "@/types"
 
-
-
-
 // TODO: Denne skal brukes til å "samle" svarene (om du ikke bruker database)
 let answers = new Map<Task["id"], { attempts: number }>()
 

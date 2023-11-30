@@ -3,10 +3,7 @@
 import {useEffect, useState} from "react"
 import type { FormEvent, MouseEvent } from "react"
 import {AnswerProps, AnswerResponse} from "@/types";
-import {switchCase} from "@babel/types";
-import {Integer} from "type-fest";
-import {response} from "msw";
-//import {body} from "msw";
+
 
 export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong,  task,/* getAttempts*/} : AnswerProps) {
     const [answer, setAnswer] = useState<number | null>(null)
@@ -33,12 +30,6 @@ export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong
       }catch (error){
         console.error("Feil i PUT" , error)
       }
-     // getAttempts()
-      //setAttempts(task.attempts)
-      /*
-      if (!isCorrect && attempts < 3){
-          setAttempts(attempts+1)
-      }*/
        if (isCorrect){
           onCorrect()
       }
@@ -54,11 +45,8 @@ export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong
                 method : 'GET'
             })
             const answerData = await answersResponse.json() as AnswerResponse
-            // const attemptsForTask = answerData.data[task.id]?.attempts || 0
             setAttempts( answerData.data[task.id]?.attempts || 0)
-
             console.log("answerData.data", answerData.data)
-            //setAttempts(attemptsForTask)
             console.log("attemptsForTask",  answerData.data[task.id]?.attempts || 0)
         }catch (error){
             console.log("Error getting data: ", error)
@@ -98,7 +86,7 @@ export default function Answer({correctAnswer, onCheckAnswer, onCorrect, onWrong
             </div>
         ): null}
         <div>
-            {attempts >= 0 && `${attempts} av 3 forsøk brukt`}
+            {!correct && attempts >= 0 && `${attempts} av 3 forsøk brukt`}
             {correct ? "Bra jobba, Riktig svar!" : null}
             {!correct && attempts ===3 && (
                 <div>

@@ -40,9 +40,6 @@ export type GetAnswerResponse = {
   data : Record<Task["id"], {attempts : number}>
 }
 
-/*export type AnswerResponse = {
-  [key : string] : {attempts : number}
-}*/
 export type AnswerResponse = {
   success : boolean
   data : {

@@ -68,7 +68,8 @@ export default function Home() {
             <main>
                 <h1>Resultater</h1>
                 <div>
-                    <p>Correct: {score}</p>
+                    <h3>Correct: {score}</h3>
+                    <h3>Antall feil</h3>
                     <p>Wrong add: {opperationFails.add}</p>
                     <p>Wrong divide: {opperationFails.divide}</p>
                     <p>Wrong multiply: {opperationFails.multiply}</p>
@@ -81,10 +82,6 @@ export default function Home() {
 
     return (
         <main>
-            {/*JSON.stringify(tasks)*/}
-            {/*<Tasks tasks={tasks.data} >
-                </Tasks>*/}
-
             <Header
                 task={tasks.data[currentTask]}
             />
@@ -101,13 +98,11 @@ export default function Home() {
             {tasks && tasks.data &&
                 <Progress
                     tasks={tasks.data}
-                    // onStateChange={setCurrentTask}
                     currentStateIndex={currentTask}
                     setCurrentState={setCurrentTask}
                     onSubmit={handleSubmit}
                 />}
-            {/*(currentTask + 1  === tasks.data.length) &&
-                <button onClick={() => window.location.reload()}>Prøv på nytt</button>*/}
+
         </main>
     )
 

@@ -11,9 +11,9 @@ type TasksProps = {
 const Tasks: React.FC<TasksProps> = ({ tasks, children })  => {
   return (
     <section>
-      {tasks.map((task) => (
+      {/*tasks.map((task) => (
           <Task key={task.id} task={task} />
-      ))}
+      ))*/}
       {children}
     </section>
   )
