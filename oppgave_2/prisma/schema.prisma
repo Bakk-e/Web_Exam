@@ -19,38 +19,49 @@ model Athlete {
   goals             Goal[]
   session           Session[]
   archivedMeta      ArchivedMeta[]
+  template          Template[]
 }
 
 model Competition {
   id         String       @id @default(uuid())
-  title      String
-  date       DateTime
-  location   String
+  title      String?
+  date       DateTime?
+  location   String?
   goal       Goal[]
-  type       String
-  priority   String
-  comment    String
+  type       String?
+  priority   String?
+  comment    String?
   Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
   athleteId  String?
   Interval   Interval[]
   Connection Connection[]
 }
 
+model Questions {
+  id   String  @id @default(uuid())
+  text String?
+  type String?
+
+  Question   Question? @relation(fields: [questionId], references: [id])
+  questionId String?
+  Template   Template? @relation(fields: [templateId], references: [id])
+  templateId String?
+}
+
 model Question {
-  id        String   @id @default(uuid())
-  text      String?
-  type      String?
+  id        String      @id @default(uuid())
+  question  Questions[]
   answer    String?
-  Session   Session? @relation(fields: [sessionId], references: [id])
+  Session   Session?    @relation(fields: [sessionId], references: [id])
   sessionId String?
 }
 
 model Goal {
   id            String       @id @default(uuid())
-  title         String
-  date          DateTime
-  goal          Int
-  comment       String
+  title         String?
+  date          DateTime?
+  goal          Int?
+  comment       String?
   competition   Competition? @relation(fields: [competitionId], references: [id])
   competitionId String?
   Connection    Connection[]
@@ -60,10 +71,10 @@ model Goal {
 
 model Session {
   id         String      @id @default(uuid())
-  date       DateTime
-  title      String
-  tags       String
-  type       String
+  date       DateTime?
+  title      String?
+  tags       String?
+  type       String?
   questions  Question[]
   intervals  Interval[]
   report     Report?
@@ -75,58 +86,72 @@ model Session {
 
 model Interval {
   id            String       @id @default(uuid())
-  session       Session      @relation(fields: [sessionId], references: [id])
-  sessionId     String
-  duration      Int
-  intensity     Int
+  session       Session?     @relation(fields: [sessionId], references: [id])
+  sessionId     String?
+  duration      Int?
+  intensity     Int?
   Competition   Competition? @relation(fields: [competitionId], references: [id])
   competitionId String?
+  Template      Template?    @relation(fields: [templateId], references: [id])
+  templateId    String?
 }
 
 model Report {
   id             String           @id @default(uuid())
-  status         String
+  status         String?
   intervalReport IntervalReport[]
-  comments       String
-  session        Session          @relation(fields: [sessionId], references: [id])
-  sessionId      String           @unique
+  comments       String?
+  session        Session?         @relation(fields: [sessionId], references: [id])
+  sessionId      String?          @unique
 }
 
 model IntervalReport {
   id                  Int    @id @default(autoincrement())
   report              Report @relation(fields: [reportId], references: [id])
   reportId            String
-  intervalNumber      Int
-  averageIntesitySone Int
-  minHeartRate        Int
-  maxHeartRate        Int
-  averageHeartRate    Int
-  minSpeed            Float
-  maxSpeed            Float
-  averageSpeed        Float
-  minWattage          Int
-  maxWattage          Int
-  averageWattage      Int
-  duration            Int
+  intervalNumber      Int?
+  averageIntesitySone Int?
+  minHeartRate        Int?
+  maxHeartRate        Int?
+  averageHeartRate    Int?
+  minSpeed            Float?
+  maxSpeed            Float?
+  averageSpeed        Float?
+  minWattage          Int?
+  maxWattage          Int?
+  averageWattage      Int?
+  duration            Int?
 }
 
 model Connection {
   id            Int          @id @default(autoincrement())
-  session       Session      @relation(fields: [sessionId], references: [id])
-  sessionId     String       @unique
+  session       Session?     @relation(fields: [sessionId], references: [id])
+  sessionId     String?      @unique
   goal          Goal?        @relation(fields: [goalId], references: [id])
   competition   Competition? @relation(fields: [competitionId], references: [id])
   goalId        String?
   competitionId String?
 }
 
-model ArchivedMeta {
-  id           Int      @id @default(autoincrement())
-  athleteId    String   @unique
-  heartrate    Int
-  watt         Int
-  speed        Int
-  archivedDate DateTime @default(now())
+model Template {
+  id         String      @id @default(uuid())
+  title      String?
+  tags       String?
+  type       String?
+  questions  Questions[]
+  intervals  Interval[]
+  parameters String?
+  Athlete    Athlete?    @relation(fields: [athleteId], references: [id])
+  athleteId  String?
+}
 
-  Athlete Athlete @relation(fields: [athleteId], references: [id])
+model ArchivedMeta {
+  id           Int       @id @default(autoincrement())
+  athleteId    String?   @unique
+  heartrate    Int?
+  watt         Int?
+  speed        Int?
+  archivedDate DateTime? @default(now())
+
+  Athlete Athlete? @relation(fields: [athleteId], references: [id])
 }
