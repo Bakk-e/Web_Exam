@@ -281,7 +281,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-sessions">
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
-                        <p id="athlete-page-sessions-filters-title">Filters</p>
+                        <p id="athlete-page-sessions-filters-title">Filter</p>
                         <div id="athlete-page-sessions-filters-section">
                             <div id="athlete-page-sessions-filters-date">
                                 <p id="athlete-page-sessions-filters-date-title">Dato:</p>
@@ -366,6 +366,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <ViewSession athleteId={params.id} session={session}></ViewSession>
                         ))}
                     </table>
+                    <div id="athlete-page-sessions-analyze">
+                        <button id="athlete-page-sessions-analyze-button">Analyser</button>
+                    </div>
                 </div>
             </div>
             {athlete && (
