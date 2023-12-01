@@ -1,10 +1,8 @@
-import { PrismaClient } from "@prisma/client"
+import prisma from "@/lib/db"
 
 import { Athlete , ApiProps} from "@/types"
 
-const prisma = new PrismaClient()
 
-//const fetchAthletesFromAPI = async (url: string): Promise<Athlete[]> => {
 async function fetchAthletesFromAPI(): Promise<Athlete[]> {
   let hasMore = true
   let page = 1
@@ -23,10 +21,6 @@ async function fetchAthletesFromAPI(): Promise<Athlete[]> {
   }
   return allAthletes
 
-
- // return response.json() as Promise<Athlete[]>
-
-  //return response.json() as Promise<Athlete[]>
 }
 
 async function insertAthleteData (athlete : Athlete) {
@@ -51,4 +45,3 @@ async function insertAthleteAndRelatedData(athleteData : Athlete){
 
 export { fetchAthletesFromAPI , insertAthleteData}
 
-//module.exports = { loadData }

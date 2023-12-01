@@ -199,7 +199,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         </tr>
                         <tr>
                             <th>Puls</th>
-                            {athlete && (
+                            {athlete && athlete.maxHeartRate !== undefined && (
                                 <>
                                     <td>{((athlete.maxHeartRate * 0.5).toFixed(0))}</td>
                                     <td>{((athlete.maxHeartRate * 0.6).toFixed(0))}</td>
@@ -211,7 +211,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         </tr>
                         <tr>
                             <th>Watt</th>
-                            {athlete && (
+                            {athlete && athlete.thresholdWattage !== undefined && (
                                 <>
                                     <td>{((athlete.thresholdWattage * 0.5).toFixed(0))}</td>
                                     <td>{((athlete.thresholdWattage * 0.6).toFixed(0))}</td>
@@ -223,7 +223,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         </tr>
                         <tr>
                             <th>Fart</th>
-                            {athlete && (
+                            {athlete && athlete.thresholdSpeed !== undefined && (
                                 <>
                                     <td>{((athlete.thresholdSpeed * 0.5).toFixed(1))}</td>
                                     <td>{((athlete.thresholdSpeed * 0.6).toFixed(1))}</td>
