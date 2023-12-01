@@ -39,18 +39,24 @@ export default function Home() {
           <Notifications></Notifications>
         </nav>
       </header>
-      <div id="main-page-athlete-list">
+        <div className="search-bar-container">
             <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
+        </div>
+      <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
-                <tr>
-                    <th>Id</th>
-                    <th>Kjønn</th>
-                    <th>Sport</th>
-                    <th>Rapporter</th>
-                </tr>
-                {searchedAthlete.map((athlete) => (
-                  <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
-                ))}
+                <thead>
+                    <tr>
+                        <th>Id</th>
+                        <th>Kjønn</th>
+                        <th>Sport</th>
+                        <th>Rapporter</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {searchedAthlete.map((athlete) => (
+                        <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
+                    ))}
+                </tbody>
             </table>
         </div>
     </div>
