@@ -39,8 +39,10 @@ export default function Home() {
           <Notifications></Notifications>
         </nav>
       </header>
-      <div id="main-page-athlete-list">
+        <div className="search-bar-container">
             <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
+        </div>
+      <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
                 <tr>
                     <th>Id</th>

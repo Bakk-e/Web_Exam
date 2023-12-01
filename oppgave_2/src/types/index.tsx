@@ -68,7 +68,7 @@ export type Session = {
 
 export type Athlete = {
     id: string,
-    userId: string,
+    userId: string;
     gender: string,
     sport: string,
     maxHeartRate?: number,

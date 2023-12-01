@@ -9,6 +9,7 @@ datasource db {
 
 model Athlete {
   id               String        @id @default(uuid())
+  userId           String
   gender           String
   sport            String
   maxHeartRate     Int?
