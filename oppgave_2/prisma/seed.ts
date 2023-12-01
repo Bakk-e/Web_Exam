@@ -6,6 +6,7 @@ const prisma = new PrismaClient()
 
 async function main() {
     try {
+        await prisma.athlete.deleteMany()
         const athletesFromApi = await fetchAthletesFromAPI()
 
         for (const athlete of athletesFromApi){
