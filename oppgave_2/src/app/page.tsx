@@ -2,29 +2,29 @@
 
 import Link from "next/link";
 import "@/styles/MainPageStyle.css"
-import AthleteProps from "@/components/AthleteProps";
+import Athlete from "@/components/Athlete";
 import { useEffect, useState } from "react";
-import { Athlete } from "@/types";
+import { AthleteMini } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
 import Notifications from "@/components/Notifications";
 
 export default function Home() {
-  const [athleteInfos, setAthleteInfos] = useState<Athlete[]>([]);
-  const [searchedAthlete, setSearchedAthletes] = useState<Athlete[]>([]);
+  const [athleteInfos, setAthleteInfos] = useState<AthleteMini[]>([]);
+  const [searchedAthlete, setSearchedAthletes] = useState<AthleteMini[]>([]);
 
   useEffect(() =>{
     const getAthleteInfos = async () => {
       const response = await fetch("/api/athletes", {
         method: "GET",
       });
-      const result = (await response.json()) as {data: Athlete[]};
+      const result = (await response.json()) as {data: AthleteMini[]};
       setAthleteInfos(result.data);
       setSearchedAthletes(result.data);
     }
     getAthleteInfos();
   }, []);
 
-  function onSearch(filteredAthletes: Athlete[]) {
+  function onSearch(filteredAthletes: AthleteMini[]) {
     setSearchedAthletes(filteredAthletes);
   }
 
@@ -46,7 +46,7 @@ export default function Home() {
             <table id="main-page-athlete-table">
                 <thead>
                     <tr>
-                        <th>UserId</th>
+                        <th>Id</th>
                         <th>Kjønn</th>
                         <th>Sport</th>
                         <th>Rapporter</th>
@@ -54,7 +54,7 @@ export default function Home() {
                 </thead>
                 <tbody>
                     {searchedAthlete.map((athlete) => (
-                        <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
+                        <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
                     ))}
                 </tbody>
             </table>
