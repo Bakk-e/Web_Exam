@@ -26,7 +26,7 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
 
             return NextResponse.json(
                 { data: (await athletes).map((athlete) =>(
-                    { id: athlete.id , sport: athlete.sport, gender: athlete.gender}
+                    { id: athlete.id ,userId : athlete.userId, sport: athlete.sport, gender: athlete.gender}
                 )) }, 
                 { status: 200 })
         } catch (error) {
@@ -35,37 +35,3 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
         }
     }
 }
-
-/*
-export async function POST(request: NextRequest) {
-    if (request.method === "POST") {
-        try {
-            const data = await request.json()
-
-            const createAthlete = await prisma.athlete.create({
-                data: {
-                    userId: data.userId,
-                    gender: data.gender,
-                    sport: data.sport,
-                    maxHeartRate: data.maxHeartRate,
-                    thresholdWattrate: data.thresholdWattrate,
-                    thresholdSpeed: data.thresholdSpeed
-                }
-            })
-
-            return NextResponse.json({
-                { data: }
-            })
-            
-        } catch (error) {
-            
-        }
-    }
-}
-
-/*
-export async function POST(request: NextResponse) {
-    const data = await request.json()
-    return NextResponse.json({ status: 200 })
-}
-*/
