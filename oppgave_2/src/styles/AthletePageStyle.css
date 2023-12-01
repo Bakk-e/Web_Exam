@@ -661,3 +661,23 @@
 #athlete-page-sessions-table-status {
     text-align: center;
 }
+
+#athlete-page-sessions-analyze {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 2rem;
+}
+
+#athlete-page-sessions-analyze-button {
+    border-radius: 1.8rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 9rem;
+    height: 3rem;
+    color: var(--white);
+    background-color: var(--cgBlue);
+}
+
+#athlete-page-sessions-analyze-button.pressed {
+    background-color: var(--cgBlueDark);
+}

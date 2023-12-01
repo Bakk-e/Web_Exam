@@ -11,6 +11,7 @@ import ViewSession from "@/components/ViewSession";
 import "@/styles/AthletePageStyle.css"
 import { Athlete, Competition, Goal, Session } from "@/types";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 const initialState = {open: false};
@@ -32,6 +33,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [sortOrder, setSortOrder] = useState<string>("ascending");
     const [acendButton, setAcendButton] = useState<boolean>(true);
     const [dcendButton, setDcendButton] = useState<boolean>(false);
+    const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
+
+    const router = useRouter()
 
     useEffect(() => {
         const getAthlete = async () => {
@@ -177,6 +181,21 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             setDcendButton(true);
             setSortOrder(order);
         }
+    }
+
+    function toggleSession(session: Session) {
+        const isSelected = selectedSessions.includes(session);
+        if (isSelected) {
+            setSelectedSessions(selectedSessions.filter((item) => item !== session));
+        } else {
+            setSelectedSessions([...selectedSessions, session]);
+        }
+    }
+
+    function handleAnalyzeButton() {
+        const sessionsIds = selectedSessions.map((session) => session.id);
+        const sessionsString = sessionsIds.join("+");
+        router.push(`/analyzeSessions/${athlete?.id}/${sessionsString}`);
     }
 
     return (
@@ -363,11 +382,13 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Slett</th>
                         </tr>
                         {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session}></ViewSession>
+                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} selectedSessions={selectedSessions}></ViewSession>
                         ))}
                     </table>
                     <div id="athlete-page-sessions-analyze">
-                        <button id="athlete-page-sessions-analyze-button">Analyser</button>
+                        {selectedSessions.length > 1 && (
+                            <button id="athlete-page-sessions-analyze-button" onClick={handleAnalyzeButton}>Analyser: {selectedSessions.length}</button>
+                        )}
                     </div>
                 </div>
             </div>
