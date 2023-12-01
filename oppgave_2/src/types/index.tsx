@@ -34,6 +34,7 @@ type ReportInterval = {
 }
 
 export type Question = {
+    id? : string,
     text?: string,
     type?: "text" | "radio" | "emoji",
     answer?: string
@@ -47,6 +48,7 @@ export type Report = {
 }
 
 export type Interval = {
+    id? : string,
     duration?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5
 }
@@ -68,12 +70,17 @@ export type Athlete = {
     id: string,
     gender: string,
     sport: string,
-    maxHeartRate: number,
-    thresholdWattage: number,
-    thresholdSpeed: number,
+    maxHeartRate?: number,
+    thresholdWattage?: number,
+    thresholdSpeed?: number,
+    meta? : {
+        heartrate? : number,
+        watt? : number,
+        speed? : number,
+    },
+    sessions?: Session[]
     competitions?: Competition[],
     goals?: Goal[],
-    sessions?: Session[]
 }
 
 export type AthleteMini = {
@@ -125,4 +132,13 @@ export type ReportIntervalInfo = {
 export type parameter = {
     eng: string,
     no: string
+}
+
+export type ApiProps = {
+    pages : number
+    success : boolean
+    hasMore : boolean
+    page : number
+    data : Athlete[]
+
 }

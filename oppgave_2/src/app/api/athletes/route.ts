@@ -41,7 +41,20 @@ export async function POST(request: NextRequest) {
         try {
             const data = await request.json()
 
-            const createAthlete = await prisma
+            const createAthlete = await prisma.athlete.create({
+                data: {
+                    userId: data.userId,
+                    gender: data.gender,
+                    sport: data.sport,
+                    maxHeartRate: data.maxHeartRate,
+                    thresholdWattrate: data.thresholdWattrate,
+                    thresholdSpeed: data.thresholdSpeed
+                }
+            })
+
+            return NextResponse.json({
+                { data: }
+            })
             
         } catch (error) {
             

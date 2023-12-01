@@ -8,32 +8,31 @@ datasource db {
 }
 
 model Athlete {
-  id                String         @id @default(uuid())
-  userId            String         @unique
-  gender            String
-  sport             String
-  maxHeartRate      Int
-  thresholdWattrate Int
-  thresholdSpeed    Int
-  competitions      Competition[]
-  goals             Goal[]
-  session           Session[]
-  archivedMeta      ArchivedMeta[]
-  template          Template[]
+  id               String        @id @default(uuid())
+  gender           String
+  sport            String
+  maxHeartRate     Int?
+  thresholdWattage Int?
+  thresholdSpeed   Int?
+  sessions         Session[]
+  competitions     Competition[]
+  goals            Goal[]
+  templates        Template[]
+  ArchivedMeta     ArchivedMeta?
 }
 
 model Competition {
   id         String       @id @default(uuid())
   title      String?
-  date       DateTime?
   location   String?
-  goal       Goal[]
+  date       DateTime?
+  goal       String?
   type       String?
-  priority   String?
   comment    String?
-  Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
-  athleteId  String?
-  Interval   Interval[]
+  athleteId  String
+  Athlete    Athlete      @relation(fields: [athleteId], references: [id])
+  goals      Goal[]
+  intervals  Interval[]
   Connection Connection[]
 }
 
