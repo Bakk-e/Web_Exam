@@ -4,7 +4,6 @@ import prisma from "@/lib/db"
 =======
 import { PrismaClient } from "@prisma/client"
 import { fetchAthletesFromAPI, insertAthleteData } from "./getData"
->>>>>>> origin/jacob_holth_oppgave2
 
 
 
@@ -27,11 +26,7 @@ async function main() {
 
 //const main = async () => {
   //try {
-<<<<<<< HEAD
-    //await loadData()
-=======
   //  await fetchAthletesFromAPI()
->>>>>>> origin/jacob_holth_oppgave2
 
    // console.log("Data loaded")
   } 

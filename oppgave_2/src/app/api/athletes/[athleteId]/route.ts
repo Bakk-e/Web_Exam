@@ -1,31 +1,3 @@
-<<<<<<< HEAD
-
-import { NextApiRequest, NextApiResponse } from 'next';
-import { NextRequest, NextResponse } from "next/server";
-
-import prisma from '@/lib/db';
-
-
-export function GET(request: NextApiRequest, response: NextApiResponse) {
-  if (request.method === "GET") {
-    try {
-      const { athleteId } = request.query
-      const athlete = prisma.athlete.findUnique({
-        where: { id: athleteId as string },
-      })
-      //const { athleteId } = context.params;
-      //const athlet = athlets.find(({ id }) => id === athleteId);
-
-      return NextResponse.json({ data: athlete }, { status: 200 })
-    } catch (error) {
-      console.error(error)
-      response.status(500).json({ error: "Internal Server Error" })
-    }
-  }
-}
-
-/*
-=======
 import { PrismaClient, } from '@prisma/client';
 import {NextRequest, NextResponse} from "next/server";
 import {ApiProps} from "@/types/index"
@@ -307,9 +279,4 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     console.error(error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
-<<<<<<< HEAD
-}
-*/
-=======
 }*/
->>>>>>> origin/jacob_holth_oppgave2
