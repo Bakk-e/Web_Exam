@@ -15,7 +15,7 @@ export default function Home() {
   useEffect(() =>{
     const getAthleteInfos = async () => {
       const response = await fetch("/api/athletes", {
-        method: "get",
+        method: "GET",
       });
       const result = (await response.json()) as {data: AthleteMini[]};
       setAthleteInfos(result.data);

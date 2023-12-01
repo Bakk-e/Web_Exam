@@ -1,15 +1,31 @@
 import { PrismaClient } from "@prisma/client"
-import { loadData } from "./getData"
+import { fetchAthletesFromAPI, insertAthleteData } from "./getData"
 
 
 const prisma = new PrismaClient()
 
 async function main() {
+    try {
+        const athletesFromApi = await fetchAthletesFromAPI()
+
+        for (const athlete of athletesFromApi){
+            await insertAthleteData(athlete)
+        }
+        console.log("data loaded")
+    }catch (error){
+        console.error("failed to load: " , error)
+        process.exit(1)
+    }
+    /*finally {
+        prisma.$disconnect()
+    }*/
+
+
 //const main = async () => {
   //try {
-    await loadData()
+  //  await fetchAthletesFromAPI()
 
-    console.log("Data loaded")
+   // console.log("Data loaded")
   } 
   /*
   catch (e) {

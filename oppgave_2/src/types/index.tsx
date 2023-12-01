@@ -34,6 +34,7 @@ type ReportInterval = {
 }
 
 export type Question = {
+    id? : string,
     text?: string,
     type?: "text" | "radio" | "emoji",
     answer?: string
@@ -47,6 +48,7 @@ export type Report = {
 }
 
 export type Interval = {
+    id? : string,
     duration?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5
 }
