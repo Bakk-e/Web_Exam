@@ -14,7 +14,6 @@ const athleteInfos: AthleteMini[] = [
 export async function GET(request: NextApiRequest, response: NextApiResponse) {
     if (request.method === "GET") {
         try {
-            //const athleteId = request.query.athleteId
 
             const athletes = prisma.athlete.findMany({
                 select: {
@@ -36,6 +35,7 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
     }
 }
 
+/*
 export async function POST(request: NextRequest) {
     if (request.method === "POST") {
         try {
