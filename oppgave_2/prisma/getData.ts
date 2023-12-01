@@ -27,6 +27,7 @@ async function insertAthleteData (athlete : Athlete) {
   await prisma.athlete.create({
     data: {
       id: athlete.id,
+      userId : athlete.userId,
       gender: athlete.gender,
       sport: athlete.sport,
       //

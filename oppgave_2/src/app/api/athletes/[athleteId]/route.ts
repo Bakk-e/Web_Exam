@@ -83,6 +83,7 @@ async function handler(req : NextRequest, res : NextResponse){
       await prisma.athlete.create({
         data: {
           id: user.id,
+          userId : user.userId,
           gender: user.gender,
           sport: user.sport,
           maxHeartRate: user.maxHeartRate,

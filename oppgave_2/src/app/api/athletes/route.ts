@@ -18,6 +18,7 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
             const athletes = prisma.athlete.findMany({
                 select: {
                     id: true,
+                    userId : true,
                     sport: true,
                     gender: true,
                 }
@@ -25,7 +26,7 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
 
             return NextResponse.json(
                 { data: (await athletes).map((athlete) =>(
-                    { id: athlete.id, sport: athlete.sport, gender: athlete.gender}
+                    { id: athlete.id , sport: athlete.sport, gender: athlete.gender}
                 )) }, 
                 { status: 200 })
         } catch (error) {
