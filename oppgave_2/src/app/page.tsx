@@ -45,7 +45,7 @@ export default function Home() {
       <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
                 <tr>
-                    <th>Id</th>
+                    <th>UserId</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
                     <th>Rapporter</th>
