@@ -1,4 +1,3 @@
-import { t } from "msw/lib/glossary-de6278a9"
 import { NextApiRequest, NextApiResponse } from "next"
 import { NextRequest, NextResponse } from "next/server"
 
@@ -10,9 +9,9 @@ export async function GET(request: NextApiRequest, context: any) {
     const { userId } = context.params
     //const athleteId = userId || id
 
-    //console.log("AthleteId: ", userId)
     /*
-    const athlete = await prisma.athlete.findFirst({
+    //console.log("AthleteId: ", userId)
+    const athlete = await prisma.athlete.findUnique({
       where: {
         userId: userId,
       },
@@ -26,20 +25,22 @@ export async function GET(request: NextApiRequest, context: any) {
     }
     */
 
-    const athleteDetails = await prisma.athlete.findUnique({
+    const athleteDetails = await prisma.athlete.findFirst({
       where: {
         //id: athlete.id,
         userId: userId,
       },
+      /*
       include: {
         competitions: true,
         goals: true,
         sessions: true,
       },
+      */
     })
 
     console.log("athlete: ", athleteDetails)
-    if (athleteDetails) {
+    if (!athleteDetails) {
       throw new Error("Athlete not found")
     }
 

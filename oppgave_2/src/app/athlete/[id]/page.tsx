@@ -184,8 +184,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
                 <p id="athlete-page-info-heartrate">Maks puls: {athlete?.maxHeartRate}</p>
-                <p id="athlete-page-info-wattage">Terskel watt: {athlete?.thresholdWattage}</p>
-                <p id="athlete-page-info-speed">Terskel fart: {athlete?.thresholdSpeed}kmh</p>
+                <p id="athlete-page-info-wattage">Terskel watt: {athlete?.thresholdWattage}W</p>
+                <p id="athlete-page-info-speed">Terskel fart: {athlete?.thresholdSpeed} km/h</p>
                 <div id="athlete-page-inteval-zones">
                     <p id="athlete-page-inteval-zones-title">Intervall soner:</p>
                     <table id="athlete-page-inteval-zones-table">
