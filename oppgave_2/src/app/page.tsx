@@ -46,6 +46,7 @@ export default function Home() {
                     <th>Id</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
+                    <th>Gå til</th>
                     <th>Rapporter</th>
                 </tr>
                 {searchedAthlete.map((athlete) => (
