@@ -125,21 +125,21 @@ export default function NewSessionTemplatePage() {
             </header>
             <div id="new-session-template-page-create">
                 <p id="new-session-template-page-title">Ny økt</p>
-                <table id="new-session-template-page-table">
-                    <tr className="new-session-template-page-create-point">
-                        <td className="new-session-template-page-create-point-title">Titel: </td>
-                        <td><input className="new-session-template-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-template-page-create-point">
-                        <td className="new-session-template-page-create-point-title">Type: </td>
-                        <td><input className="new-session-template-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-template-page-create-point">
-                        <td className="new-session-template-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-template-page-create-point-input" onChange={(e) => handleTagsChange(e)}/></td>
-                        <td><button className="new-session-template-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
-                    </tr>
-                </table>
+                <div id="new-session-template-page-table">
+                    <div className="new-session-template-page-create-point">
+                        <p className="new-session-template-page-create-point-title">Titel: </p>
+                        <input className="new-session-template-page-create-point-input"/>
+                    </div>
+                    <div className="new-session-template-page-create-point">
+                        <p className="new-session-template-page-create-point-title">Type: </p>
+                        <input className="new-session-template-page-create-point-input"/>
+                    </div>
+                    <div className="new-session-template-page-create-point">
+                        <p className="new-session-template-page-create-point-title">Tags: </p>
+                        <input className="new-session-template-page-create-point-input" onChange={(e) => handleTagsChange(e)}/>
+                        <button className="new-session-template-page-create-point-button" onClick={handleTagAdd}>Legg til</button>
+                    </div>
+                </div>
                 <div id="new-session-template-page-tags">
                     <ul>
                         {chosenTags.map((tag) => (
@@ -172,7 +172,7 @@ export default function NewSessionTemplatePage() {
                     <div id="new-session-template-page-intervals">
                         <p id="new-session-template-page-intervals-title">Intervaller: </p>
                         {intervals.map((interval, index) => (
-                            <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
+                            <Interval key={interval.key} index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
                         ))}
                         <div id="new-session-template-page-intervals-buttons">
                             <button id="new-session-template-page-intervals-add" onClick={addInterval}>Add interval</button>
@@ -183,7 +183,7 @@ export default function NewSessionTemplatePage() {
                         <p>Spørsmål: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
-                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
+                            <Question key={question.key} index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
                         <div id="new-session-template-page-questions-title-buttons">
                             <button id="new-session-template-page-questions-add" onClick={addQuestion}>Add spørsmål</button>

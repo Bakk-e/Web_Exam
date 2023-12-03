@@ -60,28 +60,28 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
             </header>
             <div id="report-page-info">
                 <p id="report-page-id">Report</p>
-                <table id="report-page-table">
-                    <tr className="report-page-create-point">
-                        <td className="report-page-create-point-titel">Navn:</td>
-                        <th className="report-page-create-point-text">{session?.title}</th>
-                    </tr>
-                    <tr className="report-page-create-point">
-                        <td className="report-page-create-point-titel">Dato:</td>
+                <div id="report-page-table">
+                    <div className="report-page-create-point">
+                        <p className="report-page-create-point-titel">Navn:</p>
+                        <p className="report-page-create-point-text">{session?.title}</p>
+                    </div>
+                    <div className="report-page-create-point">
+                        <p className="report-page-create-point-titel">Dato:</p>
                         {session?.date ? (
-                            <th className="report-page-create-point-text">{DateToString(session?.date?.toString())}</th>
+                            <p className="report-page-create-point-text">{DateToString(session?.date?.toString())}</p>
                         ) : (
-                            <th className="report-page-create-point-text">Null</th>
+                            <p className="report-page-create-point-text">Null</p>
                         )}
-                    </tr>
-                    <tr className="report-page-create-point">
-                        <td className="report-page-create-point-titel">Type:</td>
-                        <th className="report-page-create-point-text">{session?.type}</th>
-                    </tr>
-                    <tr className="report-page-create-point">
-                        <td className="report-page-create-point-titel">Status:</td>
-                        <th className="report-page-create-point-text">{session?.report?.status}</th>
-                    </tr>
-                </table>
+                    </div>
+                    <div className="report-page-create-point">
+                        <p className="report-page-create-point-titel">Type:</p>
+                        <p className="report-page-create-point-text">{session?.type}</p>
+                    </div>
+                    <div className="report-page-create-point">
+                        <p className="report-page-create-point-titel">Status:</p>
+                        <p className="report-page-create-point-text">{session?.report?.status}</p>
+                    </div>
+                </div>
                 <div id="report-page-intervals">
                     <p id="report-page-intervals-titel">Intervaller:</p>
                     {intervals.map((interval) => (

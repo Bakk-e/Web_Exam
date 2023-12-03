@@ -32,29 +32,26 @@ export default function Question(props: questionProps) {
 
     return (
         <div id="session-question">
-            <table id="session-question-table">
-                <tr className="session-question-table-point">
-                    <td><p className="session-question-table-title">Tekst: </p></td>
-                    <td><input className="session-question-table-input"
+            <div id="session-question-table">
+                <div className="session-question-table-point">
+                    <p className="session-question-table-title">Tekst: </p>
+                    <input className="session-question-table-input"
                     type="text"
                     placeholder="Spørsmål tekst"
                     value={data.text}
                     onChange={(e) => handleTextChange(e, e.target.value)}/>
-                    </td>
-                </tr>
-                <tr className="session-question-table-point">
-                    <td><p className="session-question-table-title">Type: </p></td>
-                    <td>
-                        <select className="session-question-table-dropdown"
-                        value={data.type}
-                        onChange={(e) => handleTypeChange(e, e.target.value)}>
-                            <option value="tekst">Tekst</option>
-                            <option value="radio">Radio</option>
-                            <option value="emoji">Emoji</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+                </div>
+                <div className="session-question-table-point">
+                    <p className="session-question-table-title">Type: </p>
+                    <select className="session-question-table-dropdown"
+                    value={data.type}
+                    onChange={(e) => handleTypeChange(e, e.target.value)}>
+                        <option value="tekst">Tekst</option>
+                        <option value="radio">Radio</option>
+                        <option value="emoji">Emoji</option>
+                    </select>
+                </div>
+            </div>
         </div>
     )
 }
