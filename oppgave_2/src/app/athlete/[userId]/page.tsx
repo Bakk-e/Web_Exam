@@ -15,7 +15,7 @@ import { useEffect, useState } from "react"
 
 const initialState = {open: false};
 
-export default function AthletePage({ params }: { params: { id: string }}) {
+export default function AthletePage({ params }: { params: { userId: string }}) {
     const availableReportFilters: string[] = ["ingen", "no", "low", "normal", "high"];
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
@@ -33,10 +33,14 @@ export default function AthletePage({ params }: { params: { id: string }}) {
 
     useEffect(() => {
         const getAthlete = async () => {
-            const response = await fetch(`/api/athletes/${params.id}`, {
-                method: "get",
+            console.log("Fetching athlete with userId: ", params.userId);
+            const response = await fetch(`/api/athletes/${params.userId}`, {
+                method: "GET",
             });
             const result = (await response.json()) as {data: Athlete};
+
+            console.log("API response: ", result.data)
+            
             setAthlete(result.data);
             let typesTemp: string[] = [];
             let tagsTemp: string[] = [];
@@ -174,13 +178,13 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <header id="athlete-page-header">
                 <Link legacyBehavior href="/"><a id="athlete-page-logo">Logo</a></Link>
                 <nav id="athlete-page-nav">
-                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
+                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.userId}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
                     <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
                     <Notifications></Notifications>
                 </nav>
             </header>
             <div id="athlete-page-info">
-                <p id="athlete-page-id">{params.id}</p>
+                <p id="athlete-page-id">{params.userId}</p>
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
                 <p id="athlete-page-info-heartrate">Maks puls: {athlete?.maxHeartRate}</p>
@@ -248,7 +252,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     {athlete && athlete.competitions && (
                         athlete.competitions.length < 3 && (
                         <div id="athlete-page-competitions-card-add">
-                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.userId}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
                         </div>
                         )
                     )}
@@ -261,7 +265,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     {athlete && athlete.goals && (
                         athlete.goals.length < 3 && (
                             <div id="athlete-page-goals-card-add">
-                                <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                                <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.userId}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
                             </div>
                         )
                     )}
@@ -349,7 +353,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Slett</th>
                         </tr>
                         {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session}></ViewSession>
+                            <ViewSession athleteId={params.userId} session={session}></ViewSession>
                         ))}
                     </table>
                 </div>

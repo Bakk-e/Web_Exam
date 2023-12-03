@@ -1,45 +1,21 @@
+import prisma from "@/lib/db"
 import { NextApiRequest, NextApiResponse } from "next"
 import { NextRequest, NextResponse } from "next/server"
 
-import prisma from "@/lib/db"
 import { ApiProps } from "@/types/index"
 
 export async function GET(request: NextApiRequest, context: any) {
   try {
     const { userId } = context.params
-    //const athleteId = userId || id
-
-    /*
-    //console.log("AthleteId: ", userId)
-    const athlete = await prisma.athlete.findUnique({
-      where: {
-        userId: userId,
-      },
-      select: {
-        id: true,
-      },
-    })
-
-    if (!athlete) {
-      throw new Error("Athlete not found")
-    }
-    */
+    console.log("userId in API: ", userId)
 
     const athleteDetails = await prisma.athlete.findFirst({
       where: {
-        //id: athlete.id,
         userId: userId,
       },
-      /*
-      include: {
-        competitions: true,
-        goals: true,
-        sessions: true,
-      },
-      */
     })
 
-    console.log("athlete: ", athleteDetails)
+    console.log("athlete recieved from the db: ", athleteDetails)
     if (!athleteDetails) {
       throw new Error("Athlete not found")
     }

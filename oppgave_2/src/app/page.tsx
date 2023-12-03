@@ -4,7 +4,7 @@ import Link from "next/link";
 import "@/styles/MainPageStyle.css"
 import AthleteProps from "@/components/AthleteProps";
 import { useEffect, useState } from "react";
-import { Athlete, AthleteMini } from "@/types";
+import { Athlete } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
 import Notifications from "@/components/Notifications";
 
