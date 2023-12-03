@@ -650,6 +650,11 @@
     margin-left: 0.5rem;
 }
 
+#athlete-page-sessions-selected-type {
+    display: flex;
+    justify-content: center;
+}
+
 #athlete-page-sessions-filters-dropdowns-clear-all {
     display: flex;
     justify-content: center;

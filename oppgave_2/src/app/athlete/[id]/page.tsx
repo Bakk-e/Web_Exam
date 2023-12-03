@@ -188,17 +188,20 @@ export default function AthletePage({ params }: { params: { id: string }}) {
 
     function toggleSession(session: Session) {
         const isSelected = selectedSessions.some(item => item.id === session.id);
-        if (isSelected) {
-            if (selectedSessions.length == 1) {
-                setSelectedSessionType("");
+        if (session.report) {
+            if (isSelected) {
+                if (selectedSessions.length == 1) {
+                    setSelectedSessionType("");
+                }
+                setSelectedSessions(selectedSessions.filter((item) => item.id !== session.id));
+            } else {
+                if (selectedSessions.length == 0 && session.type) {
+                    setSelectedSessionType(session.type);
+                }
+                setSelectedSessions([...selectedSessions, session]);
             }
-            setSelectedSessions(selectedSessions.filter((item) => item.id !== session.id));
-        } else {
-            if (selectedSessions.length == 0 && session.type) {
-                setSelectedSessionType(session.type);
-            }
-            setSelectedSessions([...selectedSessions, session]);
         }
+        
     }
 
     function handleIsDisabled(session: Session) {
@@ -333,17 +336,19 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                 <button className={`athlete-page-sessions-filters-date-dcend ${dcendButton ? "pressed" : ""}`} onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
                             </div>
                             <div id="athlete-page-sessions-filters-dropdowns">
-                                <div id="athlete-page-sessions-filters-dropdowns-type">
-                                    <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
-                                    <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
-                                        <option value="" disabled>Any</option>
-                                        {sessionTypes.map((type) => (
-                                        !chosenTypes.includes(type) && (
-                                            <option key={type} value={type}>{type}</option>
-                                        )
-                                    ))}
-                                    </select>
-                                </div>
+                                {selectedSessionType === "" && (
+                                    <div id="athlete-page-sessions-filters-dropdowns-type">
+                                        <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
+                                        <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
+                                            <option value="" disabled>Any</option>
+                                            {sessionTypes.map((type) => (
+                                            !chosenTypes.includes(type) && (
+                                                <option key={type} value={type}>{type}</option>
+                                            )
+                                        ))}
+                                        </select>
+                                    </div>
+                                )}
                                 <div id="athlete-page-sessions-filters-dropdowns-tags"> 
                                     <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
                                     <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
@@ -368,6 +373,11 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                 </div>
                             </div>
                         </div>
+                        <div id="athlete-page-sessions-selected-type">
+                            {selectedSessionType !== "" && (
+                                <p>Type: {selectedSessionType}</p>
+                            )}
+                        </div>
                         <div id="athlete-page-sessions-filters-dropdowns-clear-all">
                             {displayClearAll() && (
                                 <button id="athlete-page-sessions-filters-dropdowns-clear-all-button" onClick={handleClearAllButton}>Clear all</button>
@@ -391,6 +401,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                     </li>
                                 ))}
                             </ul>
+                        </div>
+                        <div id="athlete-page-sessions-selected-type-filter">
+                            
                         </div>
                     </div>
                     <table id="athlete-page-sessions-table">
