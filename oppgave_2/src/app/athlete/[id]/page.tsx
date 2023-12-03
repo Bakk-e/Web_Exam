@@ -185,11 +185,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
 
     function toggleSession(session: Session) {
         const isSelected = selectedSessions.some(item => item.id === session.id);
-        console.log (isSelected)
         if (isSelected) {
             if (selectedSessions.length == 1) {
                 setSelectedSessionType("");
-                console.log("type cleared")
             }
             setSelectedSessions(selectedSessions.filter((item) => item.id !== session.id));
         } else {
@@ -407,7 +405,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Slett</th>
                         </tr>
                         {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} selectedSessions={selectedSessions} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
+                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
                         ))}
                     </table>
                     <div id="athlete-page-sessions-analyze">

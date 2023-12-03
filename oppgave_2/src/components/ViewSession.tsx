@@ -6,14 +6,13 @@ import DownloadSessionButton from "./SessionDownload";
 type sessionProps = {
     athleteId: string,
     session: Session,
-    selectedSessions: Session[],
     toggleSession: any,
     isChecked: boolean,
     disabled: boolean
 }
 
 export default function ViewSession(props: sessionProps) {
-    const {athleteId, session, selectedSessions, toggleSession, isChecked, disabled} = props;
+    const {athleteId, session, toggleSession, isChecked, disabled} = props;
     
     function handleCheckmark() {
         toggleSession(session);
@@ -48,11 +47,8 @@ export default function ViewSession(props: sessionProps) {
             <td>Klikk her</td>
             <td><Link legacyBehavior href="/editSession/[athleteId]/[sessionId]" as={`/editSession/${athleteId}/${session.id}`}><a>Klikk her</a></Link></td>
             <td>Klikk her</td>
-            {disabled ? (
-                <td><input type="checkbox"
-                    disabled
-                    checked={isChecked} 
-                    onChange={() => handleCheckmark()}/></td>
+            {(disabled && session.report) ? (
+                <td></td>
             ) : (
                 <td><input type="checkbox"
                     checked={isChecked} 
