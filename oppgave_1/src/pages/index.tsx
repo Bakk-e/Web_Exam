@@ -31,8 +31,9 @@ export default function Home() {
     }
 
 
+
     useEffect( () => {
-        async function fetchData(){
+        async function fetchData(count : string){
             const params = new URLSearchParams({count : `${count}` })
             try {
                 const tasksResponse = await fetch(`http://localhost:3000/api/restapi/tasks?${params}`, {
@@ -53,7 +54,17 @@ export default function Home() {
                 console.log("Error resting result ", error)
             }
         }
-        fetchData();
+
+        function getCountFromURL() {
+            if (typeof window !== "undefined") {
+                const searchParams = new URLSearchParams(window.location.search);
+                return searchParams.get('count') || '10'
+            }
+            return '10'
+        }
+        const urlCount = getCountFromURL()
+        setCount(parseInt(urlCount))
+        fetchData(urlCount);
         resetAttempts();
     }, [])
     if (tasks === null){
