@@ -77,6 +77,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     
                     ));
                 };
+                if (selectedSessionType !== "") {
+                    tempSortedSessions = tempSortedSessions.filter((session) => session.type === selectedSessionType)
+                }
                 if (chosenTags.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
                         chosenTags.every((tag) => session.tags?.includes(tag))
@@ -108,7 +111,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             setSearchedSessions(tempSortedSessions);
         };
         getAthlete();
-    }, [sortOrder, chosenTypes, chosenTags, reportFilters]);
+    }, [sortOrder, chosenTypes, chosenTags, reportFilters, selectedSessionType]);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
