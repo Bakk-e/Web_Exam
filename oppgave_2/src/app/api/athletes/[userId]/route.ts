@@ -15,7 +15,7 @@ export async function GET(request: NextApiRequest, context: any) {
       },
     })
 
-    console.log("athlete recieved from the db: ", athleteDetails)
+    console.log("Athlete recieved from the db: ", athleteDetails)
     if (!athleteDetails) {
       throw new Error("Athlete not found")
     }
@@ -115,9 +115,14 @@ async function handler(req: NextRequest, res: NextResponse) {
           userId: user.userId,
           gender: user.gender,
           sport: user.sport,
+          maxHeartRate: user.meta?.heartrate,
+          thresholdWattage: user.meta?.watt,
+          thresholdSpeed: user.meta?.speed,
+          /*
           maxHeartRate: user.maxHeartRate,
           thresholdWattage: user.thresholdWattage,
           thresholdSpeed: user.thresholdSpeed,
+          */
           competitions: {
             create: competitionsToCreate,
           },
