@@ -238,50 +238,55 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 <div id="athlete-page-inteval-zones">
                     <p id="athlete-page-inteval-zones-title">Intervall soner:</p>
                     <table id="athlete-page-inteval-zones-table">
-                        <tr>
-                            <th></th>
-                            <th>50%</th>
-                            <th>60%</th>
-                            <th>70%</th>
-                            <th>80%</th>
-                            <th>90%</th>
-                        </tr>
-                        <tr>
-                            <th>Puls</th>
-                            {athlete && (
-                                <>
-                                    <td>{((athlete.maxHeartRate * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Watt</th>
-                            {athlete && (
-                                <>
-                                    <td>{((athlete.thresholdWattage * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Fart</th>
-                            {athlete && (
-                                <>
-                                    <td>{((athlete.thresholdSpeed * 0.5).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.6).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.7).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.8).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.9).toFixed(1))}</td>
-                                </>
-                            )}
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>50%</th>
+                                <th>60%</th>
+                                <th>70%</th>
+                                <th>80%</th>
+                                <th>90%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Puls</th>
+                                {athlete && (
+                                    <>
+                                        <td>{((athlete.maxHeartRate * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.maxHeartRate * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.maxHeartRate * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.maxHeartRate * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.maxHeartRate * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Watt</th>
+                                {athlete && (
+                                    <>
+                                        <td>{((athlete.thresholdWattage * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.thresholdWattage * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.thresholdWattage * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.thresholdWattage * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.thresholdWattage * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Fart</th>
+                                {athlete && (
+                                    <>
+                                        <td>{((athlete.thresholdSpeed * 0.5).toFixed(1))}</td>
+                                        <td>{((athlete.thresholdSpeed * 0.6).toFixed(1))}</td>
+                                        <td>{((athlete.thresholdSpeed * 0.7).toFixed(1))}</td>
+                                        <td>{((athlete.thresholdSpeed * 0.8).toFixed(1))}</td>
+                                        <td>{((athlete.thresholdSpeed * 0.9).toFixed(1))}</td>
+                                    </>
+                                )}
+                            </tr>
+                        </tbody>
+                        
                     </table>
                 </div>
             </div>
@@ -342,10 +347,10 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                         <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
                                             <option value="" disabled>Any</option>
                                             {sessionTypes.map((type) => (
-                                            !chosenTypes.includes(type) && (
-                                                <option key={type} value={type}>{type}</option>
-                                            )
-                                        ))}
+                                                !chosenTypes.includes(type) && (
+                                                    <option key={type} value={type}>{type}</option>
+                                                )
+                                            ))}
                                         </select>
                                     </div>
                                 )}
@@ -402,27 +407,28 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                                 ))}
                             </ul>
                         </div>
-                        <div id="athlete-page-sessions-selected-type-filter">
-                            
-                        </div>
                     </div>
                     <table id="athlete-page-sessions-table">
-                        <tr>
-                            <th>Dato</th>
-                            <th>Navn</th>
-                            <th>Type</th>
-                            <th>Tags</th>
-                            <th>Åpne</th>
-                            <th>Status</th>
-                            <th>Rapporter</th>
-                            <th>Last ned</th>
-                            <th>Dupliser</th>
-                            <th>Edit</th>
-                            <th>Slett</th>
-                        </tr>
-                        {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
-                        ))}
+                        <thead>
+                            <tr>
+                                <th>Dato</th>
+                                <th>Navn</th>
+                                <th>Type</th>
+                                <th>Tags</th>
+                                <th>Åpne</th>
+                                <th>Status</th>
+                                <th>Rapporter</th>
+                                <th>Last ned</th>
+                                <th>Dupliser</th>
+                                <th>Edit</th>
+                                <th>Slett</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {searchedSessions.map((session) => (
+                                <ViewSession key={session.id} athleteId={params.id} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
+                            ))}
+                        </tbody>
                     </table>
                     <div id="athlete-page-sessions-analyze">
                         {selectedSessions.length > 1 ? (

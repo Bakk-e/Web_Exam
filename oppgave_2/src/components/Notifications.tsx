@@ -29,20 +29,20 @@ export default function Notifications() {
                 )}
             </div>
             <div className={`notification-overlay ${isNotificationOpen ? 'open' : ''}`}  onClick={toggleDrawer}></div>
-            <section className={`notification-drawer ${isNotificationOpen ? 'open' : ''}`}>
-                <article id="notification-drawer-header">
+            <div className={`notification-drawer ${isNotificationOpen ? 'open' : ''}`}>
+                <div id="notification-drawer-header">
                     <p id="notification-drawer-header-title">Varslinger</p>
                     <button id="notification-drawer-header-exit" onClick={toggleDrawer}>X</button>
-                </article>
-                <section id="notification-drawer-notifications">
+                </div>
+                <div id="notification-drawer-notifications">
                     {notifications.map((notification) => (
-                        <NotificationCard session={notification}></NotificationCard>
+                        <NotificationCard session={notification} key={notification.id}></NotificationCard>
                     ))}
                     {notifications.length == 0 && (
                         <p>Ingen Varslinger</p>
                     )}
-                </section>
-            </section>
+                </div>
+            </div>
         </div>
     );
 }

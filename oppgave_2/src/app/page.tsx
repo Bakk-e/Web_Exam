@@ -42,6 +42,7 @@ export default function Home() {
       <div id="main-page-athlete-list">
             <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
             <table id="main-page-athlete-table">
+              <thead>
                 <tr>
                     <th>Id</th>
                     <th>Kjønn</th>
@@ -49,9 +50,12 @@ export default function Home() {
                     <th>Gå til</th>
                     <th>Rapporter</th>
                 </tr>
+              </thead>
+              <tbody>
                 {searchedAthlete.map((athlete) => (
-                  <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
+                  <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport} key={athlete.id}></Athlete>
                 ))}
+              </tbody>
             </table>
         </div>
     </div>

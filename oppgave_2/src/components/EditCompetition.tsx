@@ -76,49 +76,49 @@ export default function EditCompetition(params: editCompetitionProps) {
     return (
         <>
             <div className={`athlete-page-edit-competition-overlay ${isEditCompetitionOpen ? 'open' : ''}`} onClick={toggleEditCompetition}></div>
-            <section className={`athlete-page-edit-competition ${isEditCompetitionOpen ? 'open' : ''}`}>
-                <article id="athlete-page-edit-competition-header">
+            <div className={`athlete-page-edit-competition ${isEditCompetitionOpen ? 'open' : ''}`}>
+                <div id="athlete-page-edit-competition-header">
                     <button id="athlete-page-edit-competition-header-exit" onClick={toggleEditCompetition}>X</button>
-                </article>
-                <table id="athlete-page-edit-competition-list">
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Navn: </td>
-                        <td><input className="athlete-page-edit-competition-point-input"
+                </div>
+                <div id="athlete-page-edit-competition-list">
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Navn: </p>
+                        <input className="athlete-page-edit-competition-point-input"
                         type="text"
                         defaultValue={editingCompetition?.title}
-                        onChange={handleTitleChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Sted: </td>
-                        <td><input className="athlete-page-edit-competition-point-input"
+                        onChange={handleTitleChange}/>
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Sted: </p>
+                        <input className="athlete-page-edit-competition-point-input"
                         type="text"
                         defaultValue={editingCompetition?.location}
-                        onChange={handleLocationChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Dato: </td>
-                        <td><input className="athlete-page-edit-competition-point-input"
+                        onChange={handleLocationChange}/>
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Dato: </p>
+                        <input className="athlete-page-edit-competition-point-input"
                         type="date"
                         min={currentdate}
                         defaultValue={editingCompetition?.date && DateToStringAlternate(editingCompetition?.date)}
-                        onChange={handleDateChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Mål: </td>
-                        <td><textarea className="athlete-page-edit-competition-point-textarea"
+                        onChange={handleDateChange}/>
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Mål: </p>
+                        <textarea className="athlete-page-edit-competition-point-textarea"
                         typeof="text"
                         defaultValue={editingCompetition?.goal}
-                        onChange={handleGoalChange}></textarea></td>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Type: </td>
-                        <td><input className="athlete-page-edit-competition-point-input"
+                        onChange={handleGoalChange}></textarea>
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Type: </p>
+                        <input className="athlete-page-edit-competition-point-input"
                         type="text"
                         defaultValue={editingCompetition?.type}
-                        onChange={handleTypeChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Prioritet: </td>
+                        onChange={handleTypeChange}/>
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Prioritet: </p>
                         <select className="athlete-page-edit-competition-point-select"
                         defaultValue={editingCompetition?.priority}
                         onChange={handlePriorityChange}>
@@ -126,19 +126,19 @@ export default function EditCompetition(params: editCompetitionProps) {
                             <option value="B">B</option>
                             <option value="C">C</option>
                         </select>
-                    </tr>
-                    <tr className="athlete-page-edit-competition-point">
-                        <td className="athlete-page-edit-competition-point-title">Kommentar: </td>
-                        <td><textarea className="athlete-page-edit-competition-point-textarea"
+                    </div>
+                    <div className="athlete-page-edit-competition-point">
+                        <p className="athlete-page-edit-competition-point-title">Kommentar: </p>
+                        <textarea className="athlete-page-edit-competition-point-textarea"
                         typeof="text"
                         defaultValue={editingCompetition?.comment}
-                        onChange={handleCommentChange}></textarea></td>
-                    </tr>
-                </table>
-                <article id="athlete-page-edit-competition-footer">
+                        onChange={handleCommentChange}></textarea>
+                    </div>
+                </div>
+                <div id="athlete-page-edit-competition-footer">
                     <button id="athlete-page-edit-competition-footer-save" onClick={(e) => handleSaveButton(e)}>Save</button>
-                </article>
-            </section>
+                </div>
+            </div>
         </>
     )
 }
