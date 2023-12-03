@@ -167,12 +167,24 @@
     font-size: 1.5rem;
 }
 
-#athlete-page-competitions {
+.athlete-page-competitions {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
     background-color: var(--whiteishGray);
     border-radius: 1.8rem;
+    width: 16%;
+}
+
+.athlete-page-competitions.one {
+    width: 47%;
+}
+
+.athlete-page-competitions.two {
+    width: 70%;
+}
+
+.athlete-page-competitions.three {
     width: 70%;
 }
 
@@ -260,14 +272,26 @@
     font-size: 1.5rem;
 }
 
-#athlete-page-goals {
+.athlete-page-goals {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
     background-color: var(--whiteishGray);
     border-radius: 1.8rem;
-    width: 70%;
+    width: 16%;
     margin-bottom: 1rem;
+}
+
+.athlete-page-goals.one {
+    width: 47%;
+}
+
+.athlete-page-goals.two {
+    width: 70%;
+}
+
+.athlete-page-goals.three {
+    width: 70%;
 }
 
 .athlete-page-goals-card {
@@ -670,7 +694,6 @@
 
 #athlete-page-sessions-analyze-button {
     border-radius: 1.8rem;
-    transition: background-color 0.3s ease;
     text-align: center;
     width: 9rem;
     height: 3rem;
@@ -678,6 +701,11 @@
     background-color: var(--cgBlue);
 }
 
-#athlete-page-sessions-analyze-button.pressed {
+#athlete-page-sessions-analyze-button-disabled {
+    border-radius: 1.8rem;
+    text-align: center;
+    width: 9rem;
+    height: 3rem;
+    color: var(--white);
     background-color: var(--cgBlueDark);
 }

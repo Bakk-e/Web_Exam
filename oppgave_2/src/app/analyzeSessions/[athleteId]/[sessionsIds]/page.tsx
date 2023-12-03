@@ -1,7 +1,10 @@
 "use client"
 
+import Notifications from "@/components/Notifications";
 import { Athlete, Session } from "@/types";
+import Link from "next/link";
 import { useEffect, useState } from "react";
+import "@/styles/AnalyzeSessionsPageStyle.css"
 
 export default function analyzeSessions({params}: {params: {athleteId: string, sessionsIds: string}}) {
     const [sessions, setSessions] = useState<Session[]>([]);
@@ -23,6 +26,15 @@ export default function analyzeSessions({params}: {params: {athleteId: string, s
 
     return (
         <div id="analyze-sesions-page">
+            <header id="analyze-sesions-page-header">
+                <Link legacyBehavior href="/"><a id="analyze-sesions-page-logo">Logo</a></Link>
+                <nav id="analyze-sesions-page-nav">
+                    <Link legacyBehavior href="/athlete/[athleteId]" as={`/athlete/${params.athleteId}`}><a id="analyze-sesions-page-back">Tilbake</a></Link>
+                    <Notifications></Notifications>
+                </nav>
+            </header>
+            <div id="analyze-sesions-page-content">
+            </div>
         </div>
     )
 }

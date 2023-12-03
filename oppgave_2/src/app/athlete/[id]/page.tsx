@@ -4,7 +4,7 @@ import CompetitionCard from "@/components/CompetitionCard";
 import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
-import { DateToNumber } from "@/components/Functions";
+import { DateToNumber, NumbersToLetters } from "@/components/Functions";
 import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
 import ViewSession from "@/components/ViewSession";
@@ -34,6 +34,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [acendButton, setAcendButton] = useState<boolean>(true);
     const [dcendButton, setDcendButton] = useState<boolean>(false);
     const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
+    const [selectedSessionType, setSelectedSessionType] = useState<string>("");
 
     const router = useRouter()
 
@@ -105,7 +106,6 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                 };
             };
             setSearchedSessions(tempSortedSessions);
-            
         };
         getAthlete();
     }, [sortOrder, chosenTypes, chosenTags, reportFilters]);
@@ -184,11 +184,27 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     }
 
     function toggleSession(session: Session) {
-        const isSelected = selectedSessions.includes(session);
+        const isSelected = selectedSessions.some(item => item.id === session.id);
+        console.log (isSelected)
         if (isSelected) {
-            setSelectedSessions(selectedSessions.filter((item) => item !== session));
+            if (selectedSessions.length == 1) {
+                setSelectedSessionType("");
+                console.log("type cleared")
+            }
+            setSelectedSessions(selectedSessions.filter((item) => item.id !== session.id));
         } else {
+            if (selectedSessions.length == 0 && session.type) {
+                setSelectedSessionType(session.type);
+            }
             setSelectedSessions([...selectedSessions, session]);
+        }
+    }
+
+    function handleIsDisabled(session: Session) {
+        if (selectedSessionType == "") {
+            return false;
+        } else {
+            return selectedSessionType !== session.type
         }
     }
 
@@ -270,29 +286,37 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             </div>
             <div id="athlete-page-competitions-and-goals">
                 <p id="athlete-page-competitions-title">Konkuranser: </p>
-                <div id="athlete-page-competitions">
+                <div className={`athlete-page-competitions ${athlete?.competitions && athlete.competitions.length !== 0 ? NumbersToLetters(athlete.competitions.length) : ""}`}>
                     {athlete?.competitions?.map((competition) => (
                         <CompetitionCard competition={competition} toggleEditCompetition={toggleEditCompetition} setEditingCompetiion={setEditingCompetition}></CompetitionCard>
                     ))}
-                    {athlete && athlete.competitions && (
+                    {(athlete && athlete.competitions) ? (
                         athlete.competitions.length < 3 && (
                         <div id="athlete-page-competitions-card-add">
                             <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
                         </div>
                         )
+                    ) : (
+                        <div id="athlete-page-competitions-card-add">
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                        </div>
                     )}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
-                <div id="athlete-page-goals">
+                <div className={`athlete-page-goals ${athlete?.goals && athlete.goals.length !== 0 ? NumbersToLetters(athlete.goals.length) : ""}`}>
                     {athlete?.goals?.map((goal) => (
                         <GoalCard goal={goal} toggleEditGoal={toggleEditGoal} setEditingGoal={setEditingGoal}></GoalCard>
                     ))}
-                    {athlete && athlete.goals && (
+                    {(athlete && athlete.goals) ? (
                         athlete.goals.length < 3 && (
                             <div id="athlete-page-goals-card-add">
                                 <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
                             </div>
                         )
+                    ) : (
+                        <div id="athlete-page-goals-card-add">
+                            <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                        </div>
                     )}
                 </div>
             </div>
@@ -374,6 +398,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Navn</th>
                             <th>Type</th>
                             <th>Tags</th>
+                            <th>Åpne</th>
                             <th>Status</th>
                             <th>Rapporter</th>
                             <th>Last ned</th>
@@ -382,12 +407,14 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Slett</th>
                         </tr>
                         {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} selectedSessions={selectedSessions}></ViewSession>
+                            <ViewSession athleteId={params.id} session={session} toggleSession={toggleSession} selectedSessions={selectedSessions} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
                         ))}
                     </table>
                     <div id="athlete-page-sessions-analyze">
-                        {selectedSessions.length > 1 && (
+                        {selectedSessions.length > 1 ? (
                             <button id="athlete-page-sessions-analyze-button" onClick={handleAnalyzeButton}>Analyser: {selectedSessions.length}</button>
+                        ) : (
+                            <button id="athlete-page-sessions-analyze-button-disabled" disabled>Analyser: {selectedSessions.length}</button>
                         )}
                     </div>
                 </div>
