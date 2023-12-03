@@ -6,6 +6,10 @@ export type Task = {
   attempts : number
 }
 
+export type ApiResponse = {
+  tasks : Task[]
+}
+
 export type Type = "add" | "subtract" | "multiply" | "divide"
 
 export type AnswerProps = {

@@ -1,0 +1,117 @@
+@import "Variables.css";
+
+#notification {
+    position: relative;
+    display: flex;
+    align-items: center;
+    margin-left: 1rem;
+    
+}
+
+#notification-bell {
+    cursor: pointer;
+}
+
+#notification-count {
+    position: absolute;
+    top: -5px;
+    right: -6px;
+    background-color: var(--candyAppleRed);
+    color: var(--white);
+    border-radius: 50%;
+    padding: 4px;
+    font-size: 12px;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.notification-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 999;
+    display: none;
+}
+
+.notification-overlay.open {
+    display: block;
+}
+
+.notification-drawer {
+    position: fixed;
+    top: 0;
+    right: -32rem;
+    width: 30rem;
+    height: 100vh;
+    background-color: var(--whiteishGray);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 3rem 0 0 3rem;
+}
+
+.notification-drawer.open {
+    right: 0;
+}
+
+#notification-drawer-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+#notification-drawer-header-title {
+    margin-top: 1rem;
+    margin-left: 2.2rem;
+
+}
+
+#notification-drawer-header-exit {
+    padding-right: 1rem;
+    padding-top: 0.5rem;
+    font-size: 1.7rem;
+}
+
+.notification-card {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background-color: var(--white);
+    border-radius: 2rem;
+    padding-bottom: 0.5rem;
+}
+
+.notification-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.6rem;
+}
+
+.notification-card-header-title {
+    margin-top: 0.5rem;
+    margin-left: 0.8rem;
+}
+
+.notification-card-header-date {
+    margin-top: 0.5rem;
+    margin-right: 0.8rem;
+}
+
+.notification-card-main {
+    margin-left: 0.8rem;
+}
+
+.notification-card-type {
+    margin-left: 0.8rem;
+}
+
+.notification-card-tags {
+    margin-left: 0.8rem;
+    margin-bottom: 0.4rem;
+}

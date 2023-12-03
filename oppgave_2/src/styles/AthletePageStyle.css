@@ -17,21 +17,27 @@
     align-self: flex-start;
 }
 
-#athlete-page-id {
-    font-size: 2.5rem;
+#athlete-page-new-session {
+    font-size: 1.3rem;
+    margin-right: 1rem;
 }
 
-#athlete-page-back {
+#athlete-page-nav {
     font-size: 1.3rem;
+    display: flex;
 }
 
 #athlete-page-info {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 50vh;
     flex-direction: column;
     font-size: 1.2rem;
+}
+
+#athlete-page-id {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
 }
 
 #athlete-page-inteval-zones {
@@ -61,7 +67,7 @@
     margin-right: 3.5rem;
 }
 
-.athlete-page-editOverlay {
+.athlete-page-edit-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -72,14 +78,14 @@
     display: none;
 }
 
-.athlete-page-editOverlay.open {
+.athlete-page-edit-overlay.open {
     display: block;
 }
 
 .athlete-page-edit {
     position: fixed;
     top: 43%;
-    right: -35rem;
+    right: -37rem;
     width: 35rem;
     height: 30rem;
     background-color: var(--white);
@@ -146,4 +152,401 @@
     padding-right: 1.2rem;
     padding-top: 0.7rem;
     font-size: 1.7rem;
+}
+
+#athlete-page-competitions-and-goals {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin-top: 1rem;
+}
+
+#athlete-page-competitions-title {
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+#athlete-page-competitions {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+    background-color: var(--whiteishGray);
+    border-radius: 1.8rem;
+    width: 70%;
+}
+
+.athlete-page-competitions-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.8rem;
+    background-color: var(--white);
+    width: 26.5rem;
+}
+
+.athlete-page-competitions-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.athlete-page-competitions-card-title {
+    margin-left: 1rem;
+}
+
+.athlete-page-competitions-card-date {
+    margin-right: 1rem;
+}
+
+.athlete-page-competitions-card-goal {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.athlete-page-competitions-card-section {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.athlete-page-competitions-card-type {
+    margin-left: 1rem;
+}
+
+.athlete-page-competitions-card-priority {
+    margin-right: 1rem;
+}
+
+.athlete-page-competitions-card-comment {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.athlete-page-competitions-card-button-spacer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.athlete-page-competitions-card-button-remove {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.athlete-page-competitions-card-button-edit {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+#athlete-page-competitions-card-add {
+    display: flex;
+    width: 26.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#athlete-page-competitions-card-add-button {
+    font-size: 2rem;
+}
+
+#athlete-page-goals-title {
+    margin-bottom: 1rem;
+    margin-top: 2rem;
+    font-size: 1.5rem;
+}
+
+#athlete-page-goals {
+    display: flex;
+    justify-content: space-around;
+    padding: 0.5rem;
+    background-color: var(--whiteishGray);
+    border-radius: 1.8rem;
+    width: 70%;
+    margin-bottom: 1rem;
+}
+
+.athlete-page-goals-card {
+    display: flex;
+    flex-direction: column;
+    border-radius: 1.8rem;
+    background-color: var(--white);
+    width: 26.5rem;
+}
+
+.athlete-page-goals-card-header {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 1rem;
+}
+
+.athlete-page-goals-card-title {
+    margin-left: 1rem;
+}
+
+.athlete-page-goals-card-date {
+    margin-right: 1rem;
+}
+
+.athlete-page-goals-card-goal {
+    margin-top: 1rem;
+    margin-left: 1rem;
+}
+
+.athlete-page-goals-card-comment {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.athlete-page-goals-card-button-spacer {
+    display: flex;
+    justify-content: space-between;
+}
+
+.athlete-page-goals-card-button-remove {
+    margin-top: 1rem;
+    margin-left: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.athlete-page-goals-card-button-edit {
+    margin-top: 1rem;
+    margin-right: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+#athlete-page-goals-card-add {
+    display: flex;
+    width: 26.5rem;
+    justify-content: center;
+    align-items: center;
+}
+
+#athlete-page-goals-card-add-button {
+    font-size: 2rem;
+}
+
+.athlete-page-edit-competition-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--grayBackground);
+    z-index: 999;
+    display: none;
+}
+
+.athlete-page-edit-competition-overlay.open {
+    display: block;
+}
+
+.athlete-page-edit-competition {
+    position: fixed;
+    top: 3%;
+    right: -40rem;
+    width: 38rem;
+    height: 54rem;
+    background-color: var(--white);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+}
+
+.athlete-page-edit-competition.open {
+    right: 2rem;
+}
+
+#athlete-page-edit-competition-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-competition-header-exit {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
+
+#athlete-page-edit-competition-list {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#athlete-page-edit-competition-list td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.athlete-page-edit-competition-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.athlete-page-edit-competition-point-title {
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.athlete-page-edit-competition-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+.athlete-page-edit-competition-point-textarea {
+    border-radius: 1.8rem;
+    width: 20rem;
+    height: 10rem;
+}
+
+#athlete-page-edit-competition-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-competition-footer-save {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
+
+.athlete-page-edit-goal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--grayBackground);
+    z-index: 999;
+    display: none;
+}
+
+.athlete-page-edit-goal-overlay.open {
+    display: block;
+}
+
+.athlete-page-edit-goal {
+    position: fixed;
+    top: 39%;
+    right: -40rem;
+    width: 38rem;
+    height: 33rem;
+    background-color: var(--white);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    border-radius: 2rem;
+}
+
+.athlete-page-edit-goal.open {
+    right: 2rem;
+}
+
+#athlete-page-edit-goal-header {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-goal-header-exit {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
+
+#athlete-page-edit-goal-list {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#athlete-page-edit-goal-list td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.athlete-page-edit-goal-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.athlete-page-edit-goal-point-title {
+    text-align: center;
+    margin-right: 0.5rem;
+}
+
+.athlete-page-edit-goal-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+.athlete-page-edit-goal-point-textarea {
+    border-radius: 1.8rem;
+    width: 20rem;
+    height: 10rem;
+}
+
+#athlete-page-edit-goal-footer {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#athlete-page-edit-goal-footer-save {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
+
+#athlete-page-sessions-spacer {
+    margin-top: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 1.2rem;
+}
+
+#athlete-page-sessions-title {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+#athlete-page-sessions-table {
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#athlete-page-sessions-table th, td {
+    text-align: left;
+    padding: 0.6rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+#athlete-page-sessions-table-status {
+    text-align: center;
 }

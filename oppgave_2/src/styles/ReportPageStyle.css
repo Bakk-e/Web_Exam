@@ -1,0 +1,30 @@
+@import "Variables.css";
+
+#report-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 1rem;
+}
+
+#report-page-logo {
+    font-size: 1.3rem;
+}
+
+#report-page-nav {
+    font-size: 1.3rem;
+    display: flex;
+}
+
+#report-page-info {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    font-size: 1.2rem;
+}
+
+#report-page-id {
+    font-size: 2.5rem;
+    margin-bottom: 2.5rem;
+}
