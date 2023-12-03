@@ -1,0 +1,73 @@
+@import "Variables.css";
+
+#new-athlete-page {
+    height: 100vh;
+}
+
+#new-athlete-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+#new-athlete-page-logo {
+    font-size: 1.3rem;
+    align-self: flex-start;
+}
+
+#new-athlete-page-nav {
+    font-size: 1.3rem;
+    display: flex;
+}
+
+#new-athlete-page-create {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+#new-athlete-page-title {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+}
+
+#new-athlete-page-create-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#new-athlete-page-create-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.new-athlete-page-create-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.new-athlete-page-create-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+#new-athlete-page-save-section {
+    display: flex;
+    justify-content: center;
+}
+
+#new-athlete-page-save-button {
+    padding-right: 1.2rem;
+    padding-top: 0.7rem;
+    font-size: 1.7rem;
+}
