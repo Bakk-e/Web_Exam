@@ -2,7 +2,6 @@ import prisma from "@/lib/db";
 import { NextRequest, NextResponse } from "next/server";
 import { NextApiRequest, NextApiResponse } from 'next';
 import {randomUUID} from "crypto";
-import {Athlete} from "@/types"
 
 export type MetaProps = {
     maxHeartRate: string;
@@ -30,8 +29,8 @@ function generateRandomStringFromName(firstName : string, lastName : string){
     return characters.slice(0,8).join("")
 }
 
-export async function GET(req: NextApiRequest, res: NextApiResponse) {
-    if (req.method === "GET") {
+export async function GET(request: NextApiRequest, response: NextApiResponse) {
+    if (request.method === "GET") {
         try {
 
             const athletes = prisma.athlete.findMany({
@@ -45,7 +44,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             return NextResponse.json(
                 { data: (await athletes).map((athlete) =>(
                     { userId: athlete.userId, sport: athlete.sport, gender: athlete.gender}
-                )) }, 
+                )) },
                 { status: 200 })
         } catch (error) {
             console.error(error)
@@ -53,6 +52,7 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
         }
     }
 }
+
 
 export async function POST (req: NextRequest, res: NextResponse) {
     const body = await req.json() as AthleteProps

@@ -39,26 +39,28 @@ export async function PUT(request: NextApiRequest, response: NextApiResponse) {
   try {
     const { userId } = request.query;
 
-    const olddAthleteDetails = await prisma.athlete.findFirst({
+    const oldAthleteDetails = await prisma.athlete.findFirst({
       where: {
-        userId: userId
+        userId: String(userId),
       },
+      include: {
+        meta: true,
+      }
     });
     
-    if (olddAthleteDetails) {
+    if (oldAthleteDetails) {
       await prisma.archivedMeta.create({
         data: {
-          id: olddAthleteDetails.id,
-          heartRate: olddAthleteDetails.meta?.heartRate,
-          watt: olddAthleteDetails.meta?.watt,
-          speed: olddAthleteDetails.meta?.speed,
+          heartrate: oldAthleteDetails.meta?.heartrate,
+          watt: oldAthleteDetails.meta?.watt,
+          speed: oldAthleteDetails.meta?.speed,
         }
       })
     }
 
     const editedAthleteDetails = await prisma.athlete.update({
       where: {
-        userId: userId
+        userId: String(userId),
       },
       data: request.body
     });
@@ -72,7 +74,7 @@ export async function PUT(request: NextApiRequest, response: NextApiResponse) {
   }
 }
 
-
+/*
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const apiUrl = "https://webapp-api.vercel.app/api/users"
   const response = await fetch(apiUrl)
@@ -81,7 +83,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   }
   const apiResponse = (await response.json()) as ApiProps
 }
-/*
+
 async function handler(req: NextRequest, res: NextResponse) {
   try {
     const apiUrl = "https://webapp-api.vercel.app/api/users"

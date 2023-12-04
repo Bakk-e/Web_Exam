@@ -17,7 +17,7 @@ import { useEffect, useState } from "react"
 const initialState = {open: false};
 
 export default function AthletePage({ params }: { params: { userId: string }}) {
-    const availableReportFilters: string[] = ["ingen", "no", "low", "normal", "high"];
+    const availableReportFilters: string[] = ["ingen (WIP)", "no", "low", "normal", "high"];
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
     const [isEditGoalOpen, setIsEditGoalOpen] = useState(initialState.open);
@@ -54,17 +54,18 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
             let tagsTemp: string[] = [];
             if (result.data.activities) {
                 for (const activity of result.data.activities) {
-                    if (activity.type) {
-                        if (!typesTemp.includes(activity.type)) {
-                            typesTemp.push(activity.type);
+                    if (activity.tags) {
+                        if (!typesTemp.includes(activity.tags.split(",")[0])) {
+                            typesTemp.push(activity.tags.split(",")[0]);
                         };
                     };
                     if (activity.tags) {
-                        for (const tag of activity.tags.split(",")) {
-                            if (!tagsTemp.includes(tag)) {
-                                tagsTemp.push(tag);
-                            };
-                        };
+                        if (!tagsTemp.includes(activity.tags.split(",")[1])) {
+                            tagsTemp.push(activity.tags.split(",")[1]);
+                        }
+                        if (!tagsTemp.includes(activity.tags.split(",")[2])) {
+                            tagsTemp.push(activity.tags.split(",")[2]);
+                        }
                     };
                 };
             };
@@ -76,14 +77,13 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
 
                 if (chosenTypes.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
-                        session.type && (
-                            chosenTypes.includes(session.type)
+                        session.tags && (
+                            chosenTypes.includes(session.tags.split(",")[0])
                         )
-                    
                     ));
                 };
                 if (selectedSessionType !== "") {
-                    tempSortedSessions = tempSortedSessions.filter((session) => session.type === selectedSessionType)
+                    tempSortedSessions = tempSortedSessions.filter((session) => session.tags?.split(",")[0] === selectedSessionType)
                 }
                 if (chosenTags.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
@@ -169,7 +169,6 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
         if (!reportFilters.includes(selectedReportStatus)) {
             setReportFilters([...reportFilters, selectedReportStatus]);
         };
-        console.log([...selectedReportStatus, selectedReportStatus].toString());
     };
 
     function handleReportRemove(status: string) {
@@ -430,7 +429,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         </thead>
                         <tbody>
                             {searchedSessions.map((session) => (
-                                <ViewSession key={session.id} athleteId={params.userId} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
+                                <ViewSession key={params.userId + session.id} athleteId={params.userId} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
                             ))}
                         </tbody>
                     </table>
