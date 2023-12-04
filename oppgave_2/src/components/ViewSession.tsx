@@ -5,7 +5,7 @@ import { DateToString } from "./Functions"
 import DownloadSessionButton from "./SessionDownload"
 
 type sessionProps = {
-  athleteId: string
+  athleteId: string,
   activity: Activity
 }
 
