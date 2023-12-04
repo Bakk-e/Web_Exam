@@ -186,14 +186,13 @@ describe("Progress Component", () => {
     render(<Tasks tasks={tasks}>{null}</Tasks>)
 
     for (const task of tasks) {
-      const taskTextElement = screen.queryByText(task.text);
-      const typeElement = screen.queryByText(task.type);
-      const dataElement = screen.queryByText(task.data);
+      const taskText = screen.queryByText(task.text);
+      const taskData = screen.queryByText(task.data);
+      const taskType = screen.queryByText(task.type);
 
-      // Check if the elements are not null before using toBeInTheDocument
-      if (taskTextElement) expect(taskTextElement).toBeInTheDocument();
-      if (typeElement) expect(typeElement).toBeInTheDocument();
-      if (dataElement) expect(dataElement).toBeInTheDocument();
+      if (taskText) expect(taskText).toBeInTheDocument();
+      if (taskData) expect(taskData).toBeInTheDocument();
+      if (taskType) expect(taskType).toBeInTheDocument();
     }
   });
 
