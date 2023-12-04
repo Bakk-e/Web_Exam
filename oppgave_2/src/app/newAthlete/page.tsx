@@ -11,13 +11,29 @@ export default function NewAthletePage() {
         lastName : "",
         gender : "",
         sport : "",
-        maxHeartRate : "",
-        thresholdWattage : "",
-        thresholdSpeed : "",
+        meta: {
+            maxHeartRate : "",
+            thresholdWattage : "",
+            thresholdSpeed : "",
+        }
     })
 
     const handleChange = (e : React.ChangeEvent<HTMLInputElement>) => {
-        setAthlete({...athlete, [e.target.name]: e.target.value})
+        const { name, value } = e.target;
+        if (name in athlete.meta) {
+            setAthlete({
+                ...athlete,
+                meta: {
+                    ...athlete.meta,
+                    [name]: value
+                }
+            });
+        } else {
+            setAthlete({
+                ...athlete,
+                [name]: value
+            });
+        }
     }
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -105,7 +121,7 @@ export default function NewAthletePage() {
                         <td>
                             <input
                                 name="maxHeartRate"
-                                value={athlete.maxHeartRate}
+                                value={athlete.meta.maxHeartRate}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
                         </td>
@@ -117,7 +133,7 @@ export default function NewAthletePage() {
                         <td>
                             <input
                                 name="thresholdWattage"
-                                value={athlete.thresholdWattage}
+                                value={athlete.meta.thresholdWattage}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
                         </td>
@@ -129,7 +145,7 @@ export default function NewAthletePage() {
                         <td>
                             <input
                                 name="thresholdSpeed"
-                                value={athlete.thresholdSpeed}
+                                value={athlete.meta.thresholdSpeed}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
                         </td>

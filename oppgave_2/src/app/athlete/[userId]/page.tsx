@@ -9,13 +9,13 @@ import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
 import ViewSession from "@/components/ViewSession";
 import "@/styles/AthletePageStyle.css"
-import { Athlete, Competition, Goal, Session } from "@/types";
+import { Athlete, Competition, Goal, Activity } from "@/types";
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 const initialState = {open: false};
 
-export default function AthletePage({ params }: { params: { id: string }}) {
+export default function AthletePage({ params }: { params: { userId: string }}) {
     const availableReportFilters: string[] = ["ingen", "no", "low", "normal", "high"];
     const [isEditOpen, setIsEditOpen] = useState(initialState.open);
     const [isEditCompetitionOpen, setIsCompetitionOpen] = useState(initialState.open);
@@ -23,7 +23,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
     const [editingCompetition, setEditingCompetition] = useState<Competition>({});
     const [editingGoal, setEditingGoal] = useState<Goal>({});
     const [athlete, setAthlete] = useState<Athlete>();
-    const [searchedSessions, setSearchedSessions] = useState<Session[]>([{}]);
+    const [searchedSessions, setSearchedSessions] = useState<Activity[]>([{}]);
     const [chosenTypes, setChosenTypes] = useState<string[]>([]);
     const [chosenTags, setChosenTags] = useState<string[]>([]);
     const [reportFilters, setReportFilters] = useState<string[]>([]);
@@ -33,15 +33,19 @@ export default function AthletePage({ params }: { params: { id: string }}) {
 
     useEffect(() => {
         const getAthlete = async () => {
-            const response = await fetch(`/api/athletes/${params.id}`, {
-                method: "get",
+            console.log("Fetching athlete with userId: ", params.userId);
+            const response = await fetch(`/api/athletes/${params.userId}`, {
+                method: "GET",
             });
             const result = (await response.json()) as {data: Athlete};
+
+            console.log("API response: ", result.data)
+            
             setAthlete(result.data);
             let typesTemp: string[] = [];
             let tagsTemp: string[] = [];
-            if (result.data.sessions) {
-                for (const session of result.data.sessions) {
+            if (result.data.activities) {
+                for (const session of result.data.activities) {
                     if (session.type) {
                         if (!typesTemp.includes(session.type)) {
                             typesTemp.push(session.type);
@@ -58,9 +62,9 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             };
             setSessionTypes(typesTemp);
             setSessionTags(tagsTemp);
-            let tempSortedSessions: Session[] = [];
-            if (result.data.sessions) {
-                tempSortedSessions = [...result.data.sessions];
+            let tempSortedSessions: Activity[] = [];
+            if (result.data.activities) {
+                tempSortedSessions = [...result.data.activities];
 
                 if (chosenTypes.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
@@ -174,18 +178,18 @@ export default function AthletePage({ params }: { params: { id: string }}) {
             <header id="athlete-page-header">
                 <Link legacyBehavior href="/"><a id="athlete-page-logo">Logo</a></Link>
                 <nav id="athlete-page-nav">
-                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.id}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
+                    <Link legacyBehavior href="/newSession/[athleteId]" as={`/newSession/${params.userId}`}><a id="athlete-page-new-session">Ny Økt</a></Link>
                     <Link legacyBehavior href="/"><a id="athlete-page-back">Tilbake</a></Link>
                     <Notifications></Notifications>
                 </nav>
             </header>
             <div id="athlete-page-info">
-                <p id="athlete-page-id">{params.id}</p>
+                <p id="athlete-page-id">{params.userId}</p>
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
-                <p id="athlete-page-info-heartrate">Maks puls: {athlete?.maxHeartRate}</p>
-                <p id="athlete-page-info-wattage">Terskel watt: {athlete?.thresholdWattage}</p>
-                <p id="athlete-page-info-speed">Terskel fart: {athlete?.thresholdSpeed}kmh</p>
+                <p id="athlete-page-info-heartrate">Maks puls: {athlete?.meta?.heartRate}</p>
+                <p id="athlete-page-info-wattage">Terskel watt: {athlete?.meta?.watt}W</p>
+                <p id="athlete-page-info-speed">Terskel fart: {athlete?.meta?.speed} km/h</p>
                 <div id="athlete-page-inteval-zones">
                     <p id="athlete-page-inteval-zones-title">Intervall soner:</p>
                     <table id="athlete-page-inteval-zones-table">
@@ -199,37 +203,37 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                         </tr>
                         <tr>
                             <th>Puls</th>
-                            {athlete && athlete.maxHeartRate !== undefined && (
+                            {athlete && athlete.meta?.heartRate !== undefined && (
                                 <>
-                                    <td>{((athlete.maxHeartRate * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.maxHeartRate * 0.9).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
                                 </>
                             )}
                         </tr>
                         <tr>
                             <th>Watt</th>
-                            {athlete && athlete.thresholdWattage !== undefined && (
+                            {athlete && athlete.meta?.watt !== undefined && (
                                 <>
-                                    <td>{((athlete.thresholdWattage * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.thresholdWattage * 0.9).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.watt * 0.5).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.watt * 0.6).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.watt * 0.7).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.watt * 0.8).toFixed(0))}</td>
+                                    <td>{((athlete.meta?.watt * 0.9).toFixed(0))}</td>
                                 </>
                             )}
                         </tr>
                         <tr>
                             <th>Fart</th>
-                            {athlete && athlete.thresholdSpeed !== undefined && (
+                            {athlete && athlete.meta?.speed !== undefined && (
                                 <>
-                                    <td>{((athlete.thresholdSpeed * 0.5).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.6).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.7).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.8).toFixed(1))}</td>
-                                    <td>{((athlete.thresholdSpeed * 0.9).toFixed(1))}</td>
+                                    <td>{((athlete.meta?.speed * 0.5).toFixed(1))}</td>
+                                    <td>{((athlete.meta?.speed * 0.6).toFixed(1))}</td>
+                                    <td>{((athlete.meta?.speed * 0.7).toFixed(1))}</td>
+                                    <td>{((athlete.meta?.speed * 0.8).toFixed(1))}</td>
+                                    <td>{((athlete.meta?.speed * 0.9).toFixed(1))}</td>
                                 </>
                             )}
                         </tr>
@@ -248,7 +252,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     {athlete && athlete.competitions && (
                         athlete.competitions.length < 3 && (
                         <div id="athlete-page-competitions-card-add">
-                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.userId}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
                         </div>
                         )
                     )}
@@ -261,7 +265,7 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                     {athlete && athlete.goals && (
                         athlete.goals.length < 3 && (
                             <div id="athlete-page-goals-card-add">
-                                <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                                <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.userId}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
                             </div>
                         )
                     )}
@@ -348,8 +352,8 @@ export default function AthletePage({ params }: { params: { id: string }}) {
                             <th>Edit</th>
                             <th>Slett</th>
                         </tr>
-                        {searchedSessions.map((session) => (
-                            <ViewSession athleteId={params.id} session={session}></ViewSession>
+                        {searchedSessions.map((activity) => (
+                            <ViewSession athleteId={params.userId} activity={activity}></ViewSession>
                         ))}
                     </table>
                 </div>

@@ -4,7 +4,7 @@ import Link from "next/link";
 import "@/styles/MainPageStyle.css"
 import AthleteProps from "@/components/AthleteProps";
 import { useEffect, useState } from "react";
-import { Athlete, AthleteMini } from "@/types";
+import { Athlete } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
 import Notifications from "@/components/Notifications";
 
@@ -45,7 +45,7 @@ export default function Home() {
       <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
                 <tr>
-                    <th>Id</th>
+                    <th>UserId</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
                     <th>Rapporter</th>
