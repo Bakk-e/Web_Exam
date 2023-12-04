@@ -35,7 +35,11 @@ export default function ViewSession(props: sessionProps) {
             </td>
             <td>
                 {session.tags ? 
-                 (session.tags.split(",").join(", "))
+                 (session.tags.split(",").map((tag, index) => (
+                    (index !== 0) && (
+                        `${tag}, `
+                    )
+                 )))
                 : ""
                 }
             </td>
