@@ -51,11 +51,11 @@ export default function Home() {
               <th>Sport</th>
               <th>Profil</th>
               <th>Rapporter</th>
-            </tr>
+            </tr> 
           </thead>
           <tbody>
             {searchedAthlete.map((athlete) => (
-              <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
+              <AthleteProps key={athlete.userId} userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
             ))}
           </tbody>
         </table>
