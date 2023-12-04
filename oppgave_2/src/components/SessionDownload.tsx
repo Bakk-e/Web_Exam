@@ -64,7 +64,7 @@ export default function DownloadSessionButton(props: downloadSessionButtonProps)
         const url = URL.createObjectURL(mrBlobby);
         const a = document.createElement("a");
         a.href = url;
-        a.download = `${GetCurrentDate()}_${session.title}.xlsx`;
+        a.download = `${GetCurrentDate()}_${session.name}.xlsx`;
         document.body.appendChild(a);
         a.click();
         document.body.removeChild(a);

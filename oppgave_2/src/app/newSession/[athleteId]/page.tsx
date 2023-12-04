@@ -2,29 +2,59 @@
 
 import Link from "next/link"
 import "@/styles/NewSessionPageStyle.css"
-import { useState } from "react"
-import Interval from "@/components/Interval";
-import { IntervalData, QuestionData, parameter } from "@/types";
-import Question from "@/components/Question";
+import { useEffect, useState } from "react"
+import CreateInterval from "@/components/CreateInterval";
+import { Activity, Competition, Goal, Interval, IntervalData, Question, QuestionData, parameter } from "@/types";
+import CreateQuestion from "@/components/CreateQuestion";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Notifications from "@/components/Notifications";
+import { randomUUID } from "crypto";
+import { useRouter } from "next/navigation";
 
 export default function NewSessionPage({params}: {params: {athleteId: string}}) {
     const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];  
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
-    const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
+    const [questions, setQuestions] = useState<QuestionData[]>([{id: "0"}]);
     const [questionCount, setQuestionCount] = useState(1);
     const [tagTemp, setTagTemp] = useState("");
     const [chosenTags, setChosenTags] = useState<string[]>([]);
     const [chosenParameters, setChosenParameters] = useState<string[]>([]);
+    const [template, setTempalte] = useState<string>("");
+    const [date, setDate] = useState<string>("");
+    const [title, setTitle] = useState<string>("");
+    const [type, setType] = useState<string>("");
+    const [tags, setTags] = useState<string[]>([]);
+    const [goalCompetion, setGoalCompetion] = useState<string>("");
+    const [intervalsSession, setIntervalsSession] = useState<Interval[]>([]);
+    const [questionsSession, setQuestionsSession] = useState<Question[]>([]);
+
+    const router = useRouter()
 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
     const exampleQuestions: QuestionData[] = [
-        {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
-        {key: 1, text: "Hvordan har du det?", type: "tekst"}
+        {id: "0", text: "Hvordan føltes du det gikk?", type: "emoji"},
+        {id: "1", text: "Hvordan har du det?", type: "tekst"}
     ]
+
+
+    const setActivity =async (activity: Activity) => {
+        try {
+            const response = await fetch (`/api/session/${params.athleteId}`, {
+                method: "post",
+                headers: {'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(activity)
+            })
+            if (!response.ok) throw new Error("Network response failed")
+        } catch (error) {
+            console.error("Failed to create activity", error)
+        }
+    }
+
+    
+    
 
     function addInterval() {
         setIntervals((prevIntervals) => [
@@ -54,7 +84,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     function addQuestion() {
         setQuestions((prevQuestion) => [
             ...prevQuestion,
-            {key: questionCount},
+            {id: `${questionCount}`},
         ]);
         setQuestionCount(questionCount + 1)
     };
@@ -79,7 +109,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     function handleAddExistingQuestion(data: QuestionData) {
         setQuestions((prevQuestion) => {
             const updatedList = [...prevQuestion];
-            data.key = questionCount;
+            data.id = `${questionCount}`;
             updatedList[questionCount] = data;
             setQuestionCount(questionCount + 1);
             return updatedList;
@@ -116,6 +146,71 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
         setChosenParameters(updatedParameter);
     };
 
+    function handleTemplateChange(e: any) {
+        const update: string = e.target.value;
+        setTempalte(update);
+    }
+
+    function handleDateChange(e: any) {
+        const update: string = e.target.value;
+        setDate(update);
+    }
+
+    function handleTitleChange(e: any) {
+        const update: string = e.target.value;
+        setTitle(update);
+    }
+
+    function handleTypeChange(e: any) {
+        const update: string = e.target.value;
+        setType(update);
+    }
+
+    function handleGoalCompetitionChange(e: any) {
+        const update: string = e.target.value;
+        setGoalCompetion(update);
+    }
+
+    function handleItervalsChange() {
+        const tempIntervals: Interval[] = [];
+        for (var item of intervals) {
+            if (item.intensityZone == 1 || item.intensityZone == 2  || item.intensityZone == 3  || item.intensityZone == 4 || item.intensityZone == 5) {
+                tempIntervals.push({
+                duration: item.duration,
+                intensityZone: item.intensityZone
+                })
+            }
+        }
+        setIntervalsSession(tempIntervals);
+    }
+
+    function handleQuestionsChange() {
+        const tempQuestions: Question[] = [];
+        for (var item of questions) {
+            if (item.type == "text" || item.type == "radio" || item.type == "emoji")
+            tempQuestions.push({
+                text: item.text,
+                type: item.type
+            })
+        }
+        setQuestionsSession(tempQuestions);
+    }
+    
+    function handleSaveButton(e: any) {
+        e.preventDefault();
+        handleItervalsChange();
+        handleQuestionsChange();
+        const newSession: Activity = {
+            date: new Date(date), name: title,
+            tags: [type, ...chosenTags].join(","),
+            intervals: intervalsSession,
+            questions: questionsSession,
+            parameters: chosenParameters
+        }
+        setActivity(newSession);
+        router.push(`/athlete/${params.athleteId}`)
+    }
+
     return (
         <div id="new-session-page">
             <header id="new-session-page-header">
@@ -130,7 +225,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 <div id="new-session-page-table">
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Mal: </p>
-                        <select className="new-session-page-create-point-dropdown">
+                        <select className="new-session-page-create-point-dropdown"
+                        onChange={handleTemplateChange}>
                             {tempList2.map((template) => (
                                 <option key={template} value={template}>{template}</option>
                             ))}
@@ -138,15 +234,21 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     </div>
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Dato: </p>
-                        <input className="new-session-page-create-point-input"/>
+                        <input className="new-session-page-create-point-input"
+                        type="text"
+                        onChange={handleDateChange}/>
                     </div>
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Titel: </p>
-                        <input className="new-session-page-create-point-input"/>
+                        <input className="new-session-page-create-point-input"
+                        type="text"
+                        onChange={handleTitleChange}/>
                     </div>
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Type: </p>
-                        <input className="new-session-page-create-point-input"/>
+                        <input className="new-session-page-create-point-input"
+                        type="text"
+                        onChange={handleTypeChange}/>
                     </div>
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Tags: </p>
@@ -164,7 +266,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     </div>
                     <div className="new-session-page-create-point">
                         <p className="new-session-page-create-point-title">Mål/konkuranse: </p>
-                        <select className="new-session-page-create-point-dropdown">
+                        <select className="new-session-page-create-point-dropdown"
+                        onChange={handleGoalCompetitionChange}>
                             {tempList.map((goalCompetion) => (
                                 <option key={goalCompetion} value={goalCompetion}>{goalCompetion}</option>
                             ))}
@@ -194,7 +297,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     <div id="new-session-page-intervals">
                         <p id="new-session-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
-                            <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval} key={interval.key}></Interval>
+                            <CreateInterval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval} key={interval.key}></CreateInterval>
                         ))}
                         <div id="new-session-page-intervals-buttons">
                             <button id="new-session-page-intervals-add" onClick={addInterval}>Add interval</button>
@@ -205,7 +308,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <p id="new-session-page-questions-title">Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
-                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question} key={question.key}></Question>
+                            <CreateQuestion index={index} handleDataUpdate={handleQuestionDataUpdate} data={question} key={question.id}></CreateQuestion>
                         ))}
                         <div id="new-session-page-questions-buttons">
                             <button id="new-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
@@ -215,7 +318,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                 </div>
             </div>
             <div id="new-session-page-save">
-                <button id="new-session-page-save-button">Lagre</button>
+                <button id="new-session-page-save-button" onClick={handleSaveButton}>Lagre</button>
                 <button id="new-session-page-save-template-button">Lagre som mal</button>
             </div>
         </div>

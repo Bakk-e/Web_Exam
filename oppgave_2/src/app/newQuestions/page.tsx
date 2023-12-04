@@ -2,6 +2,7 @@
 
 import Notifications from "@/components/Notifications"
 import "@/styles/NewQuestionsPageStyle.css"
+import { QuestionData } from "@/types"
 import Link from "next/link"
 import {useState} from "react";
 

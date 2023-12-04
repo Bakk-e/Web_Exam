@@ -34,12 +34,13 @@ model Competition {
   title      String?
   location   String?
   date       DateTime?
+  goal       String?
   type       String?
+  priority   String?
   comment    String?
-  athleteId  String
-  Athlete    Athlete      @relation(fields: [athleteId], references: [id])
-  goals      String?
-  intervals  Interval[]
+  athleteId  String?
+  Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
+  Interval   Interval[]
   Connection Connection[]
 }
 
