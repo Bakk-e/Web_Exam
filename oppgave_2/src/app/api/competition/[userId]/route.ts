@@ -1,18 +1,17 @@
 import prisma from "@/lib/db"
 import { Competition } from "@/types"
-import { NextApiRequest, NextApiResponse } from "next"
+import { NextRequest } from "next/server";
 import { NextResponse } from "next/server"
 
 
-export async function POST(request: NextApiRequest, context: any) {
+export async function POST(request: NextRequest, {params}: {params: {userId: string}}) {
+  const body = await request.json() as Competition
   try {
-    const { userId } = context.params
-    const competitionData: Competition = request.body
-    //const { id, title, date, location, goal, type, priority, comment } = request.body;
+    const {title, date, location, goal, type, priority, comment} = body;
 
     const athleteComp = await prisma.athlete.findFirst({
       where: {
-        userId: String(userId),
+        userId: params.userId,
       },
     })
 
@@ -22,13 +21,13 @@ export async function POST(request: NextApiRequest, context: any) {
 
     const newComp = await prisma.competition.create({
       data: {
-        title: competitionData.title,
-        date: competitionData.date,
-        location: competitionData.location,
-        goal: competitionData.goal,
-        type: competitionData.type,
-        priority: competitionData.priority,
-        comment: competitionData.comment,
+        title: title,
+        date: date,
+        location: location,
+        goal: goal,
+        type: type,
+        priority: priority,
+        comment: comment,
 
         Athlete: {
             connect: {

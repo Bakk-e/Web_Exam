@@ -20,7 +20,7 @@ export default function NewGoal({params}: {params: {athleteId: string}}) {
     const putGoal = async (goal: Goal) => {
         try {
             const response = await fetch(`/api/goal/${params.athleteId}`,{
-                method: 'POST',
+                method: 'post',
                 headers: {'Content-Type': 'application/json',
                 },
                 body: JSON.stringify(goal)

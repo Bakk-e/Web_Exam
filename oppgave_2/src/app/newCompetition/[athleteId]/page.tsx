@@ -24,8 +24,9 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
         const setComp =async (comp: Competition) => {
             try {
             const response = await fetch(`/api/competition/${params.athleteId}`, {
-                method: "POST",
-                headers: { "Content-Type": "application/json" },
+                method: "post",
+                headers: { "Content-Type": "application/json",
+                },
                 body: JSON.stringify(comp),
             })
             if (!response.ok) 

@@ -3,16 +3,14 @@ import { Goal } from "@/types";
 import { randomUUID } from "crypto";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function POST(request: NextRequest, response: NextResponse, context: any) {
+export async function POST(request: NextRequest, {params}: {params: {userId: string}}) {
     const body = await request.json() as Goal
     try {
         const { title, date, goal, comment } = body;
 
-        const { userId } = context.params;
-
         const athleteGoal = await prisma.athlete.findFirst({
             where: {
-                userId: String(userId),
+                userId: params.userId,
             },
         })
 
