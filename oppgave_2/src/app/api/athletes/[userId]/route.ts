@@ -13,6 +13,12 @@ export async function GET(request: NextApiRequest, context: any) {
       where: {
         userId: userId,
       },
+      include: {
+        meta: true,
+        activities: true,
+        competitions: true,
+        goals: true,
+      }
     })
 
     console.log("Athlete recieved from the db: ", athleteDetails)
