@@ -1,5 +1,9 @@
-import { Athlete } from "@/types"
 import { useState } from "react";
+
+
+
+import { Athlete } from "@/types";
+
 
 type editAthleteProps = {
     isEditOpen: boolean,
@@ -14,9 +18,26 @@ export default function EditAthlete(params: editAthleteProps) {
     const [heartrate, setHeartrate] = useState(0);
     const [wattage, setWattage] = useState(0);
     const [speed, setSpeed] = useState(0);
+    const [updatedData, setUpdatedData] = useState<Athlete>();
 
     const putAthlete = async (athlete: Athlete) => {
-        ///// api
+        /*
+        const userId = athlete.userId
+
+        try {
+          const response = await fetch(`/api/athletes/${userId}`, {
+            method: "PUT",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(athlete),
+          });
+
+          if (response.ok) {
+            const data: Athlete = await response.json();
+            setUpdatedData(data);
+          }
+        } catch (error) {}
+        */
+
     }
 
     function handleHeartrateChange(e: any) {

@@ -71,7 +71,7 @@ export async function POST (req: NextRequest, res: NextResponse) {
 
         const newMeta = await prisma.meta.create({
             data: {
-                heartRate: meta.maxHeartRate ? parseInt(meta.maxHeartRate, 10) : null,
+                heartrate: meta.maxHeartRate ? parseInt(meta.maxHeartRate, 10) : null,
                 watt: meta.thresholdWattage ? parseInt(meta.thresholdWattage, 10) : null,
                 speed: meta.thresholdSpeed ? parseInt(meta.thresholdSpeed, 10) : null,
                 athleteId: newAthlete.id,
