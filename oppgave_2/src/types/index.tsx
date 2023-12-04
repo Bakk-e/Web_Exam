@@ -35,7 +35,7 @@ export type Competition = {
     title?: string,
     location?: string,
     date?: Date,
-    goal?: Goal[],
+    goal?: string,
     type?: string,
     priority?: "A" | "B" | "C",
     comment?: string

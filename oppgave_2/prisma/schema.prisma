@@ -38,7 +38,7 @@ model Competition {
   comment    String?
   athleteId  String
   Athlete    Athlete      @relation(fields: [athleteId], references: [id])
-  goals      Goal[]
+  goals      String?
   intervals  Interval[]
   Connection Connection[]
 }
@@ -62,17 +62,15 @@ model Question {
 }
 
 model Goal {
-  id            String       @id @default(uuid())
-  title         String?
-  date          DateTime?
-  goal          Int?
-  comment       String?
-  competition   Competition? @relation(fields: [competitionId], references: [id])
-  competitionId String?
-  Connection    Connection[]
-  Athlete       Athlete?     @relation(fields: [athleteId], references: [id])
-  athleteId     String?
-  Activity      Activity[]
+  id         String       @id @default(uuid())
+  title      String?
+  date       DateTime?
+  goal       Int?
+  comment    String?
+  Connection Connection[]
+  Athlete    Athlete?     @relation(fields: [athleteId], references: [id])
+  athleteId  String?
+  Activity   Activity[]
 }
 
 model Activity {
