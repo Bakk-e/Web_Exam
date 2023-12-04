@@ -8,18 +8,25 @@ datasource db {
 }
 
 model Athlete {
-  id               String        @id @default(uuid())
-  userId           String        @unique
-  gender           String
-  sport            String
-  maxHeartRate     Int?
-  thresholdWattage Int?
-  thresholdSpeed   Int?
-  sessions         Session[]
-  competitions     Competition[]
-  goals            Goal[]
-  templates        Template[]
-  ArchivedMeta     ArchivedMeta?
+  id           String         @id @default(uuid())
+  userId       String         @unique
+  gender       String
+  sport        String
+  meta         Meta?
+  activities   Activity[]
+  competitions Competition[]
+  goals        Goal[]
+  templates    Template[]
+  ArchivedMeta ArchivedMeta[]
+}
+
+model Meta {
+  id        Int     @id @default(autoincrement())
+  heartrate Int?
+  watt      Int?
+  speed     Int?
+  athlete   Athlete @relation(fields: [athleteId], references: [id])
+  athleteId String  @unique
 }
 
 model Competition {
@@ -27,7 +34,6 @@ model Competition {
   title      String?
   location   String?
   date       DateTime?
-  goal       String?
   type       String?
   comment    String?
   athleteId  String
@@ -42,18 +48,17 @@ model Questions {
   text String?
   type String?
 
-  Question   Question? @relation(fields: [questionId], references: [id])
-  questionId String?
   Template   Template? @relation(fields: [templateId], references: [id])
   templateId String?
 }
 
 model Question {
-  id        String      @id @default(uuid())
-  question  Questions[]
-  answer    String?
-  Session   Session?    @relation(fields: [sessionId], references: [id])
-  sessionId String?
+  id         String    @id @default(uuid())
+  text       String?
+  type       String?
+  answer     String?
+  activity   Activity? @relation(fields: [activityId], references: [id])
+  activityId String?
 }
 
 model Goal {
@@ -67,16 +72,19 @@ model Goal {
   Connection    Connection[]
   Athlete       Athlete?     @relation(fields: [athleteId], references: [id])
   athleteId     String?
+  Activity      Activity[]
 }
 
-model Session {
+model Activity {
   id         String      @id @default(uuid())
   date       DateTime?
   title      String?
-  tags       String?
   type       String?
+  tags       String?
   questions  Question[]
   intervals  Interval[]
+  goal       Goal?       @relation(fields: [goalId], references: [id])
+  goalId     String?
   report     Report?
   connection Connection?
 
@@ -86,26 +94,26 @@ model Session {
 
 model Interval {
   id            String       @id @default(uuid())
-  session       Session?     @relation(fields: [sessionId], references: [id])
-  sessionId     String?
   duration      Int?
-  intensity     Int?
+  intensityZone Int?
   Competition   Competition? @relation(fields: [competitionId], references: [id])
   competitionId String?
   Template      Template?    @relation(fields: [templateId], references: [id])
   templateId    String?
+  activity      Activity?    @relation(fields: [activityId], references: [id])
+  activityId    String?
 }
 
 model Report {
-  id             String           @id @default(uuid())
-  status         String?
-  intervalReport IntervalReport[]
-  comments       String?
-  session        Session?         @relation(fields: [sessionId], references: [id])
-  sessionId      String?          @unique
+  id              String           @id @default(uuid())
+  status          String?
+  reportIntervals ReportInterval[]
+  comments        String?
+  activities      Activity?        @relation(fields: [activityId], references: [id])
+  activityId      String?          @unique
 }
 
-model IntervalReport {
+model ReportInterval {
   id                  Int    @id @default(autoincrement())
   report              Report @relation(fields: [reportId], references: [id])
   reportId            String
@@ -125,8 +133,8 @@ model IntervalReport {
 
 model Connection {
   id            Int          @id @default(autoincrement())
-  session       Session?     @relation(fields: [sessionId], references: [id])
-  sessionId     String?      @unique
+  activities    Activity?    @relation(fields: [activityId], references: [id])
+  activityId    String?      @unique
   goal          Goal?        @relation(fields: [goalId], references: [id])
   competition   Competition? @relation(fields: [competitionId], references: [id])
   goalId        String?
@@ -152,6 +160,5 @@ model ArchivedMeta {
   watt         Int?
   speed        Int?
   archivedDate DateTime? @default(now())
-
-  Athlete Athlete? @relation(fields: [athleteId], references: [id])
+  Athlete      Athlete?  @relation(fields: [athleteId], references: [id])
 }

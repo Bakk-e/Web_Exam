@@ -1,9 +1,40 @@
+
+export type Athlete = {
+    id: string,
+    userId: string;
+    gender: string,
+    sport: string,
+    meta: Meta,
+    ativities?: Activity[],
+    competitions?: Competition[],
+    goals?: Goal[],
+}
+
+export type Meta = {
+    heartRate: number,
+    watt: number,
+    speed: number,
+}
+
+export type Activity = {
+    id?: string,
+    date?: Date,
+    title?: string,
+    type?: string,
+    tags?: string[],
+    questions?: Question[],
+    intervals?: Interval[],
+    parameters?: string[],
+    report?: Report,
+    connection?: Goal | Competition
+}
+
 export type Competition = {
     id?: string,
     title?: string,
     location?: string,
     date?: Date,
-    goal?: string,
+    goal?: Goal[],
     type?: string,
     priority?: "A" | "B" | "C",
     comment?: string
@@ -24,13 +55,13 @@ type ReportInterval = {
     avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,
-    avrageHeartRate?: number,
+    averageHeartRate?: number,
     minSpeed?: number,
     maxSpeed?: number,
-    avrageSpeed?: number,
+    averageSpeed?: number,
     minWattage?: number,
     maxWattage?: number,
-    avrageWattage?: number,
+    averageWattage?: number,
     duration?: number
 }
 
@@ -54,36 +85,7 @@ export type Interval = {
     intensityZone?: 1 | 2 | 3 | 4 | 5
 }
 
-export type Session = {
-    id?: string,
-    date?: Date,
-    title?: string,
-    type?: string,
-    tags?: string[],
-    questions?: Question[],
-    intervals?: Interval[],
-    parameters?: string[],
-    report?: Report,
-    connection?: Goal | Competition
-}
 
-export type Athlete = {
-    id: string,
-    userId: string;
-    gender: string,
-    sport: string,
-    maxHeartRate?: number,
-    thresholdWattage?: number,
-    thresholdSpeed?: number,
-    meta? : {
-        heartrate? : number,
-        watt? : number,
-        speed? : number,
-    },
-    sessions?: Session[]
-    competitions?: Competition[],
-    goals?: Goal[],
-}
 
 export type AthleteMini = {
     id: string,
