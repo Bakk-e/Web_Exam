@@ -22,7 +22,7 @@ export type Activity = {
     date?: Date,
     name?: string,
     type?: string,
-    tags?: string[],
+    tags?: string,
     questions?: Question[],
     intervals?: Interval[],
     parameters?: string[],
