@@ -37,36 +37,42 @@ export default function Session({params}: {params: {athleteId: string, activityI
             <div id="session-page-content">
                 <p id="session-page-title">Økt: {activity.title}</p>
                 <table id="session-page-table">
-                    <tr>
-                        <th>Titel: </th>
-                        <td>{activity.title}</td>
-                    </tr>
-                    <tr>
-                        <th>Dato: </th>
-                        {activity.date ? (
-                            <td>Dato: {DateToString(activity.date?.toString())}</td>
-                        ) : (
-                            <td>Dato: Null</td>
-                        )}
-                    </tr>
-                    <tr>
-                        <th>Type: </th>
-                        <td>{activity.type}</td>
-                    </tr>
-                    <tr>
-                        <th>Tags: </th>
-                        <td>{activity.tags?.join(", ")}</td>
-                    </tr>
-                    <tr>
-                        <th>Rapport status: </th>
-                        <td>{activity.report?.status}</td>
-                    </tr>
+                    <tbody>
+                        <tr className="session-page-table-point">
+                            <th>Titel: </th>
+                            <td>{activity.title}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Dato: </th>
+                            {activity.date ? (
+                                <td>Dato: {DateToString(activity.date?.toString())}</td>
+                            ) : (
+                                <td>Dato: Null</td>
+                            )}
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Type: </th>
+                            <td>{activity.type}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Tags: </th>
+                            <td>{activity.tags?.join(", ")}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Rapport status: </th>
+                            <td>{activity.report?.status}</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div id="session-page-intervals">
                     <p id="session-page-intervals-title">Intervaller: </p>
-                    {activity.intervals?.map((interval) => (
-                        <ViewInterval interval={interval}></ViewInterval>
-                    ))}
+                    <table id="session-page-intervals-table">
+                        <tbody>
+                            {activity.intervals?.map((interval, index) => (
+                                <ViewInterval key={index} interval={interval}></ViewInterval>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>

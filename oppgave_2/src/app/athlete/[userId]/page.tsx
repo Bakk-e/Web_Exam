@@ -4,13 +4,14 @@ import CompetitionCard from "@/components/CompetitionCard";
 import EditAthlete from "@/components/EditAthlete";
 import EditCompetition from "@/components/EditCompetition";
 import EditGoal from "@/components/EditGoal";
-import { DateToNumber } from "@/components/Functions";
+import { DateToNumber, NumbersToLetters } from "@/components/Functions";
 import GoalCard from "@/components/GoalCard";
 import Notifications from "@/components/Notifications";
 import ViewSession from "@/components/ViewSession";
 import "@/styles/AthletePageStyle.css"
 import { Athlete, Competition, Goal, Activity } from "@/types";
 import Link from "next/link"
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react"
 
 const initialState = {open: false};
@@ -30,6 +31,12 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
     const [sessionTypes, setSessionTypes] = useState<string[]>([]);
     const [sessionTags, setSessionTags] = useState<string[]>([]);
     const [sortOrder, setSortOrder] = useState<string>("ascending");
+    const [acendButton, setAcendButton] = useState<boolean>(true);
+    const [dcendButton, setDcendButton] = useState<boolean>(false);
+    const [selectedSessions, setSelectedSessions] = useState<Activity[]>([]);
+    const [selectedSessionType, setSelectedSessionType] = useState<string>("");
+
+    const router = useRouter()
 
     useEffect(() => {
         const getAthlete = async () => {
@@ -45,14 +52,14 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
             let typesTemp: string[] = [];
             let tagsTemp: string[] = [];
             if (result.data.activities) {
-                for (const session of result.data.activities) {
-                    if (session.type) {
-                        if (!typesTemp.includes(session.type)) {
-                            typesTemp.push(session.type);
+                for (const activity of result.data.activities) {
+                    if (activity.type) {
+                        if (!typesTemp.includes(activity.type)) {
+                            typesTemp.push(activity.type);
                         };
                     };
-                    if (session.tags) {
-                        for (const tag of session.tags) {
+                    if (activity.tags) {
+                        for (const tag of activity.tags) {
                             if (!tagsTemp.includes(tag)) {
                                 tagsTemp.push(tag);
                             };
@@ -74,6 +81,9 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                     
                     ));
                 };
+                if (selectedSessionType !== "") {
+                    tempSortedSessions = tempSortedSessions.filter((session) => session.type === selectedSessionType)
+                }
                 if (chosenTags.length > 0) {
                     tempSortedSessions = tempSortedSessions.filter((session) => (
                         chosenTags.every((tag) => session.tags?.includes(tag))
@@ -103,10 +113,9 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                 };
             };
             setSearchedSessions(tempSortedSessions);
-            
         };
         getAthlete();
-    }, [sortOrder, chosenTypes, chosenTags, reportFilters]);
+    }, [sortOrder, chosenTypes, chosenTags, reportFilters, selectedSessionType]);
 
     function toggleEdit() {
         setIsEditOpen(!isEditOpen);
@@ -170,7 +179,47 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
     function handleButtonSort(e: any, order: string) {
         e.preventDefault();
 
-        setSortOrder(order);
+        if (order === "ascending") {
+            setAcendButton(true);
+            setDcendButton(false);
+            setSortOrder(order);
+        } else if (order === "descending") {
+            setAcendButton(false);
+            setDcendButton(true);
+            setSortOrder(order);
+        }
+    }
+
+    function toggleSession(activity: Activity) {
+        const isSelected = selectedSessions.some(item => item.id === activity.id);
+        if (activity.report) {
+            if (isSelected) {
+                if (selectedSessions.length == 1) {
+                    setSelectedSessionType("");
+                }
+                setSelectedSessions(selectedSessions.filter((item) => item.id !== activity.id));
+            } else {
+                if (selectedSessions.length == 0 && activity.type) {
+                    setSelectedSessionType(activity.type);
+                }
+                setSelectedSessions([...selectedSessions, activity]);
+            }
+        }
+        
+    }
+
+    function handleIsDisabled(activity: Activity) {
+        if (selectedSessionType == "") {
+            return false;
+        } else {
+            return selectedSessionType !== activity.type
+        }
+    }
+
+    function handleAnalyzeButton() {
+        const sessionsIds = selectedSessions.map((session) => session.id);
+        const sessionsString = sessionsIds.join("+");
+        router.push(`/analyzeSessions/${athlete?.id}/${sessionsString}`);
     }
 
     return (
@@ -193,50 +242,54 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                 <div id="athlete-page-inteval-zones">
                     <p id="athlete-page-inteval-zones-title">Intervall soner:</p>
                     <table id="athlete-page-inteval-zones-table">
-                        <tr>
-                            <th></th>
-                            <th>50%</th>
-                            <th>60%</th>
-                            <th>70%</th>
-                            <th>80%</th>
-                            <th>90%</th>
-                        </tr>
-                        <tr>
-                            <th>Puls</th>
-                            {athlete && athlete.meta?.heartRate !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Watt</th>
-                            {athlete && athlete.meta?.watt !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.watt * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Fart</th>
-                            {athlete && athlete.meta?.speed !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.speed * 0.5).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.6).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.7).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.8).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.9).toFixed(1))}</td>
-                                </>
-                            )}
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>50%</th>
+                                <th>60%</th>
+                                <th>70%</th>
+                                <th>80%</th>
+                                <th>90%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Puls</th>
+                                {athlete && athlete.meta?.heartRate !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Watt</th>
+                                {athlete && athlete.meta?.watt !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.watt * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Fart</th>
+                                {athlete && athlete.meta?.speed !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.speed * 0.5).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.6).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.7).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.8).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.9).toFixed(1))}</td>
+                                    </>
+                                )}
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -245,29 +298,37 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
             </div>
             <div id="athlete-page-competitions-and-goals">
                 <p id="athlete-page-competitions-title">Konkuranser: </p>
-                <div id="athlete-page-competitions">
+                <div className={`athlete-page-competitions ${athlete?.competitions && athlete.competitions.length !== 0 ? NumbersToLetters(athlete.competitions.length) : ""}`}>
                     {athlete?.competitions?.map((competition) => (
                         <CompetitionCard competition={competition} toggleEditCompetition={toggleEditCompetition} setEditingCompetiion={setEditingCompetition}></CompetitionCard>
                     ))}
-                    {athlete && athlete.competitions && (
+                    {(athlete && athlete.competitions) ? (
                         athlete.competitions.length < 3 && (
                         <div id="athlete-page-competitions-card-add">
                             <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.userId}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
                         </div>
                         )
+                    ) : (
+                        <div id="athlete-page-competitions-card-add">
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.userId}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                        </div>
                     )}
                 </div>
                 <p id="athlete-page-goals-title">Mål: </p>
-                <div id="athlete-page-goals">
+                <div className={`athlete-page-goals ${athlete?.goals && athlete.goals.length !== 0 ? NumbersToLetters(athlete.goals.length) : ""}`}>
                     {athlete?.goals?.map((goal) => (
                         <GoalCard goal={goal} toggleEditGoal={toggleEditGoal} setEditingGoal={setEditingGoal}></GoalCard>
                     ))}
-                    {athlete && athlete.goals && (
+                    {(athlete && athlete.goals) ? (
                         athlete.goals.length < 3 && (
                             <div id="athlete-page-goals-card-add">
                                 <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.userId}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
                             </div>
                         )
+                    ) : (
+                        <div id="athlete-page-goals-card-add">
+                            <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.userId}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                        </div>
                     )}
                 </div>
             </div>
@@ -276,86 +337,109 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                     <p id="athlete-page-sessions-title">Økter: </p>
                     <div id="athlete-page-sessions-filters">
                         <p id="athlete-page-sessions-filters-title">Filter</p>
-                        <div id="athlete-page-sessions-filters-date">
-                            <p id="athlete-page-sessions-filters-date-title">Dato:</p>
-                            <button id="athlete-page-sessions-filters-date-ascend" onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
-                            <button id="athlete-page-sessions-filters-date-decend" onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                        <div id="athlete-page-sessions-filters-section">
+                            <div id="athlete-page-sessions-filters-date">
+                                <p id="athlete-page-sessions-filters-date-title">Dato:</p>
+                                <button className={`athlete-page-sessions-filters-date-acend ${acendButton ? "pressed" : ""}`} onClick={(e) => handleButtonSort(e, "ascending")}>Stig</button>
+                                <button className={`athlete-page-sessions-filters-date-dcend ${dcendButton ? "pressed" : ""}`} onClick={(e) => handleButtonSort(e, "descending")}>Synk</button>
+                            </div>
+                            <div id="athlete-page-sessions-filters-dropdowns">
+                                {selectedSessionType === "" && (
+                                    <div id="athlete-page-sessions-filters-dropdowns-type">
+                                        <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
+                                        <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
+                                            <option value="" disabled>Any</option>
+                                            {sessionTypes.map((type) => (
+                                                !chosenTypes.includes(type) && (
+                                                    <option key={type} value={type}>{type}</option>
+                                                )
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+                                <div id="athlete-page-sessions-filters-dropdowns-tags"> 
+                                    <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
+                                    <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
+                                    <option value="" disabled>Any</option>
+                                        {sessionTags.map((tag) => (
+                                            !chosenTags.includes(tag) && (
+                                                <option key={tag} value={tag}>{tag}</option>
+                                            )
+                                        ))}
+                                    </select>
+                                </div>
+                                <div id="athlete-page-sessions-filters-dropdowns-report">
+                                    <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
+                                    <select id="athlete-page-sessions-filters-dropdowns-report-select" onChange={handleReportChange} value="">
+                                        <option value="" disabled>Any</option>
+                                        {availableReportFilters.map((status) => (
+                                            !reportFilters.includes(status) && (
+                                                <option key={status} value={status}>{status}</option>
+                                            )
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
                         </div>
-                        <div id="athlete-page-sessions-filters-dropdowns">
-                            <div id="athlete-page-sessions-filters-dropdowns-type">
-                                <p id="athlete-page-sessions-filters-dropdowns-type-title">Type</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-type-select" onChange={handleTypeChange} value="">
-                                    <option value="" disabled>Any</option>
-                                    {sessionTypes.map((type) => (
-                                    !chosenTypes.includes(type) && (
-                                        <option key={type} value={type}>{type}</option>
-                                    )
+                        <div id="athlete-page-sessions-selected-type">
+                            {selectedSessionType !== "" && (
+                                <p>Type: {selectedSessionType}</p>
+                            )}
+                        </div>
+                        <div id="athlete-page-sessions-filters-dropdowns-clear-all">
+                            {displayClearAll() && (
+                                <button id="athlete-page-sessions-filters-dropdowns-clear-all-button" onClick={handleClearAllButton}>Clear all</button>
+                            )}
+                        </div>
+                        <div id="athlete-page-sessions-filters-dropdowns-chosen">
+                            <ul>
+                                {chosenTypes.map((type) => (
+                                    <li key={type}>
+                                        {type} <button onClick={() => handleTypeRemove(type)}>x</button>
+                                    </li>
                                 ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-tags"> 
-                                <p id="athlete-page-sessions-filters-dropdowns-tags-title">Tags</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-tags-select" onChange={handleTagChange} value="">
-                                <option value="" disabled>Any</option>
-                                    {sessionTags.map((tag) => (
-                                        !chosenTags.includes(tag) && (
-                                            <option key={tag} value={tag}>{tag}</option>
-                                        )
-                                    ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-report">
-                                <p id="athlete-page-sessions-filters-dropdowns-report-title">Rapport</p>
-                                <select id="athlete-page-sessions-filters-dropdowns-report-title" onChange={handleReportChange} value="">
-                                    <option value="" disabled>Any</option>
-                                    {availableReportFilters.map((status) => (
-                                        !reportFilters.includes(status) && (
-                                            <option key={status} value={status}>{status}</option>
-                                        )
-                                    ))}
-                                </select>
-                            </div>
-                            <div id="athlete-page-sessions-filters-dropdowns-chosen">
-                                <ul>
-                                    {displayClearAll() && (
-                                        <button onClick={handleClearAllButton}>Clear all</button>
-                                    )}
-                                    {chosenTypes.map((type) => (
-                                        <li key={type}>
-                                            {type} <button onClick={() => handleTypeRemove(type)}>x</button>
-                                        </li>
-                                    ))}
-                                    {chosenTags.map((tag) => (
-                                        <li key={tag}>
-                                            {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
-                                        </li>
-                                    ))}
-                                    {reportFilters.map((status) => (
-                                        <li key={status}>
-                                            {status} <button onClick={() => handleReportRemove(status)}>x</button>
-                                        </li>
-                                    ))}
-                                </ul>
-                            </div>
+                                {chosenTags.map((tag) => (
+                                    <li key={tag}>
+                                        {tag} <button onClick={() => handleTagRemove(tag)}>x</button>
+                                    </li>
+                                ))}
+                                {reportFilters.map((status) => (
+                                    <li key={status}>
+                                        {status} <button onClick={() => handleReportRemove(status)}>x</button>
+                                    </li>
+                                ))}
+                            </ul>
                         </div>
                     </div>
                     <table id="athlete-page-sessions-table">
-                        <tr>
-                            <th>Dato</th>
-                            <th>Navn</th>
-                            <th>Type</th>
-                            <th>Tags</th>
-                            <th>Status</th>
-                            <th>Rapporter</th>
-                            <th>Last ned</th>
-                            <th>Dupliser</th>
-                            <th>Edit</th>
-                            <th>Slett</th>
-                        </tr>
-                        {searchedSessions.map((activity) => (
-                            <ViewSession athleteId={params.userId} activity={activity}></ViewSession>
-                        ))}
+                        <thead>
+                            <tr>
+                                <th>Dato</th>
+                                <th>Navn</th>
+                                <th>Type</th>
+                                <th>Tags</th>
+                                <th>Åpne</th>
+                                <th>Status</th>
+                                <th>Rapporter</th>
+                                <th>Last ned</th>
+                                <th>Dupliser</th>
+                                <th>Edit</th>
+                                <th>Slett</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {searchedSessions.map((session) => (
+                                <ViewSession key={session.id} athleteId={params.userId} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
+                            ))}
+                        </tbody>
                     </table>
+                    <div id="athlete-page-sessions-analyze">
+                        {selectedSessions.length > 1 ? (
+                            <button id="athlete-page-sessions-analyze-button" onClick={handleAnalyzeButton}>Analyser: {selectedSessions.length}</button>
+                        ) : (
+                            <button id="athlete-page-sessions-analyze-button-disabled" disabled>Analyser: {selectedSessions.length}</button>
+                        )}
+                    </div>
                 </div>
             </div>
             {athlete && (

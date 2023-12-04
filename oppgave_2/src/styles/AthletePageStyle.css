@@ -167,12 +167,24 @@
     font-size: 1.5rem;
 }
 
-#athlete-page-competitions {
+.athlete-page-competitions {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
     background-color: var(--whiteishGray);
     border-radius: 1.8rem;
+    width: 16%;
+}
+
+.athlete-page-competitions.one {
+    width: 47%;
+}
+
+.athlete-page-competitions.two {
+    width: 70%;
+}
+
+.athlete-page-competitions.three {
     width: 70%;
 }
 
@@ -260,14 +272,26 @@
     font-size: 1.5rem;
 }
 
-#athlete-page-goals {
+.athlete-page-goals {
     display: flex;
     justify-content: space-around;
     padding: 0.5rem;
     background-color: var(--whiteishGray);
     border-radius: 1.8rem;
-    width: 70%;
+    width: 16%;
     margin-bottom: 1rem;
+}
+
+.athlete-page-goals.one {
+    width: 47%;
+}
+
+.athlete-page-goals.two {
+    width: 70%;
+}
+
+.athlete-page-goals.three {
+    width: 70%;
 }
 
 .athlete-page-goals-card {
@@ -531,8 +555,124 @@
 
 #athlete-page-sessions-title {
     text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 1rem;
+    font-size: 2rem;
+    margin-bottom: 0.3rem;
+}
+
+#athlete-page-sessions-filters-title {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.8rem;
+}
+
+#athlete-page-sessions-filters-section {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+#athlete-page-sessions-filters-date {
+    display: flex;
+    flex-direction: row;
+}
+
+.athlete-page-sessions-filters-date-acend {
+    margin-left: 0.7rem;
+    border-radius: 1.8rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 5rem;
+    color: var(--white);
+    background-color: var(--cgBlue);
+}
+
+.athlete-page-sessions-filters-date-acend.pressed {
+    background-color: var(--cgBlueDark);
+}
+
+.athlete-page-sessions-filters-date-dcend {
+    margin-left: 0.7rem;
+    border-radius: 1.8rem;
+    transition: background-color 0.3s ease;
+    text-align: center;
+    width: 5rem;
+    color: var(--white);
+    background-color: var(--cgBlue);
+}
+
+.athlete-page-sessions-filters-date-dcend.pressed {
+    background-color: var(--cgBlueDark);
+}
+
+#athlete-page-sessions-filters-dropdowns {
+    display: flex;
+    flex-direction: row;
+}
+
+#athlete-page-sessions-filters-dropdowns-type {
+    display: flex;
+    flex-direction: row;
+}
+
+#athlete-page-sessions-filters-dropdowns-type-select {
+    border-radius: 1.8rem;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-tags {
+    display: flex;
+    flex-direction: row;
+}
+
+#athlete-page-sessions-filters-dropdowns-tags-title {
+    margin-left: 1rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-tags-select {
+    border-radius: 1.8rem;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-report {
+    display: flex;
+    flex-direction: row;
+}
+
+#athlete-page-sessions-filters-dropdowns-report-title {
+    margin-left: 1rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-report-select {
+    border-radius: 1.8rem;
+    text-align: center;
+    margin-left: 0.5rem;
+}
+
+#athlete-page-sessions-selected-type {
+    display: flex;
+    justify-content: center;
+}
+
+#athlete-page-sessions-filters-dropdowns-clear-all {
+    display: flex;
+    justify-content: center;
+    margin-top: 0.5rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-chosen {
+    margin-bottom: 0.5rem;
+}
+
+#athlete-page-sessions-filters-dropdowns-chosen ul {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+#athlete-page-sessions-filters-dropdowns-chosen ul li {
+    margin-right: 1rem;
 }
 
 #athlete-page-sessions-table {
@@ -549,4 +689,28 @@
 
 #athlete-page-sessions-table-status {
     text-align: center;
+}
+
+#athlete-page-sessions-analyze {
+    display: flex;
+    justify-content: flex-end;
+    padding-bottom: 2rem;
+}
+
+#athlete-page-sessions-analyze-button {
+    border-radius: 1.8rem;
+    text-align: center;
+    width: 9rem;
+    height: 3rem;
+    color: var(--white);
+    background-color: var(--cgBlue);
+}
+
+#athlete-page-sessions-analyze-button-disabled {
+    border-radius: 1.8rem;
+    text-align: center;
+    width: 9rem;
+    height: 3rem;
+    color: var(--white);
+    background-color: var(--cgBlueDark);
 }

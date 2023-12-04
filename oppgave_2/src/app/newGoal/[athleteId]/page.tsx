@@ -23,30 +23,30 @@ export default function NewGoal({params}: {params: {athleteId: string}}) {
             </header>
             <div id="new-goal-page-content">
                 <p id="new-goal-page-title">Nytt mål</p>
-                <table id="new-goal-page-table">
-                    <tr className="new-goal-page-create-point">
-                        <td className="new-goal-page-create-point-titel">Titel: </td>
-                        <td><input className="new-goal-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-goal-page-create-point">
-                        <td className="new-goal-page-create-point-titel">Dato: </td>
-                        <td><input className="new-goal-page-create-point-input"
+                <div id="new-goal-page-table">
+                    <div className="new-goal-page-create-point">
+                        <p className="new-goal-page-create-point-title">Titel: </p>
+                        <input className="new-goal-page-create-point-input"/>
+                    </div>
+                    <div className="new-goal-page-create-point">
+                        <p className="new-goal-page-create-point-title">Dato: </p>
+                        <input className="new-goal-page-create-point-input"
                         type="date"
-                        min={currentdate}/></td>
-                    </tr>
-                    <tr className="new-goal-page-create-point">
-                        <td className="new-goal-page-create-point-titel">Mål: </td>
-                        <td><input className="new-goal-page-create-point-input"
-                        type="number"/></td>
-                    </tr>
-                    <tr className="new-goal-page-create-point">
-                        <td className="new-goal-page-create-point-titel">Kommentar: </td>
-                        <td><textarea className="new-goal-page-create-point-textarea"></textarea></td>
-                    </tr>
-                </table>
-                <div id="new-goal-page-save">
-                    <button id="new-goal-page-save-button">Lagre</button>
+                        min={currentdate}/>
+                    </div>
+                    <div className="new-goal-page-create-point">
+                        <p className="new-goal-page-create-point-title">Mål: </p>
+                        <input className="new-goal-page-create-point-input"
+                        type="number"/>
+                    </div>
+                    <div className="new-goal-page-create-point">
+                        <p className="new-goal-page-create-point-title">Kommentar: </p>
+                        <textarea className="new-goal-page-create-point-textarea"></textarea>
+                    </div>
                 </div>
+            </div>
+            <div id="new-goal-page-save">
+                <button id="new-goal-page-save-button">Lagre</button>
             </div>
         </div>
     )

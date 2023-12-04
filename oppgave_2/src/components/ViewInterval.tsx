@@ -7,9 +7,15 @@ type viewIntervalProps = {
 export default function ViewInterval(props: viewIntervalProps) {
     const {interval} = props;
     return (
-        <div>
-            <p>Tid: {interval.duration}</p>
-            <p>Intensitets sone: {interval.intensityZone}</p>
-        </div>
+        <>
+            <tr className="session-page-intervals-point">
+                <th>Tid: </th>
+                <td>{interval.duration}</td>
+            </tr>
+            <tr className="session-page-intervals-point">
+                <th>Intensitet: </th>
+                <td>{interval.intensityZone}</td>
+            </tr>
+        </>
     )
 }

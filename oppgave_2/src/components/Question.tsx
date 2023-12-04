@@ -12,49 +12,46 @@ export default function Question(props: questionProps) {
     const [text, setText] = useState("");
     const [type, setType] = useState("");
 
-    function handleTextChange(e: any, update: string) {
-        e.preventDefault();
-        setText(update);
+    function handleTextChange(e: any) {
+        const temp: string = e.target.value;
+        setText(temp);
 
-        data.text = text;
+        data.text = temp;
 
         handleDataUpdate(index, data);
     }
 
-    function handleTypeChange(e: any, update: string) {
-        e.preventDefault();
-        setType(update);
+    function handleTypeChange(e: any) {
+        const temp: string = e.target.value;
+        setType(temp);
     
-        data.type = type;
+        data.type = temp;
     
         handleDataUpdate(index, data);
     }
 
     return (
         <div id="session-question">
-            <table id="session-question-table">
-                <tr>
-                    <td><p className="session-question-table-title">Tekst: </p></td>
-                    <td><input className="session-question-table-input"
+            <div id="session-question-table">
+                <div className="session-question-table-point">
+                    <p className="session-question-table-title">Tekst: </p>
+                    <input className="session-question-table-input"
                     type="text"
                     placeholder="Spørsmål tekst"
-                    value={data.text}
-                    onChange={(e) => handleTextChange(e, e.target.value)}/>
-                    </td>
-                </tr>
-                <tr>
-                    <td><p className="session-question-table-title">Type: </p></td>
-                    <td>
-                        <select className="session-question-table-dropdown"
-                        value={data.type}
-                        onChange={(e) => handleTypeChange(e, e.target.value)}>
-                            <option value="tekst">Tekst</option>
-                            <option value="radio">Radio</option>
-                            <option value="emoji">Emoji</option>
-                        </select>
-                    </td>
-                </tr>
-            </table>
+                    value={text}
+                    onChange={handleTextChange}/>
+                </div>
+                <div className="session-question-table-point">
+                    <p className="session-question-table-title">Type: </p>
+                    <select className="session-question-table-dropdown"
+                    value={type}
+                    onChange={handleTypeChange}>
+                        <option value="tekst">Tekst</option>
+                        <option value="radio">Radio</option>
+                        <option value="emoji">Emoji</option>
+                    </select>
+                </div>
+            </div>
         </div>
     )
 }

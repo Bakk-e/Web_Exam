@@ -3,12 +3,12 @@
 import Notifications from "@/components/Notifications"
 import ReportComponent from "@/components/ReportComponent"
 import "@/styles/ReportsPageStyle.css"
-import { Athlete, Session } from "@/types"
+import { Athlete, Activity } from "@/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 export default function ReportsPage({params}: {params: {athleteId: string}}) {
-    const [sessions, setSessions] = useState<Session[]>([]);
+    const [activities, setActivities] = useState<Activity[]>([]);
 
     useEffect(() => {
         const getSessions = async () => {
@@ -16,15 +16,15 @@ export default function ReportsPage({params}: {params: {athleteId: string}}) {
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            let sessionsTemp: Session[] = [];
-            if (result.data.sessions) {
-                for (const session of result.data.sessions) {
+            let sessionsTemp: Activity[] = [];
+            if (result.data.activities) {
+                for (const session of result.data.activities) {
                     if (session.report && session.report.status != "no") {
                         sessionsTemp.push(session);
                     };
                 };
             };
-            setSessions(sessionsTemp);
+            setActivities(sessionsTemp);
         };
         getSessions();
     }, []);
@@ -42,16 +42,20 @@ export default function ReportsPage({params}: {params: {athleteId: string}}) {
                 <p id="reports-page-title">Rapporter</p>
                 <div id="reports-page-reports">
                     <table id="reports-page-reports-table">
-                        <tr className="reports-page-reports-point">
-                            <th className="reports-page-reports-titel">Dato</th>
-                            <th className="reports-page-reports-titel">Navn</th>
-                            <th className="reports-page-reports-titel">Type</th>
-                            <th className="reports-page-reports-titel">Status</th>
-                            <th className="reports-page-reports-titel">Åpne</th>
-                        </tr>
-                        {sessions.map((session) => (
-                            <ReportComponent session={session} athleteId={params.athleteId}></ReportComponent>
-                        ))}
+                        <thead>
+                            <tr className="reports-page-reports-point">
+                                <th className="reports-page-reports-titel">Dato</th>
+                                <th className="reports-page-reports-titel">Navn</th>
+                                <th className="reports-page-reports-titel">Type</th>
+                                <th className="reports-page-reports-titel">Status</th>
+                                <th className="reports-page-reports-titel">Åpne</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {activities.map((session) => (
+                                <ReportComponent key={session.id} session={session} athleteId={params.athleteId}></ReportComponent>
+                            ))}
+                        </tbody>
                     </table>
                 </div>
             </div>

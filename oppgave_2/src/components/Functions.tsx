@@ -33,3 +33,17 @@ export function DateToNumber(date: Date) {
 
     return (parseInt(day) + parseInt(month) + parseInt(year));
 }
+
+export function NumbersToLetters(number: number) {
+    switch (number) {
+        case 1:
+            return "one"
+        case 2:
+            return "two"
+        case 3:
+            return "three"
+        
+        default:
+            return ""
+    }
+}

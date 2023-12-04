@@ -8,37 +8,61 @@ export default function ReportPageInterval(props: reportPageIntervalProps) {
     const {reportIntervalInfo} = props;
 
     return (
-        <div className="report-page-interval-card">
-            <div className="report-page-interval-card-expected">
-                <p>Forventet =</p>
-                <p>Tid: {reportIntervalInfo.durationExpected}</p>
-                <p>Intensitet: {reportIntervalInfo.intensityZone}</p>
+        <div className="report-page-interval">
+            <div className="report-page-interval-expected">
+                <table className="report-page-interval-expected-table">
+                    <tr className="report-page-interval-expected-point">
+                        <th></th>
+                        <th>Tid</th>
+                        <th>Intensitet</th>
+                    </tr>
+                    <tr className="report-page-interval-expected-point">
+                        <th>Forventet</th>
+                        <td>{reportIntervalInfo.durationExpected}</td>
+                        <td>{reportIntervalInfo.intensityZone}</td>
+                    </tr>
+                </table>
             </div>
-            <div className="report-page-interval-card-intensity">
-                <p>Intensitet =</p>
-                <p>Min: {reportIntervalInfo.minIntensity}</p>
-                <p>Max: {reportIntervalInfo.maxIntensity}</p>
-                <p>Avg: {reportIntervalInfo.avrageIntensity}</p>
+            <div className="report-page-interval-achived">
+                <table className="report-page-interval-achived-table">
+                    <tr className="report-page-interval-achived-point">
+                        <th></th>
+                        <th>Min</th>
+                        <th>Max</th>
+                        <th>Avg</th>
+                    </tr>
+                    <tr className="report-page-interval-achived-point">
+                        <th>Intensitet</th>
+                        <td>{reportIntervalInfo.minIntensity}</td>
+                        <td>{reportIntervalInfo.maxIntensity}</td>
+                        <td>{reportIntervalInfo.avrageIntensity}</td>
+                    </tr>
+                    <tr className="report-page-interval-achived-point">
+                        <th>Puls</th>
+                        <td>{reportIntervalInfo.minHeartRate}</td>
+                        <td>{reportIntervalInfo.maxHeartRate}</td>
+                        <td>{reportIntervalInfo.avrageHeartRate}</td>
+                    </tr>
+                    <tr className="report-page-interval-achived-point">
+                        <th>Fart</th>
+                        <td>{reportIntervalInfo.minSpeed}</td>
+                        <td>{reportIntervalInfo.maxSpeed}</td>
+                        <td>{reportIntervalInfo.avrageSpeed}</td>
+                    </tr>
+                    <tr className="report-page-interval-achived-point">
+                        <th>Watt</th>
+                        <td>{reportIntervalInfo.minWattage}</td>
+                        <td>{reportIntervalInfo.maxWattage}</td>
+                        <td>{reportIntervalInfo.avrageWattage}</td>
+                    </tr>
+                    <tr className="report-page-interval-achived-point">
+                        <th></th>
+                        <td>Tid brukt</td>
+                        <td>{reportIntervalInfo.durationAchieved}</td>
+                        <td></td>
+                    </tr>
+                </table>
             </div>
-            <div className="report-page-interval-card-heartrate">
-                <p>Puls =</p>
-                <p>Min: {reportIntervalInfo.minHeartRate}</p>
-                <p>Max: {reportIntervalInfo.maxHeartRate}</p>
-                <p>Avg: {reportIntervalInfo.avrageHeartRate}</p>
-            </div>
-            <div className="report-page-interval-card-speed">
-                <p>Fart =</p>
-                <p>Min: {reportIntervalInfo.minSpeed}</p>
-                <p>Max: {reportIntervalInfo.maxSpeed}</p>
-                <p>Avg: {reportIntervalInfo.avrageSpeed}</p>
-            </div>
-            <div className="report-page-interval-card-wattage">
-                <p>Watt =</p>
-                <p>Min: {reportIntervalInfo.minWattage}</p>
-                <p>Max: {reportIntervalInfo.maxWattage}</p>
-                <p>Avg: {reportIntervalInfo.avrageWattage}</p>
-            </div>
-            <p className="report-page-interval-card-time-used">Tid brukt: {reportIntervalInfo.durationAchieved}</p>
         </div>
     )
 }

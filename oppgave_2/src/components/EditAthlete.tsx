@@ -1,4 +1,5 @@
 import { Athlete } from "@/types"
+import { useState } from "react";
 
 type editAthleteProps = {
     isEditOpen: boolean,
@@ -7,7 +8,51 @@ type editAthleteProps = {
 }
 
 export default function EditAthlete(params: editAthleteProps) {
-    const {isEditOpen, toggleEdit, editingAthlete} = params
+    const {isEditOpen, toggleEdit, editingAthlete} = params;
+    const [gender, setGender] = useState("");
+    const [sport, setSport] = useState("");
+    const [heartrate, setHeartrate] = useState(0);
+    const [wattage, setWattage] = useState(0);
+    const [speed, setSpeed] = useState(0);
+
+    const putAthlete = async (athlete: Athlete) => {
+    }
+
+    function handleGenderChange(e: any) {
+        const update: string = e.target.value;
+        setGender(update);
+    }
+
+    function handleSportChange(e: any) {
+        const update: string = e.target.value;
+        setSport(update);
+    }
+
+    function handleHeartrateChange(e: any) {
+        const update: number = e.target.value;
+        setHeartrate(update);
+    }
+
+    function handleWattageChange(e: any) {
+        const update: number = e.target.value;
+        setWattage(update);
+    }
+
+    function handleSpeedChange(e: any) {
+        const update: number = e.target.value;
+        setSpeed(update);
+    }
+
+    function handleSaveButton(e: any) {
+        e.preventDefault();
+
+        //fix id in meta
+        const updatedAthlete: Athlete = {
+            id: editingAthlete.id, userId: editingAthlete.userId, gender: gender,
+            sport: sport, meta: {id: 2, heartRate: heartrate, watt: wattage, speed: speed} 
+        }
+        putAthlete(updatedAthlete);
+    }
 
     return (
         <>
@@ -20,31 +65,41 @@ export default function EditAthlete(params: editAthleteProps) {
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Kjønn: </td>
                         <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.gender}/></td>
+                        type="text"
+                        defaultValue={editingAthlete.gender}
+                        onChange={handleGenderChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Sport: </td>
                         <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.sport}/></td>
+                        type="text"
+                        defaultValue={editingAthlete.sport}
+                        onChange={handleSportChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Maks puls: </td>
                         <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.maxHeartRate}/></td>
+                        type="number"
+                        defaultValue={editingAthlete.meta?.heartRate}
+                        onChange={handleHeartrateChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Terskel watt: </td>
                         <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.thresholdWattage}/></td>
+                        type="number"
+                        defaultValue={editingAthlete.meta?.watt}
+                        onChange={handleWattageChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Terskel fart: </td>
                         <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.thresholdSpeed}/></td>
+                        type="number"
+                        defaultValue={editingAthlete.meta?.speed}
+                        onChange={handleSpeedChange}/></td>
                     </tr>
                 </table>
                 <article id="athlete-page-edit-footer">
-                    <button id="athlete-page-edit-footer-save">Save</button>
+                    <button id="athlete-page-edit-footer-save" onClick={(e) => handleSaveButton(e)}>Save</button>
                 </article>
             </section>
         </>

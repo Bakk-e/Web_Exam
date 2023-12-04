@@ -44,15 +44,20 @@ export default function Home() {
         </div>
       <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
+              <thead>
                 <tr>
                     <th>UserId</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
+                    <th>Profil</th>
                     <th>Rapporter</th>
                 </tr>
+              </thead>
+              <tbody id="main-page-athlete-table-body">
                 {searchedAthlete.map((athlete) => (
                   <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
                 ))}
+              </tbody>
             </table>
         </div>
     </div>

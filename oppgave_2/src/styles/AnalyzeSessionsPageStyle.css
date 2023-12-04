@@ -1,0 +1,28 @@
+@import "Variables.css";
+
+#analyze-sesions-page {
+    height: 100vh;
+}
+
+#analyze-sesions-page-header {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 1rem;
+}
+
+#analyze-sesions-page-logo {
+    font-size: 1.3rem;
+    align-self: flex-start;
+}
+
+#analyze-sesions-page-new-session {
+    font-size: 1.3rem;
+    margin-right: 1rem;
+}
+
+#analyze-sesions-page-nav {
+    font-size: 1.3rem;
+    display: flex;
+}

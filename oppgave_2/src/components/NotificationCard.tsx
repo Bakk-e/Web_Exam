@@ -1,9 +1,9 @@
-import { Session } from "@/types";
+import { Activity } from "@/types";
 import Link from "next/link";
 import { DateToString } from "./Functions";
 
 type notificationCardProp = {
-    session: Session,
+    session: Activity,
 }
 
 export default function NotificationCard(props: notificationCardProp) {
@@ -11,7 +11,7 @@ export default function NotificationCard(props: notificationCardProp) {
 
     return(
         <Link href="/">
-            <article className="notification-card">
+            <div className="notification-card">
                 <div className="notification-card-header">
                     <p className="notification-card-header-title">{session?.title}</p>
                     {session.date && (
@@ -26,7 +26,7 @@ export default function NotificationCard(props: notificationCardProp) {
                         <p className="notification-card-main-tags">Tags: {session.tags?.slice(0, 4).join(", ")}</p>
                     )}
                 </div>
-            </article>
+            </div>
         </Link>
     )
 }
