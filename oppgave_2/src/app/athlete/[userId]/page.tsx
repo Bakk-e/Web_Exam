@@ -237,7 +237,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                 <p id="athlete-page-id">{params.userId}</p>
                 <p id="athlete-page-info-gender">Kjønn: {athlete?.gender}</p>
                 <p id="athlete-page-info-sport">Sport: {athlete?.sport}</p>
-                <p id="athlete-page-info-heartrate">Maks puls: {athlete?.meta?.heartRate}</p>
+                <p id="athlete-page-info-heartrate">Maks puls: {athlete?.meta?.heartrate}</p>
                 <p id="athlete-page-info-wattage">Terskel watt: {athlete?.meta?.watt}W</p>
                 <p id="athlete-page-info-speed">Terskel fart: {athlete?.meta?.speed} km/h</p>
                 <div id="athlete-page-inteval-zones">
@@ -256,13 +256,13 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         <tbody>
                             <tr>
                                 <th>Puls</th>
-                                {athlete && athlete.meta?.heartRate !== undefined && (
+                                {athlete && athlete.meta?.heartrate !== undefined && (
                                     <>
-                                        <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
-                                        <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
-                                        <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
-                                        <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
-                                        <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartrate * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartrate * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartrate * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartrate * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartrate * 0.9).toFixed(0))}</td>
                                     </>
                                 )}
                             </tr>

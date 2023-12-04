@@ -46,7 +46,7 @@ async function insertAthleteData (athlete : Athlete) {
         athlete.activities?.map((activity) => ({
           id: activity.id,
           date: activity.date,
-          title: activity.name,
+          name: activity.name,
           type: activity.type,
           tags: activity.tags?.join(",") || null, // Convert tags array to string or set it to null if undefined
           questions: {

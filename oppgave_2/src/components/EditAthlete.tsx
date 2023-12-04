@@ -41,7 +41,7 @@ export default function EditAthlete(params: editAthleteProps) {
         if (editingAthlete.meta) {
             updatedAthlete = {
                 id: editingAthlete.id, userId: editingAthlete.userId, gender: gender,
-                sport: sport, meta: {id: editingAthlete.meta.id, heartRate: heartrate, watt: wattage, speed: speed} 
+                sport: sport, meta: {id: editingAthlete.meta.id, heartrate: heartrate, watt: wattage, speed: speed} 
             }
             putAthlete(updatedAthlete);
         }
@@ -59,7 +59,7 @@ export default function EditAthlete(params: editAthleteProps) {
                         <p className="athlete-page-edit-point-title">Maks puls: </p>
                         <input className="athlete-page-edit-point-input"
                         type="number"
-                        defaultValue={editingAthlete.meta?.heartRate}
+                        defaultValue={editingAthlete.meta?.heartrate}
                         onChange={handleHeartrateChange}/>
                     </div>
                     <div className="athlete-page-edit-point">

@@ -211,7 +211,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                 </nav>
             </header>
             <div id="edit-session-page-content">
-                <p id="edit-session-page-title">Økt: {session.title}</p>
+                <p id="edit-session-page-title">Økt: {session.name}</p>
                 <div id="edit-session-page-table">
                     <div className="edit-session-page-create-point">
                         <p className="edit-session-page-create-point-title">Dato: </p>
@@ -225,7 +225,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         <p className="edit-session-page-create-point-title">Titel: </p>
                         <input className="edit-session-page-create-point-input"
                         onChange={handleTitelChange}
-                        defaultValue={session.title}/>
+                        defaultValue={session.name}/>
                     </div>
                     <div className="edit-session-page-create-point">
                         <p className="edit-session-page-create-point-title">Type: </p>
