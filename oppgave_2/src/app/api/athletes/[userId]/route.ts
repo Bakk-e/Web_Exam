@@ -41,8 +41,11 @@ export async function PUT(request: NextApiRequest, response: NextApiResponse) {
 
     const olddAthleteDetails = await prisma.athlete.findFirst({
       where: {
-        userId: userId
+        userId: userId,
       },
+      include: {
+        meta: true,
+      }
     });
     
     if (olddAthleteDetails) {
