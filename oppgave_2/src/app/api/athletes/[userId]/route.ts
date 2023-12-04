@@ -72,7 +72,7 @@ export async function PUT(request: NextApiRequest, response: NextApiResponse) {
   }
 }
 
-/*
+
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const apiUrl = "https://webapp-api.vercel.app/api/users"
   const response = await fetch(apiUrl)
@@ -81,7 +81,7 @@ export async function POST(req: NextApiRequest, res: NextApiResponse) {
   }
   const apiResponse = (await response.json()) as ApiProps
 }
-
+/*
 async function handler(req: NextRequest, res: NextResponse) {
   try {
     const apiUrl = "https://webapp-api.vercel.app/api/users"
