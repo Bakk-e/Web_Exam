@@ -19,8 +19,6 @@ export default function ViewSession(props: sessionProps) {
         toggleSession(session);
     }
 
-    console.log(session.name)
-
     return (
         <tr>
             {session.date && (
