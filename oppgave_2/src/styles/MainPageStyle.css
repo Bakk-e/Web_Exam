@@ -86,6 +86,7 @@
 
 #main-page-athlete-table {
     border-collapse: collapse;
+    width: 50vw;
 }
 
 #main-page-athlete-table th, td {
@@ -95,6 +96,14 @@
     border-bottom: 1px solid var(--slightGray);
 }
 
-#main-page-athlete-table-body {
-    max-height: 10rem;
+#main-page-athlete-table thead, tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#main-page-athlete-table tbody {
+    display: block;
+    height: 30rem;
+    overflow-y: auto;
 }
