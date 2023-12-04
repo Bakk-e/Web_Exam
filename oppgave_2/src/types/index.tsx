@@ -12,7 +12,7 @@ export type Athlete = {
 
 export type Meta = {
     id: number,
-    heartRate?: number,
+    heartrate?: number,
     watt?: number,
     speed?: number,
 }
@@ -20,7 +20,7 @@ export type Meta = {
 export type Activity = {
     id?: string,
     date?: Date,
-    title?: string,
+    name?: string,
     type?: string,
     tags?: string[],
     questions?: Question[],
