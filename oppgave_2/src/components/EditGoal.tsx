@@ -55,45 +55,45 @@ export default function EditGoal(params: editGoalProps) {
     return (
         <>
             <div className={`athlete-page-edit-goal-overlay ${isEditGoalOpen ? 'open' : ''}`} onClick={toggleEditGoal}></div>
-            <section className={`athlete-page-edit-goal ${isEditGoalOpen ? 'open' : ''}`}>
-                <article id="athlete-page-edit-goal-header">
+            <div className={`athlete-page-edit-goal ${isEditGoalOpen ? 'open' : ''}`}>
+                <div id="athlete-page-edit-goal-header">
                     <button id="athlete-page-edit-goal-header-exit" onClick={toggleEditGoal}>X</button>
-                </article>
-                <table id="athlete-page-edit-goal-list">
-                    <tr className="athlete-page-edit-goal-point">
-                        <td className="athlete-page-edit-goal-point-title">Navn: </td>
-                        <td><input className="athlete-page-edit-goal-point-input"
+                </div>
+                <div id="athlete-page-edit-goal-list">
+                    <div className="athlete-page-edit-goal-point">
+                        <p className="athlete-page-edit-goal-point-title">Navn: </p>
+                        <input className="athlete-page-edit-goal-point-input"
                         type="text"
                         defaultValue={editingGoal?.title}
-                        onChange={handleTitleChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-goal-point">
-                        <td className="athlete-page-edit-goal-point-title">Dato: </td>
-                        <td><input className="athlete-page-edit-goal-point-input"
+                        onChange={handleTitleChange}/>
+                    </div>
+                    <div className="athlete-page-edit-goal-point">
+                        <p className="athlete-page-edit-goal-point-title">Dato: </p>
+                        <input className="athlete-page-edit-goal-point-input"
                         min={currentdate}
                         defaultValue={editingGoal.date && DateToStringAlternate(editingGoal?.date)}
                         type="date"
-                        onChange={handleDateChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-goal-point">
-                        <td className="athlete-page-edit-goal-point-title">Mål: </td>
-                        <td><input className="athlete-page-edit-goal-point-input"
+                        onChange={handleDateChange}/>
+                    </div>
+                    <div className="athlete-page-edit-goal-point">
+                        <p className="athlete-page-edit-goal-point-title">Mål: </p>
+                        <input className="athlete-page-edit-goal-point-input"
                         type="number"
                         defaultValue={editingGoal?.goal}
-                        onChange={handleGoalChange}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-goal-point">
-                        <td className="athlete-page-edit-goal-point-title">Kommentar: </td>
-                        <td><textarea className="athlete-page-edit-goal-point-textarea"
+                        onChange={handleGoalChange}/>
+                    </div>
+                    <div className="athlete-page-edit-goal-point">
+                        <p className="athlete-page-edit-goal-point-title">Kommentar: </p>
+                        <textarea className="athlete-page-edit-goal-point-textarea"
                         typeof="text"
                         defaultValue={editingGoal?.comment}
-                        onChange={handleCommentChange}></textarea></td>
-                    </tr>
-                </table>
-                <article id="athlete-page-edit-goal-footer">
+                        onChange={handleCommentChange}></textarea>
+                    </div>
+                </div>
+                <div id="athlete-page-edit-goal-footer">
                     <button id="athlete-page-edit-goal-footer-save" onClick={(e) => handleSaveButton(e)}>Save</button>
-                </article>
-            </section>
+                </div>
+            </div>
         </>
     )
 }

@@ -26,9 +26,11 @@ export default function ViewSession(props: sessionProps) {
             )}
             <td>{session.title}</td>
             <td>{session.type}</td>
-            {session.tags && (
-                <td>{session.tags.slice(0, 2).join(", ")}</td>
-            )}
+            <td>
+                {session.tags && Array.isArray(session.tags)
+                ? session.tags.slice(0, 2).join(", ")
+                : ""}
+            </td>
             <td><Link legacyBehavior href="/session/[athleteId]/[sessionId]" as={`/session/${athleteId}/${session.id}`}><a>Klikk her</a></Link></td>
             {session.report ? (
                 <td id="athlete-page-sessions-table-status">{session.report?.status}</td>

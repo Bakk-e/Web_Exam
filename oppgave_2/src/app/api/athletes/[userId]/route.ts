@@ -21,7 +21,7 @@ export async function GET(request: NextApiRequest, context: any) {
       }
     })
 
-    console.log("Athlete recieved from the db: ", athleteDetails)
+    //console.log("Athlete recieved from the db: ", athleteDetails)
     if (!athleteDetails) {
       throw new Error("Athlete not found")
     }
@@ -35,6 +35,17 @@ export async function GET(request: NextApiRequest, context: any) {
     )
   }
 }
+/*
+export async function PUT() {
+  try {
+    const { userId }
+
+    
+  } catch (error) {
+    
+  }
+}
+*/
 
 /*
 export async function POST(req: NextApiRequest, res: NextApiResponse) {

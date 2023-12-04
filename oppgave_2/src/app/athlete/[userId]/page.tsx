@@ -46,7 +46,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
             });
             const result = (await response.json()) as {data: Athlete};
 
-            console.log("API response: ", result.data)
+            console.log("API response: ", result.data.meta)
             
             setAthlete(result.data);
             let typesTemp: string[] = [];
