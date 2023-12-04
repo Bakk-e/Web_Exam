@@ -5,6 +5,7 @@ import Link from "next/link"
 import "@/styles/NewCompetitionPageStyle.css"
 import { useEffect, useState } from "react";
 import { Competition } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function NewCompetition({params}: {params: {athleteId: string}}) {
     const [currentdate, setCurrentdate] = useState("");
@@ -16,6 +17,8 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
     const [type, setType] = useState<string>("");
     const [comment, setComment] = useState<string>("");
     const [priority, setPriority] = useState<string>("");
+
+    const router = useRouter();
 
     useEffect(() => {
         setCurrentdate(new Date().toISOString().split("T")[0]);
@@ -81,6 +84,7 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
             comment: comment
             }
             setComp(newComptetition);
+            router.push(`/athlete/${params.athleteId}`);
         }
     }
 

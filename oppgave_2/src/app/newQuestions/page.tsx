@@ -4,6 +4,7 @@ import Notifications from "@/components/Notifications"
 import "@/styles/NewQuestionsPageStyle.css"
 import { QuestionData } from "@/types"
 import Link from "next/link"
+import { useRouter } from "next/navigation"
 import {useState} from "react";
 
 export default function NewQuestionsPage() {
@@ -13,6 +14,7 @@ export default function NewQuestionsPage() {
         answer: "",
     })
 
+    const router = useRouter();
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         const { name, value } = e.target //as HTMLInputElement | HTMLSelectElement;
@@ -39,6 +41,7 @@ export default function NewQuestionsPage() {
         }catch (error) {
             console.error('Failed to submit question', error);
         }
+        router.push("/");
     }
 
 

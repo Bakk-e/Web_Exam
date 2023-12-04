@@ -23,13 +23,11 @@ export async function POST(request: NextRequest, {params}: {params: {userId: str
             data: {
                 id: randomUUID(),
                 name: name,
-                type: type,
+                type: date,
                 tags: tags,
-                
+
                 //questions: questions,
                 //intervals: intervals,
-                //parameters: parameters,
-                connection: connection,
 
                 Athlete: {
                     connect: {

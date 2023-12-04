@@ -5,6 +5,7 @@ import Link from "next/link"
 import "@/styles/NewGoalPageStyle.css"
 import { useEffect, useState } from "react";
 import { Goal } from "@/types";
+import { useRouter } from "next/navigation";
 
 export default function NewGoal({params}: {params: {athleteId: string}}) {
     const [currentdate, setCurrentdate] = useState("");
@@ -12,6 +13,8 @@ export default function NewGoal({params}: {params: {athleteId: string}}) {
     const [date, setDate] = useState<string>("");
     const [goal, setGoal] = useState<number>(0);
     const [comment, setComment] = useState<string>("");
+
+    const router = useRouter();
 
     useEffect(() => {
         setCurrentdate(new Date().toISOString().split("T")[0]);
@@ -58,6 +61,7 @@ export default function NewGoal({params}: {params: {athleteId: string}}) {
             goal: goal, comment: comment
         }
         putGoal(newGoal);
+        router.push(`/athlete/${params.athleteId}`);
     }
 
     return (
