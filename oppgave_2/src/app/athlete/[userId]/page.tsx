@@ -40,6 +40,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
 
     useEffect(() => {
         const getAthlete = async () => {
+            
             console.log("Fetching athlete with userId: ", params.userId);
             const response = await fetch(`/api/athletes/${params.userId}`, {
                 method: "GET",
@@ -59,7 +60,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         };
                     };
                     if (activity.tags) {
-                        for (const tag of activity.tags) {
+                        for (const tag of activity.tags.split(",")) {
                             if (!tagsTemp.includes(tag)) {
                                 tagsTemp.push(tag);
                             };

@@ -19,16 +19,6 @@ export default function EditAthlete(params: editAthleteProps) {
         ///// api
     }
 
-    function handleGenderChange(e: any) {
-        const update: string = e.target.value;
-        setGender(update);
-    }
-
-    function handleSportChange(e: any) {
-        const update: string = e.target.value;
-        setSport(update);
-    }
-
     function handleHeartrateChange(e: any) {
         const update: number = e.target.value;
         setHeartrate(update);
@@ -65,20 +55,6 @@ export default function EditAthlete(params: editAthleteProps) {
                     <button id="athlete-page-edit-header-exit" onClick={toggleEdit}>X</button>
                 </div>
                 <div id="athlete-page-edit-list">
-                    <div className="athlete-page-edit-point">
-                        <p className="athlete-page-edit-point-title">Kjønn: </p>
-                        <input className="athlete-page-edit-point-input"
-                        type="text"
-                        defaultValue={editingAthlete.gender}
-                        onChange={handleGenderChange}/>
-                    </div>
-                    <div className="athlete-page-edit-point">
-                        <p className="athlete-page-edit-point-title">Sport: </p>
-                        <input className="athlete-page-edit-point-input"
-                        type="text"
-                        defaultValue={editingAthlete.sport}
-                        onChange={handleSportChange}/>
-                    </div>
                     <div className="athlete-page-edit-point">
                         <p className="athlete-page-edit-point-title">Maks puls: </p>
                         <input className="athlete-page-edit-point-input"

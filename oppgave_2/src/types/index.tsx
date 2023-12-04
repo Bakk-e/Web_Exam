@@ -20,9 +20,9 @@ export type Meta = {
 export type Activity = {
     id?: string,
     date?: Date,
-    title?: string,
+    name?: string,
     type?: string,
-    tags?: string[],
+    tags?: string,
     questions?: Question[],
     intervals?: Interval[],
     parameters?: string[],
@@ -143,5 +143,11 @@ export type ApiProps = {
     hasMore : boolean
     page : number
     data : Athlete[]
+}
 
+export type ArchivedMeta = {
+    id: string,
+    heartRate: number,
+    watt: number,
+    speed: number, //Need to be a float o.O
 }

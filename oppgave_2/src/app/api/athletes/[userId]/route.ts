@@ -35,17 +35,42 @@ export async function GET(request: NextApiRequest, context: any) {
     )
   }
 }
-/*
-export async function PUT() {
+export async function PUT(request: NextApiRequest, response: NextApiResponse) {
   try {
-    const { userId }
+    const { userId } = request.query;
 
+    const olddAthleteDetails = await prisma.athlete.findFirst({
+      where: {
+        userId: userId
+      },
+    });
     
+    if (olddAthleteDetails) {
+      await prisma.archivedMeta.create({
+        data: {
+          id: olddAthleteDetails.id,
+          heartRate: olddAthleteDetails.meta?.heartRate,
+          watt: olddAthleteDetails.meta?.watt,
+          speed: olddAthleteDetails.meta?.speed,
+        }
+      })
+    }
+
+    const editedAthleteDetails = await prisma.athlete.update({
+      where: {
+        userId: userId
+      },
+      data: request.body
+    });
+
+    return NextResponse.json({ data: editedAthleteDetails}, { status: 200 })
   } catch (error) {
-    
+    return NextResponse.json({
+      error: "Initial Server Error,"
+    },
+    { status: 500 })
   }
 }
-*/
 
 /*
 export async function POST(req: NextApiRequest, res: NextApiResponse) {

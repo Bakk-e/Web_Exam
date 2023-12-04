@@ -19,18 +19,27 @@ export default function ViewSession(props: sessionProps) {
         toggleSession(session);
     }
 
+    console.log(session.name)
+
     return (
         <tr>
             {session.date && (
                 <td>{DateToString(session.date.toString())}</td>
             )}
-            <td>{session.title}</td>
-            <td>{session.type}</td>
+            <td>{session.name}</td>
             <td>
-                {session.tags && Array.isArray(session.tags)
-                ? session.tags.slice(0, 2).join(", ")
-                : ""}
+                {session.tags ? 
+                (session.tags.split(",")[0]) 
+                : ""
+                }
             </td>
+            <td>
+                {session.tags ? 
+                 (session.tags.split(",").join(", "))
+                : ""
+                }
+            </td>
+
             <td><Link legacyBehavior href="/session/[athleteId]/[sessionId]" as={`/session/${athleteId}/${session.id}`}><a>Klikk her</a></Link></td>
             {session.report ? (
                 <td id="athlete-page-sessions-table-status">{session.report?.status}</td>

@@ -1,13 +1,13 @@
 "use client"
 
 import Notifications from "@/components/Notifications";
-import { Athlete, Session, Template } from "@/types";
+import { Athlete, Activity, Template } from "@/types";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import "@/styles/AnalyzeSessionsPageStyle.css"
 
 export default function analyzeSessions({params}: {params: {athleteId: string, sessionsIds: string}}) {
-    const [sessions, setSessions] = useState<Session[]>([]);
+    const [sessions, setSessions] = useState<Activity[]>([]);
     const [templates, setTemplates] = useState<Template[]>([]);
     
     useEffect(() => {
@@ -17,13 +17,13 @@ export default function analyzeSessions({params}: {params: {athleteId: string, s
             });
             const result = (await response.json()) as {data: Athlete};
             const sessionIdsList = params.sessionsIds.split("%2B");
-            const sessions = result.data.sessions?.filter(session => session.id !== undefined && sessionIdsList.includes(session.id));
+            const sessions = result.data.activities?.filter(session => session.id !== undefined && sessionIdsList.includes(session.id));
             if (sessions) {
                 setSessions(sessions);
             };
             let templatesTemp: Template[] = [];
-            if (result.data.sessions) {
-                for (const session of result.data.sessions) {
+            if (result.data.activities) {
+                for (const session of result.data.activities) {
                     if (session.template) {
                         if (!templatesTemp.includes(session.template)) {
                             templatesTemp.push(session.template);
