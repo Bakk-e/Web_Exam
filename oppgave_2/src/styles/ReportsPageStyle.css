@@ -32,3 +32,19 @@
 #reports-page-title {
     font-size: 2.5rem;
 }
+
+#reports-page-reports-table {
+    border-collapse: collapse;
+    margin-bottom: 1rem;
+}
+
+#reports-page-reports-table th, td {
+    text-align: left;
+    padding: 0.6rem;
+    border: none;
+    border-bottom: 1px solid #ddd;
+}
+
+.reports-page-reports-text {
+    text-align: center;
+}

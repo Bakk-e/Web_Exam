@@ -34,8 +34,8 @@ export async function GET(req: NextApiRequest, res: NextApiResponse) {
             const athletes = prisma.athlete.findMany({
                 select: {
                     userId: true,
-                    sport: true,
                     gender: true,
+                    sport: true,
                 }
             });
 

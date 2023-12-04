@@ -1,7 +1,5 @@
-import prisma from "@/lib/db"
-
-import { Athlete , ApiProps} from "@/types"
-
+import prisma from "@/lib/db";
+import { ApiProps, Athlete } from "@/types";
 
 async function fetchAthletesFromAPI(): Promise<Athlete[]> {
   let hasMore = true
@@ -20,23 +18,102 @@ async function fetchAthletesFromAPI(): Promise<Athlete[]> {
     page++
   }
   return allAthletes
-
 }
 
 async function insertAthleteData (athlete : Athlete) {
-  await prisma.athlete.create({
-    data: {
-      id: athlete.id,
-      userId : athlete.userId,
-      gender: athlete.gender,
-      sport: athlete.sport,
-      maxHeartRate: athlete.meta?.heartrate,
-      thresholdWattage: athlete.meta?.watt,
-      thresholdSpeed: athlete.meta?.speed
-    }
-  })
+      const competitionsToCreate =
+        athlete.competitions?.map((comp) => ({
+          id: comp.id,
+          title: comp.title,
+          date: comp.date,
+          location: comp.location,
+          goal: comp.goal,
+          type: comp.type,
+          priority: comp.priority,
+          comment: comp.comment,
+        })) ?? []
 
-  console.log(`Created athlete with id: ${athlete.id}`);
+      const goalsToCreate =
+        athlete.goals?.map((goal) => ({
+          id: goal.id,
+          title: goal.title,
+          date: goal.date,
+          goal: goal.goal,
+          comment: goal.comment,
+        })) ?? []
+
+      const activitiesToCreate =
+        athlete.activities?.map((activity) => ({
+          id: activity.id,
+          date: activity.date,
+          name: activity.name,
+          type: activity.type,
+          tags: activity.tags?.join(",") || null, // Convert tags array to string or set it to null if undefined
+          questions: {
+            create:
+              activity.questions?.map((question) => ({
+                id: question.id,
+                text: question.text,
+                type: question.type,
+                answer: question.answer,
+              })) ?? [],
+          },
+          intervals: {
+            create:
+              activity.intervals?.map((interval) => ({
+                id: interval.id,
+                duration: interval.duration,
+                intensityZone: interval.intensityZone,
+              })) ?? [],
+          },
+          /*
+          report: {
+            create: {
+              id: activity.report?.id,
+              status: activity.report?.status,
+              reportIntervals: {
+                create:
+                  activity.intervals?.map((reportInterval) => ({
+                    id: reportInterval.id,
+                    intensityZone: reportInterval.intensityZone,
+                    duration: reportInterval.duration,
+                  })) ?? [],
+              },
+            },
+          },
+          */
+        })) ?? []
+      
+      await prisma.athlete.create({
+        data: {
+          id: athlete.id,
+          userId: athlete.userId,
+          gender: athlete.gender,
+          sport: athlete.sport,
+          meta: {
+            create: {
+              //id: athlete.meta?.id,
+              heartrate: athlete.meta?.heartrate,
+              watt: athlete.meta?.watt,
+              speed: athlete.meta?.speed,
+            },
+          },
+          activities: {
+            create: activitiesToCreate,
+          },
+          /*
+          competitions: {
+            create: competitionsToCreate,
+          },
+          goals: {
+            create: goalsToCreate,
+          },
+          */
+        },
+      })
+
+  console.log(`Created athlete with id: ${athlete.userId}`);
+  console.log(`Sessions: ${athlete.activities?.length}`);
 }
 
 async function insertAthleteAndRelatedData(athleteData : Athlete){
@@ -44,4 +121,3 @@ async function insertAthleteAndRelatedData(athleteData : Athlete){
  }
 
 export { fetchAthletesFromAPI , insertAthleteData}
-

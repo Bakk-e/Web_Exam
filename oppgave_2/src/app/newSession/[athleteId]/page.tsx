@@ -127,34 +127,32 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
             </header>
             <div id="new-session-page-create">
                 <p id="new-session-page-title">Ny økt</p>
-                <table id="new-session-page-table">
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Mal: </td>
-                        <td>
-                            <select className="new-session-page-create-point-dropdown">
-                                {tempList2.map((template) => (
-                                    <option value={template}>{template}</option>
-                                ))}
-                            </select>
-                        </td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Dato: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Titel: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Type: </td>
-                        <td><input className="new-session-page-create-point-input"/></td>
-                    </tr>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Tags: </td>
-                        <td><input className="new-session-page-create-point-input"  onChange={(e) => handleTagsChange(e)}/></td>
-                        <td><button className="new-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button></td>
-                    </tr>
+                <div id="new-session-page-table">
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Mal: </p>
+                        <select className="new-session-page-create-point-dropdown">
+                            {tempList2.map((template) => (
+                                <option key={template} value={template}>{template}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Dato: </p>
+                        <input className="new-session-page-create-point-input"/>
+                    </div>
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Titel: </p>
+                        <input className="new-session-page-create-point-input"/>
+                    </div>
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Type: </p>
+                        <input className="new-session-page-create-point-input"/>
+                    </div>
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Tags: </p>
+                        <input className="new-session-page-create-point-input"  onChange={(e) => handleTagsChange(e)}/>
+                        <button className="new-session-page-create-point-button" onClick={handleTagAdd}>Legg til</button>
+                    </div>
                     <div id="new-session-page-tags-chosen">
                         <ul>
                             {chosenTags.map((tag) => (
@@ -164,17 +162,15 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                             ))}
                         </ul>
                     </div>
-                    <tr className="new-session-page-create-point">
-                        <td className="new-session-page-create-point-title">Mål/konkuranse: </td>
-                        <td>
-                            <select className="new-session-page-create-point-dropdown">
-                                {tempList.map((goalCompetion) => (
-                                    <option value={goalCompetion}>{goalCompetion}</option>
-                                ))}
-                            </select>
-                        </td>
-                    </tr>
-                </table>
+                    <div className="new-session-page-create-point">
+                        <p className="new-session-page-create-point-title">Mål/konkuranse: </p>
+                        <select className="new-session-page-create-point-dropdown">
+                            {tempList.map((goalCompetion) => (
+                                <option key={goalCompetion} value={goalCompetion}>{goalCompetion}</option>
+                            ))}
+                        </select>
+                    </div>
+                </div>
                 <div id="new-session-page-parameters">
                     <select id="new-session-page-parameters-dropdown" onChange={handleParameterSelect} value="">
                         <option value="" disabled>Velg måleparameter</option>
@@ -185,7 +181,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         ))}
                     </select>
                     <div id="new-session-page-selected-parameters">
-                        <ul>
+                        <ul id="new-session-page-selected-parameters-list">
                             {chosenParameters.map((parameter) => (
                                 <li key={parameter}>
                                     {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>
@@ -198,9 +194,9 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                     <div id="new-session-page-intervals">
                         <p id="new-session-page-intervals-title">Intervals: </p>
                         {intervals.map((interval, index) => (
-                            <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval}></Interval>
+                            <Interval index={index} handleDataUpdate={handleIntervalDataUpdate} data={interval} key={interval.key}></Interval>
                         ))}
-                        <div>
+                        <div id="new-session-page-intervals-buttons">
                             <button id="new-session-page-intervals-add" onClick={addInterval}>Add interval</button>
                             <button id="new-session-page-intervals-remove" onClick={removeInterval}>Fjern interval</button>
                         </div>
@@ -209,20 +205,19 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <p id="new-session-page-questions-title">Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
-                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
+                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question} key={question.key}></Question>
                         ))}
-                        <div id="new-session-page-questions-title-buttons">
-                            <button id="new-session-page-intervals-add" onClick={addQuestion}>Add spørsmål</button>
-                            <button id="new-session-page-intervals-remove" onClick={removeQuestion}>Fjern spørsmål</button>
+                        <div id="new-session-page-questions-buttons">
+                            <button id="new-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>
+                            <button id="new-session-page-questions-remove" onClick={removeQuestion}>Fjern spørsmål</button>
                         </div>
                     </div>
                 </div>
-                <div id="new-session-page-save">
-                    <button id="new-session-page-save-button">Lagre</button>
-                    <button id="new-session-page-save-template-button">Lagre mal</button>
-                </div>
             </div>
-            
+            <div id="new-session-page-save">
+                <button id="new-session-page-save-button">Lagre</button>
+                <button id="new-session-page-save-template-button">Lagre som mal</button>
+            </div>
         </div>
     )
 }

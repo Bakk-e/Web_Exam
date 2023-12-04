@@ -4,7 +4,7 @@ import Link from "next/link";
 import "@/styles/MainPageStyle.css"
 import AthleteProps from "@/components/AthleteProps";
 import { useEffect, useState } from "react";
-import { Athlete, AthleteMini } from "@/types";
+import { Athlete } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
 import Notifications from "@/components/Notifications";
 
@@ -40,21 +40,26 @@ export default function Home() {
         </nav>
       </header>
         <div className="search-bar-container">
-            <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
+          <AthleteSearch athletes={athleteInfos} onSearch={onSearch}></AthleteSearch>
         </div>
       <div id="main-page-athlete-list">
-            <table id="main-page-athlete-table">
-                <tr>
-                    <th>Id</th>
-                    <th>Kjønn</th>
-                    <th>Sport</th>
-                    <th>Rapporter</th>
-                </tr>
-                {searchedAthlete.map((athlete) => (
-                  <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
-                ))}
-            </table>
-        </div>
+        <table id="main-page-athlete-table">
+          <thead>
+            <tr>
+              <th>UserId</th>
+              <th>Kjønn</th>
+              <th>Sport</th>
+              <th>Profil</th>
+              <th>Rapporter</th>
+            </tr>
+          </thead>
+          <tbody>
+            {searchedAthlete.map((athlete) => (
+              <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   )
 }

@@ -30,3 +30,51 @@
     font-size: 2.5rem;
     margin-bottom: 2.5rem;
 }
+
+#new-goal-page-table {
+    border-collapse: collapse;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    margin-top: 1rem;
+}
+
+#new-goal-page-table td {
+    border: none;
+    padding: 5px;
+    text-align: left;
+    background-color: transparent;
+}
+
+.new-goal-page-create-point {
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+.new-goal-page-create-point-title {
+    margin-right: 1rem;
+}
+
+.new-goal-page-create-point-input {
+    border-radius: 1.8rem;
+    width: 20rem;
+}
+
+.new-goal-page-create-point-textarea {
+    border-radius: 1.8rem;
+    width: 25rem;
+    height: 10rem;
+}
+
+#new-goal-page-save {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#new-goal-page-save-button {
+    font-size: 2rem;
+    margin-top: 1.4rem;
+    margin-right: 1.4rem;
+}

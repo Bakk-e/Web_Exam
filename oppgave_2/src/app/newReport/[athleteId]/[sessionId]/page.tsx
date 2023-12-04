@@ -4,12 +4,12 @@ import Notifications from "@/components/Notifications";
 import Link from "next/link";
 import "@/styles/NewReportPageStyle.css"
 import { useEffect, useState } from "react";
-import { Athlete, Session } from "@/types";
+import { Athlete, Activity } from "@/types";
 import AnswerQuestion from "@/components/AnswerQuestion";
 import AnswerInterval from "@/components/AnswerInterval";
 
 export default function NewReport({params}: {params: {athleteId: string, sessionId: string}}) {
-    const [session, setSession] = useState<Session>({});
+    const [session, setSession] = useState<Activity>({});
 
     useEffect(() => {
         const getSession = async () => {
@@ -17,7 +17,7 @@ export default function NewReport({params}: {params: {athleteId: string, session
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            const sessionTemp = result.data.activities?.find(session => session.id === params.sessionId);
             if (sessionTemp) {
                 setSession(sessionTemp);
             };
@@ -47,19 +47,22 @@ export default function NewReport({params}: {params: {athleteId: string, session
                     </select>
                 </div>
                 <div id="new-report-page-intervals-section">
-                    {session.intervals?.map((interval) => (
-                        <AnswerInterval interval={interval}></AnswerInterval>
+                    {session.intervals?.map((interval, index) => (
+                        <AnswerInterval key={index} session={session} interval={interval}></AnswerInterval>
                     ))}
                 </div>
                 <div id="new-report-page-questions-section">
-                    {session.questions?.map((question) => (
-                        <AnswerQuestion question={question}></AnswerQuestion>
+                    {session.questions?.map((question, index) => (
+                        <AnswerQuestion key={index} question={question}></AnswerQuestion>
                     ))}
                 </div>
                 <div id="new-report-page-comment-section">
                     <p>Kommentar: </p>
-                    <textarea></textarea>
+                    <textarea id="new-report-page-comment-textarea"></textarea>
                 </div>
+            </div>
+            <div id="new-report-page-save">
+                <button id="new-report-page-save-button">Lagre</button>
             </div>
         </div>
     )

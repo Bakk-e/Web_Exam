@@ -1,6 +1,5 @@
 import { Competition } from "@/types";
 import { DateToString } from "./Functions";
-import { useEffect, useState } from "react";
 
 type competitionProps = {
     competition: Competition,

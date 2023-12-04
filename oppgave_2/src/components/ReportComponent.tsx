@@ -1,9 +1,9 @@
-import { Session } from "@/types";
+import { Activity } from "@/types";
 import Link from "next/link";
 import { DateToString } from "./Functions";
 
 type reportProps = {
-    session: Session,
+    session: Activity,
     athleteId: string,
 }
 

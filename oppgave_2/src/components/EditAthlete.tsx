@@ -1,4 +1,5 @@
 import { Athlete } from "@/types"
+import { useState } from "react";
 
 type editAthleteProps = {
     isEditOpen: boolean,
@@ -7,46 +8,79 @@ type editAthleteProps = {
 }
 
 export default function EditAthlete(params: editAthleteProps) {
-    const {isEditOpen, toggleEdit, editingAthlete} = params
+    const {isEditOpen, toggleEdit, editingAthlete} = params;
+    const [gender, setGender] = useState("");
+    const [sport, setSport] = useState("");
+    const [heartrate, setHeartrate] = useState(0);
+    const [wattage, setWattage] = useState(0);
+    const [speed, setSpeed] = useState(0);
+
+    const putAthlete = async (athlete: Athlete) => {
+        ///// api
+    }
+
+    function handleHeartrateChange(e: any) {
+        const update: number = e.target.value;
+        setHeartrate(update);
+    }
+
+    function handleWattageChange(e: any) {
+        const update: number = e.target.value;
+        setWattage(update);
+    }
+
+    function handleSpeedChange(e: any) {
+        const update: number = e.target.value;
+        setSpeed(update);
+    }
+
+    function handleSaveButton(e: any) {
+        e.preventDefault();
+
+        let updatedAthlete: Athlete;
+        if (editingAthlete.meta) {
+            updatedAthlete = {
+                id: editingAthlete.id, userId: editingAthlete.userId, gender: gender,
+                sport: sport, meta: {id: editingAthlete.meta.id, heartrate: heartrate, watt: wattage, speed: speed} 
+            }
+            putAthlete(updatedAthlete);
+        }
+    }
 
     return (
         <>
             <div className={`athlete-page-edit-overlay ${isEditOpen ? 'open' : ''}`} onClick={toggleEdit}></div>
-            <section className={`athlete-page-edit ${isEditOpen ? 'open' : ''}`}>
-                <article id="athlete-page-edit-header">
+            <div className={`athlete-page-edit ${isEditOpen ? 'open' : ''}`}>
+                <div id="athlete-page-edit-header">
                     <button id="athlete-page-edit-header-exit" onClick={toggleEdit}>X</button>
-                </article>
-                <table id="athlete-page-edit-list">
-                    <tr className="athlete-page-edit-point">
-                        <td className="athlete-page-edit-point-title">Kjønn: </td>
-                        <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.gender}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-point">
-                        <td className="athlete-page-edit-point-title">Sport: </td>
-                        <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.sport}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-point">
-                        <td className="athlete-page-edit-point-title">Maks puls: </td>
-                        <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.maxHeartRate}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-point">
-                        <td className="athlete-page-edit-point-title">Terskel watt: </td>
-                        <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.thresholdWattage}/></td>
-                    </tr>
-                    <tr className="athlete-page-edit-point">
-                        <td className="athlete-page-edit-point-title">Terskel fart: </td>
-                        <td><input className="athlete-page-edit-point-input"
-                        value={editingAthlete.thresholdSpeed}/></td>
-                    </tr>
-                </table>
-                <article id="athlete-page-edit-footer">
-                    <button id="athlete-page-edit-footer-save">Save</button>
-                </article>
-            </section>
+                </div>
+                <div id="athlete-page-edit-list">
+                    <div className="athlete-page-edit-point">
+                        <p className="athlete-page-edit-point-title">Maks puls: </p>
+                        <input className="athlete-page-edit-point-input"
+                        type="number"
+                        defaultValue={editingAthlete.meta?.heartrate}
+                        onChange={handleHeartrateChange}/>
+                    </div>
+                    <div className="athlete-page-edit-point">
+                        <p className="athlete-page-edit-point-title">Terskel watt: </p>
+                        <input className="athlete-page-edit-point-input"
+                        type="number"
+                        defaultValue={editingAthlete.meta?.watt}
+                        onChange={handleWattageChange}/>
+                    </div>
+                    <div className="athlete-page-edit-point">
+                        <p className="athlete-page-edit-point-title">Terskel fart: </p>
+                        <input className="athlete-page-edit-point-input"
+                        type="number"
+                        defaultValue={editingAthlete.meta?.speed}
+                        onChange={handleSpeedChange}/>
+                    </div>
+                </div>
+                <div id="athlete-page-edit-footer">
+                    <button id="athlete-page-edit-footer-save" onClick={(e) => handleSaveButton(e)}>Save</button>
+                </div>
+            </div>
         </>
     )
 }

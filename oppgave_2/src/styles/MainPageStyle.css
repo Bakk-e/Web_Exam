@@ -3,7 +3,6 @@
 #main-page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     align-items: center;
 }
 
@@ -36,8 +35,10 @@
     overflow-y: auto;
     flex-grow: 1;
     display: flex;
+    justify-content: center;
+    align-items: center;
     flex-direction: column;
-    padding: 1rem;
+    margin-top: 5rem;
 }
 
 #main-page-search {
@@ -56,7 +57,17 @@
     border: none;
     border-radius: 1.8rem;
     outline: none;
+}
 
+#main-page-search-clear {
+    cursor: pointer;
+    background: none;
+    border: none;
+    font-size: 1.2rem;
+    color: black;
+    margin-left: -1.5rem;
+    margin-right: 1.5rem;
+    margin-top: -0.15rem;
 }
 
 #main-page-search-button {
@@ -75,7 +86,7 @@
 
 #main-page-athlete-table {
     border-collapse: collapse;
-    width: 100%;
+    width: 50vw;
 }
 
 #main-page-athlete-table th, td {
@@ -83,4 +94,23 @@
     padding: 0.8rem;
     border: none;
     border-bottom: 1px solid var(--slightGray);
+}
+
+
+#main-page-athlete-table thead {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#main-page-athlete-table tbody tr {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#main-page-athlete-table tbody {
+    display: block;
+    height: 30rem;
+    overflow-y: auto;
 }

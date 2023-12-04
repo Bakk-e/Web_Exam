@@ -4,12 +4,12 @@ import Notifications from "@/components/Notifications"
 import Link from "next/link"
 import "@/styles/SessionPageStyle.css"
 import { useEffect, useState } from "react";
-import { Athlete, Session } from "@/types";
+import { Athlete, Activity } from "@/types";
 import { DateToString } from "@/components/Functions";
 import ViewInterval from "@/components/ViewInterval";
 
-export default function Session({params}: {params: {athleteId: string, sessionId: string}}) {
-    const [session, setSession] = useState<Session>({});
+export default function Session({params}: {params: {athleteId: string, activityId: string}}) {
+    const [activity, setActivity] = useState<Activity>({});
 
     useEffect(() => {
         const getSession = async () => {
@@ -17,9 +17,9 @@ export default function Session({params}: {params: {athleteId: string, sessionId
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            const sessionTemp = result.data.activities?.find(activity => activity.id === params.activityId);
             if (sessionTemp) {
-                setSession(sessionTemp);
+                setActivity(sessionTemp);
             };
         };
         getSession();
@@ -35,38 +35,44 @@ export default function Session({params}: {params: {athleteId: string, sessionId
                 </nav>
             </header>
             <div id="session-page-content">
-                <p id="session-page-title">Økt: {session.title}</p>
+                <p id="session-page-title">Økt: {activity.title}</p>
                 <table id="session-page-table">
-                    <tr>
-                        <th>Titel: </th>
-                        <td>{session.title}</td>
-                    </tr>
-                    <tr>
-                        <th>Dato: </th>
-                        {session.date ? (
-                            <td>Dato: {DateToString(session.date?.toString())}</td>
-                        ) : (
-                            <td>Dato: Null</td>
-                        )}
-                    </tr>
-                    <tr>
-                        <th>Type: </th>
-                        <td>{session.type}</td>
-                    </tr>
-                    <tr>
-                        <th>Tags: </th>
-                        <td>{session.tags?.join(", ")}</td>
-                    </tr>
-                    <tr>
-                        <th>Rapport status: </th>
-                        <td>{session.report?.status}</td>
-                    </tr>
+                    <tbody>
+                        <tr className="session-page-table-point">
+                            <th>Titel: </th>
+                            <td>{activity.title}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Dato: </th>
+                            {activity.date ? (
+                                <td>Dato: {DateToString(activity.date?.toString())}</td>
+                            ) : (
+                                <td>Dato: Null</td>
+                            )}
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Type: </th>
+                            <td>{activity.type}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Tags: </th>
+                            <td>{activity.tags?.join(", ")}</td>
+                        </tr>
+                        <tr className="session-page-table-point">
+                            <th>Rapport status: </th>
+                            <td>{activity.report?.status}</td>
+                        </tr>
+                    </tbody>
                 </table>
                 <div id="session-page-intervals">
                     <p id="session-page-intervals-title">Intervaller: </p>
-                    {session.intervals?.map((interval) => (
-                        <ViewInterval interval={interval}></ViewInterval>
-                    ))}
+                    <table id="session-page-intervals-table">
+                        <tbody>
+                            {activity.intervals?.map((interval, index) => (
+                                <ViewInterval key={index} interval={interval}></ViewInterval>
+                            ))}
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
