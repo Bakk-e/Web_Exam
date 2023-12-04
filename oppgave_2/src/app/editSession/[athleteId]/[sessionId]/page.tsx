@@ -5,9 +5,9 @@ import Link from "next/link";
 import "@/styles/EditSessionPageStyle.css";
 import { useEffect, useState } from "react";
 import { Athlete, Competition, Goal, IntervalData, QuestionData, Activity } from "@/types";
-import Interval from "@/components/Interval";
+import Interval from "@/components/CreateInterval";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
-import Question from "@/components/Question";
+import Question from "@/components/CreateQuestion";
 import { DateToStringAlternate } from "@/components/Functions";
 
 export default function EditSessionPage({params}: {params: {athleteId: string, sessionId: string}}) {

@@ -6,8 +6,8 @@ import Notifications from "@/components/Notifications"
 import { useState } from "react";
 import { IntervalData, QuestionData, parameter } from "@/types";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
-import Question from "@/components/Question";
-import Interval from "@/components/Interval";
+import Question from "@/components/CreateQuestion";
+import Interval from "@/components/CreateInterval";
 
 export default function NewSessionTemplatePage() {
     const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];
