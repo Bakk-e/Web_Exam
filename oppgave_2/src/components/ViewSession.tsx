@@ -1,7 +1,8 @@
-import { Session } from "@/types";
-import Link from "next/link";
-import { DateToString } from "./Functions";
-import DownloadSessionButton from "./SessionDownload";
+import Link from "next/link"
+
+import { Activity } from "@/types"
+import { DateToString } from "./Functions"
+import DownloadSessionButton from "./SessionDownload"
 
 type sessionProps = {
     athleteId: string,

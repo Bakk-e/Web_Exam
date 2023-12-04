@@ -1,9 +1,41 @@
+
+export type Athlete = {
+    id: string,
+    userId: string;
+    gender: string,
+    sport: string,
+    meta?: Meta,
+    activities?: Activity[],
+    competitions?: Competition[],
+    goals?: Goal[],
+}
+
+export type Meta = {
+    id: number,
+    heartRate?: number,
+    watt?: number,
+    speed?: number,
+}
+
+export type Activity = {
+    id?: string,
+    date?: Date,
+    title?: string,
+    type?: string,
+    tags?: string[],
+    questions?: Question[],
+    intervals?: Interval[],
+    parameters?: string[],
+    report?: Report,
+    connection?: Goal | Competition
+}
+
 export type Competition = {
     id?: string,
     title?: string,
     location?: string,
     date?: Date,
-    goal?: string,
+    goal?: Goal[],
     type?: string,
     priority?: "A" | "B" | "C",
     comment?: string
@@ -18,22 +50,24 @@ export type Goal = {
 }
 
 type ReportInterval = {
+    id?: number,
     minIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     maxIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     avrageIntensity?: number,
     minHeartRate?: number,
     maxHeartRate?: number,
-    avrageHeartRate?: number,
+    averageHeartRate?: number,
     minSpeed?: number,
     maxSpeed?: number,
-    avrageSpeed?: number,
+    averageSpeed?: number,
     minWattage?: number,
     maxWattage?: number,
-    avrageWattage?: number,
+    averageWattage?: number,
     duration?: number
 }
 
 export type Question = {
+    id? : string,
     text?: string,
     type?: "text" | "radio" | "emoji",
     answer?: string
@@ -47,35 +81,9 @@ export type Report = {
 }
 
 export type Interval = {
+    id? : string,
     duration?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5
-}
-
-export type Session = {
-    id?: string,
-    date?: Date,
-    title?: string,
-    type?: string,
-    tags?: string[],
-    questions?: Question[],
-    intervals?: Interval[],
-    parameters?: string[],
-    report?: Report,
-    template?: Template,
-    connection?: Goal | Competition
-}
-
-export type Athlete = {
-    id: string,
-    gender: string,
-    sport: string,
-    maxHeartRate: number,
-    thresholdWattage: number,
-    thresholdSpeed: number,
-    competitions?: Competition[],
-    goals?: Goal[],
-    sessions?: Session[],
-    templates?: Template[]
 }
 
 export type AthleteMini = {
@@ -127,4 +135,13 @@ export type ReportIntervalInfo = {
 export type parameter = {
     eng: string,
     no: string
+}
+
+export type ApiProps = {
+    pages : number
+    success : boolean
+    hasMore : boolean
+    page : number
+    data : Athlete[]
+
 }

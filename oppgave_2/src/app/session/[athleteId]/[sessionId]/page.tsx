@@ -4,12 +4,12 @@ import Notifications from "@/components/Notifications"
 import Link from "next/link"
 import "@/styles/SessionPageStyle.css"
 import { useEffect, useState } from "react";
-import { Athlete, Session } from "@/types";
+import { Athlete, Activity } from "@/types";
 import { DateToString } from "@/components/Functions";
 import ViewInterval from "@/components/ViewInterval";
 
-export default function Session({params}: {params: {athleteId: string, sessionId: string}}) {
-    const [session, setSession] = useState<Session>({});
+export default function Session({params}: {params: {athleteId: string, activityId: string}}) {
+    const [activity, setActivity] = useState<Activity>({});
 
     useEffect(() => {
         const getSession = async () => {
@@ -17,9 +17,9 @@ export default function Session({params}: {params: {athleteId: string, sessionId
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            const sessionTemp = result.data.activities?.find(activity => activity.id === params.activityId);
             if (sessionTemp) {
-                setSession(sessionTemp);
+                setActivity(sessionTemp);
             };
         };
         getSession();
@@ -35,7 +35,7 @@ export default function Session({params}: {params: {athleteId: string, sessionId
                 </nav>
             </header>
             <div id="session-page-content">
-                <p id="session-page-title">Økt: {session.title}</p>
+                <p id="session-page-title">Økt: {activity.title}</p>
                 <table id="session-page-table">
                     <tbody>
                         <tr className="session-page-table-point">
