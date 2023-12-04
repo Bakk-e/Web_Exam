@@ -22,7 +22,7 @@ model Athlete {
 
 model Meta {
   id        Int      @id @default(autoincrement())
-  heartRate Int?
+  heartrate Int?
   watt      Int?
   speed     Int?
   athlete   Athlete? @relation(fields: [athleteId], references: [id])
@@ -76,7 +76,7 @@ model Goal {
 model Activity {
   id         String      @id @default(uuid())
   date       DateTime?
-  title      String?
+  name       String?
   type       String?
   tags       String?
   questions  Question[]

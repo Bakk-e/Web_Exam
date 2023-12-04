@@ -46,7 +46,7 @@ async function insertAthleteData (athlete : Athlete) {
         athlete.activities?.map((activity) => ({
           id: activity.id,
           date: activity.date,
-          title: activity.title,
+          title: activity.name,
           type: activity.type,
           tags: activity.tags?.join(",") || null, // Convert tags array to string or set it to null if undefined
           questions: {
@@ -93,7 +93,7 @@ async function insertAthleteData (athlete : Athlete) {
           meta: {
             create: {
               //id: athlete.meta?.id,
-              heartRate: athlete.meta?.heartRate,
+              heartrate: athlete.meta?.heartrate,
               watt: athlete.meta?.watt,
               speed: athlete.meta?.speed,
             },
