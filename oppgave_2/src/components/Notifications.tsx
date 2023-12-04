@@ -3,20 +3,19 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import "@/styles/NotificationComponentStyle.css"
 import { useState } from "react";
 import NotificationCard from "./NotificationCard";
-import { Session } from "@/types";
+import { Activity } from "@/types";
 
 
 export default function Notifications() {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
-    const [notifications, setNotifications] = useState<Session[]>([
+    const [notifications, setNotifications] = useState<Activity[]>([
         {title: "Legs", date: new Date("2023-12-05"), type: "Cycling", tags: ["Rough", "Uphill", "Downhill", "Terrain"]},
         {title: "Chest", date: new Date("2024-02-24"), type: "Compund", tags: ["Rough", "Uphill", "Downhill", "Terrain", "Wavey"]},
         {title: "Back", date: new Date("2025-08-30"), type: "Rowing", tags: ["Rough", "Uphill", "Downhill", "Terrain"]},
     ]);
 
     function toggleDrawer() {
-        //setUnreadCount(unreadCount + 1);
         setIsNotificationOpen(!isNotificationOpen);
     };
 

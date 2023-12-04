@@ -3,7 +3,6 @@
 #main-page {
     display: flex;
     flex-direction: column;
-    height: 100vh;
     align-items: center;
 }
 
@@ -94,4 +93,8 @@
     padding: 0.8rem;
     border: none;
     border-bottom: 1px solid var(--slightGray);
+}
+
+#main-page-athlete-table-body {
+    max-height: 10rem;
 }

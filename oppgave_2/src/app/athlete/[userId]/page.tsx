@@ -33,7 +33,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
     const [sortOrder, setSortOrder] = useState<string>("ascending");
     const [acendButton, setAcendButton] = useState<boolean>(true);
     const [dcendButton, setDcendButton] = useState<boolean>(false);
-    const [selectedSessions, setSelectedSessions] = useState<Session[]>([]);
+    const [selectedSessions, setSelectedSessions] = useState<Activity[]>([]);
     const [selectedSessionType, setSelectedSessionType] = useState<string>("");
 
     const router = useRouter()
@@ -52,14 +52,14 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
             let typesTemp: string[] = [];
             let tagsTemp: string[] = [];
             if (result.data.activities) {
-                for (const session of result.data.activities) {
-                    if (session.type) {
-                        if (!typesTemp.includes(session.type)) {
-                            typesTemp.push(session.type);
+                for (const activity of result.data.activities) {
+                    if (activity.type) {
+                        if (!typesTemp.includes(activity.type)) {
+                            typesTemp.push(activity.type);
                         };
                     };
-                    if (session.tags) {
-                        for (const tag of session.tags) {
+                    if (activity.tags) {
+                        for (const tag of activity.tags) {
                             if (!tagsTemp.includes(tag)) {
                                 tagsTemp.push(tag);
                             };
@@ -190,29 +190,29 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
         }
     }
 
-    function toggleSession(session: Session) {
-        const isSelected = selectedSessions.some(item => item.id === session.id);
-        if (session.report) {
+    function toggleSession(activity: Activity) {
+        const isSelected = selectedSessions.some(item => item.id === activity.id);
+        if (activity.report) {
             if (isSelected) {
                 if (selectedSessions.length == 1) {
                     setSelectedSessionType("");
                 }
-                setSelectedSessions(selectedSessions.filter((item) => item.id !== session.id));
+                setSelectedSessions(selectedSessions.filter((item) => item.id !== activity.id));
             } else {
-                if (selectedSessions.length == 0 && session.type) {
-                    setSelectedSessionType(session.type);
+                if (selectedSessions.length == 0 && activity.type) {
+                    setSelectedSessionType(activity.type);
                 }
-                setSelectedSessions([...selectedSessions, session]);
+                setSelectedSessions([...selectedSessions, activity]);
             }
         }
         
     }
 
-    function handleIsDisabled(session: Session) {
+    function handleIsDisabled(activity: Activity) {
         if (selectedSessionType == "") {
             return false;
         } else {
-            return selectedSessionType !== session.type
+            return selectedSessionType !== activity.type
         }
     }
 
@@ -242,50 +242,54 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                 <div id="athlete-page-inteval-zones">
                     <p id="athlete-page-inteval-zones-title">Intervall soner:</p>
                     <table id="athlete-page-inteval-zones-table">
-                        <tr>
-                            <th></th>
-                            <th>50%</th>
-                            <th>60%</th>
-                            <th>70%</th>
-                            <th>80%</th>
-                            <th>90%</th>
-                        </tr>
-                        <tr>
-                            <th>Puls</th>
-                            {athlete && athlete.meta?.heartRate !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Watt</th>
-                            {athlete && athlete.meta?.watt !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.watt * 0.5).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.6).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.7).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.8).toFixed(0))}</td>
-                                    <td>{((athlete.meta?.watt * 0.9).toFixed(0))}</td>
-                                </>
-                            )}
-                        </tr>
-                        <tr>
-                            <th>Fart</th>
-                            {athlete && athlete.meta?.speed !== undefined && (
-                                <>
-                                    <td>{((athlete.meta?.speed * 0.5).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.6).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.7).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.8).toFixed(1))}</td>
-                                    <td>{((athlete.meta?.speed * 0.9).toFixed(1))}</td>
-                                </>
-                            )}
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th></th>
+                                <th>50%</th>
+                                <th>60%</th>
+                                <th>70%</th>
+                                <th>80%</th>
+                                <th>90%</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <th>Puls</th>
+                                {athlete && athlete.meta?.heartRate !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.heartRate * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.heartRate * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Watt</th>
+                                {athlete && athlete.meta?.watt !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.watt * 0.5).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.6).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.7).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.8).toFixed(0))}</td>
+                                        <td>{((athlete.meta?.watt * 0.9).toFixed(0))}</td>
+                                    </>
+                                )}
+                            </tr>
+                            <tr>
+                                <th>Fart</th>
+                                {athlete && athlete.meta?.speed !== undefined && (
+                                    <>
+                                        <td>{((athlete.meta?.speed * 0.5).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.6).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.7).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.8).toFixed(1))}</td>
+                                        <td>{((athlete.meta?.speed * 0.9).toFixed(1))}</td>
+                                    </>
+                                )}
+                            </tr>
+                        </tbody>
                     </table>
                 </div>
             </div>
@@ -306,7 +310,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         )
                     ) : (
                         <div id="athlete-page-competitions-card-add">
-                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.id}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
+                            <Link legacyBehavior href="/newCompetition/[athleteId]" as={`/newCompetition/${params.userId}`}><a id="athlete-page-competitions-card-add-button">Legg til</a></Link>
                         </div>
                     )}
                 </div>
@@ -323,7 +327,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         )
                     ) : (
                         <div id="athlete-page-goals-card-add">
-                            <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.id}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
+                            <Link legacyBehavior href="/newGoal/[athleteId]" as={`/newGoal/${params.userId}`}><a id="athlete-page-goals-card-add-button">Legg til</a></Link>
                         </div>
                     )}
                 </div>
@@ -425,7 +429,7 @@ export default function AthletePage({ params }: { params: { userId: string }}) {
                         </thead>
                         <tbody>
                             {searchedSessions.map((session) => (
-                                <ViewSession key={session.id} athleteId={params.id} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
+                                <ViewSession key={session.id} athleteId={params.userId} session={session} toggleSession={toggleSession} isChecked={selectedSessions.some(item => item.id === session.id)} disabled={handleIsDisabled(session)}></ViewSession>
                             ))}
                         </tbody>
                     </table>

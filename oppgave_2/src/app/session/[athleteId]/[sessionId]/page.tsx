@@ -40,27 +40,27 @@ export default function Session({params}: {params: {athleteId: string, activityI
                     <tbody>
                         <tr className="session-page-table-point">
                             <th>Titel: </th>
-                            <td>{session.title}</td>
+                            <td>{activity.title}</td>
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Dato: </th>
-                            {session.date ? (
-                                <td>Dato: {DateToString(session.date?.toString())}</td>
+                            {activity.date ? (
+                                <td>Dato: {DateToString(activity.date?.toString())}</td>
                             ) : (
                                 <td>Dato: Null</td>
                             )}
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Type: </th>
-                            <td>{session.type}</td>
+                            <td>{activity.type}</td>
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Tags: </th>
-                            <td>{session.tags?.join(", ")}</td>
+                            <td>{activity.tags?.join(", ")}</td>
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Rapport status: </th>
-                            <td>{session.report?.status}</td>
+                            <td>{activity.report?.status}</td>
                         </tr>
                     </tbody>
                 </table>
@@ -68,7 +68,7 @@ export default function Session({params}: {params: {athleteId: string, activityI
                     <p id="session-page-intervals-title">Intervaller: </p>
                     <table id="session-page-intervals-table">
                         <tbody>
-                            {session.intervals?.map((interval, index) => (
+                            {activity.intervals?.map((interval, index) => (
                                 <ViewInterval key={index} interval={interval}></ViewInterval>
                             ))}
                         </tbody>

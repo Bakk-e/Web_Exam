@@ -4,7 +4,7 @@ import Notifications from "@/components/Notifications";
 import Link from "next/link";
 import "@/styles/EditSessionPageStyle.css";
 import { useEffect, useState } from "react";
-import { Athlete, Competition, Goal, IntervalData, QuestionData, Session } from "@/types";
+import { Athlete, Competition, Goal, IntervalData, QuestionData, Activity } from "@/types";
 import Interval from "@/components/Interval";
 import AddExistingQuestion from "@/components/AddExistingQuestion";
 import Question from "@/components/Question";
@@ -12,7 +12,7 @@ import { DateToStringAlternate } from "@/components/Functions";
 
 export default function EditSessionPage({params}: {params: {athleteId: string, sessionId: string}}) {
     const [currentdate, setCurrentdate] = useState("");
-    const [session, setSession] = useState<Session>({});
+    const [session, setSession] = useState<Activity>({});
     const [competitionsAndGoals, setCompetitionsAndGoals] = useState<(Goal | Competition)[]>([]);
     const [competitionsAndGoalsString, setCompetitionsAndGoalsString] = useState<string[]>([]);
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
@@ -27,7 +27,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     const [goalCompetition, setGoalCompetition] = useState<Goal | Competition>();
 
     const exampleQuestions: QuestionData[] = [
-        {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
+        {key: 0, text: "Hvordan følter du det gikk?", type: "emoji"},
         {key: 1, text: "Hvordan har du det?", type: "tekst"}
     ]
 
@@ -38,7 +38,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            const sessionTemp = result.data.activities?.find(session => session.id === params.sessionId);
             if (sessionTemp) {
                 setSession(sessionTemp);
                 if (sessionTemp.tags) {
@@ -68,7 +68,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
         getSession();
     }, []);
 
-    const putSession = async (athlete: Session) => {
+    const putSession = async (activity: Activity) => {
     }
 
     function addInterval() {
@@ -176,7 +176,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
 
     function handleSaveButton(e: any) {
         e.preventDefault();
-        const updatedSession: Session = {
+        const updatedSession: Activity = {
             title: titel, date: new Date(date),
             type: type, tags: chosenTags,
             connection: goalCompetition

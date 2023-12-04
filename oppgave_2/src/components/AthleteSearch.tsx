@@ -1,8 +1,7 @@
-import { AthleteMini, Athlete} from "@/types"
+import { Athlete} from "@/types"
 import { useState } from "react";
 
 type athleteSearchProps = {
-    //athletes: AthleteMini[],
     athletes: Athlete[],
     onSearch: any
 }
@@ -23,21 +22,17 @@ export default function AthleteSearch(props: athleteSearchProps) {
     function handleSearch(e: any, clear: boolean) {
         e.preventDefault();
 
-        let filteredAthletes: AthleteMini[];
+        let filteredAthletes: Athlete[];
 
         if (!clear) {
             filteredAthletes = athletes.filter(athlete =>
-                athlete.id.toLowerCase().includes(searchTerm.toLowerCase())
+                athlete.userId.toLowerCase().includes(searchTerm.toLowerCase())
         )
         } else {
             filteredAthletes = athletes.filter(athlete =>
-                athlete.id.toLowerCase().includes("")
+                athlete.userId.toLowerCase().includes("")
             )
         }
-        
-        const filteredAthletes = athletes.filter(athlete =>
-            athlete.userId.toLowerCase().includes(searchTerm.toLowerCase())
-        );
         onSearch(filteredAthletes);
     }
 

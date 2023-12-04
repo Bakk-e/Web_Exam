@@ -6,7 +6,7 @@ import DownloadSessionButton from "./SessionDownload"
 
 type sessionProps = {
     athleteId: string,
-    session: Session,
+    session: Activity,
     toggleSession: any,
     isChecked: boolean,
     disabled: boolean

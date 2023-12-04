@@ -53,7 +53,7 @@ export default function Home() {
                     <th>Rapporter</th>
                 </tr>
               </thead>
-              <tbody>
+              <tbody id="main-page-athlete-table-body">
                 {searchedAthlete.map((athlete) => (
                   <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
                 ))}

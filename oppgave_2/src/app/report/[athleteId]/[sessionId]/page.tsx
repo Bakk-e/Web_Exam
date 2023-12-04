@@ -4,12 +4,12 @@ import Notifications from "@/components/Notifications";
 import Link from "next/link";
 import "@/styles/ReportPageStyle.css"
 import { useEffect, useState } from "react";
-import { Athlete, ReportIntervalInfo, Session } from "@/types";
+import { Athlete, ReportIntervalInfo, Activity } from "@/types";
 import { DateToString } from "@/components/Functions";
 import ReportPageInterval from "@/components/ReportPageInterval";
 
 export default function Report({params}: {params: {athleteId: string, sessionId: string}}) {
-    const [session, setSession] = useState<Session>();
+    const [session, setSession] = useState<Activity>();
     const [intervals, setIntervals] = useState<ReportIntervalInfo[]>([])
 
     useEffect(() => {
@@ -18,9 +18,8 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            let sessionsTemp: Session[] = [];
-            if (result.data.sessions) {
-                setSession(result.data.sessions.find(session => session.id === params.sessionId));
+            if (result.data.activities) {
+                setSession(result.data.activities.find(session => session.id === params.sessionId));
             };
             let intervalsTemp: ReportIntervalInfo[] = [];
             if (session?.intervals && session.report?.reportIntervals) {
@@ -33,13 +32,13 @@ export default function Report({params}: {params: {athleteId: string, sessionId:
                         avrageIntensity: session.report.reportIntervals[i].avrageIntensity,
                         minHeartRate: session.report.reportIntervals[i].minHeartRate,
                         maxHeartRate: session.report.reportIntervals[i].maxHeartRate,
-                        avrageHeartRate: session.report.reportIntervals[i].avrageHeartRate,
+                        avrageHeartRate: session.report.reportIntervals[i].averageHeartRate,
                         minSpeed: session.report.reportIntervals[i].minSpeed,
                         maxSpeed: session.report.reportIntervals[i].maxSpeed,
-                        avrageSpeed: session.report.reportIntervals[i].avrageSpeed,
+                        avrageSpeed: session.report.reportIntervals[i].averageSpeed,
                         minWattage: session.report.reportIntervals[i].minWattage,
                         maxWattage: session.report.reportIntervals[i].maxWattage,
-                        avrageWattage: session.report.reportIntervals[i].avrageWattage,
+                        avrageWattage: session.report.reportIntervals[i].averageWattage,
                         durationAchieved: session.report.reportIntervals[i].duration
                     });
                 };

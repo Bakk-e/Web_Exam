@@ -1,7 +1,7 @@
-import { Interval, Session } from "@/types"
+import { Interval, Activity } from "@/types"
 
 type answerIntervalProps = {
-    session: Session,
+    session: Activity,
     interval: Interval
 }
 

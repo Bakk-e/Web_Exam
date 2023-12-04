@@ -45,10 +45,11 @@ export default function EditAthlete(params: editAthleteProps) {
 
     function handleSaveButton(e: any) {
         e.preventDefault();
+
+        //fix id in meta
         const updatedAthlete: Athlete = {
-            id: editingAthlete.id, gender: gender,
-            sport: sport, maxHeartRate: heartrate,
-            thresholdWattage: wattage, thresholdSpeed: speed
+            id: editingAthlete.id, userId: editingAthlete.userId, gender: gender,
+            sport: sport, meta: {id: 2, heartRate: heartrate, watt: wattage, speed: speed} 
         }
         putAthlete(updatedAthlete);
     }
@@ -79,21 +80,21 @@ export default function EditAthlete(params: editAthleteProps) {
                         <td className="athlete-page-edit-point-title">Maks puls: </td>
                         <td><input className="athlete-page-edit-point-input"
                         type="number"
-                        defaultValue={editingAthlete.maxHeartRate}
+                        defaultValue={editingAthlete.meta?.heartRate}
                         onChange={handleHeartrateChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Terskel watt: </td>
                         <td><input className="athlete-page-edit-point-input"
                         type="number"
-                        defaultValue={editingAthlete.thresholdWattage}
+                        defaultValue={editingAthlete.meta?.watt}
                         onChange={handleWattageChange}/></td>
                     </tr>
                     <tr className="athlete-page-edit-point">
                         <td className="athlete-page-edit-point-title">Terskel fart: </td>
                         <td><input className="athlete-page-edit-point-input"
                         type="number"
-                        defaultValue={editingAthlete.thresholdSpeed}
+                        defaultValue={editingAthlete.meta?.speed}
                         onChange={handleSpeedChange}/></td>
                     </tr>
                 </table>

@@ -11,10 +11,11 @@ export default function Athlete(props: athleteProps) {
 
     return (
         <tr>
-            <td><Link legacyBehavior href="/athlete/[userId]" as={`/athlete/${userId}`}><a>{userId}</a></Link></td>
+            <td>{userId}</td>
             <td>{gender}</td>
             <td>{sport}</td>
-            <td><Link legacyBehavior href="/reports/[userId]" as={`/reports/${userId}`}><a>Klikk her</a></Link></td>
+            <td><Link legacyBehavior href="/athlete/[userId]" as={`/athlete/${userId}`}><a>Klikk her</a></Link></td>
+            <td><Link legacyBehavior href="/reports/[athleteId]" as={`/reports/${userId}`}><a>Klikk her</a></Link></td>
         </tr>
     )
 }

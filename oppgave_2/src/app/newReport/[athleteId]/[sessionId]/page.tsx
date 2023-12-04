@@ -4,12 +4,12 @@ import Notifications from "@/components/Notifications";
 import Link from "next/link";
 import "@/styles/NewReportPageStyle.css"
 import { useEffect, useState } from "react";
-import { Athlete, Session } from "@/types";
+import { Athlete, Activity } from "@/types";
 import AnswerQuestion from "@/components/AnswerQuestion";
 import AnswerInterval from "@/components/AnswerInterval";
 
 export default function NewReport({params}: {params: {athleteId: string, sessionId: string}}) {
-    const [session, setSession] = useState<Session>({});
+    const [session, setSession] = useState<Activity>({});
 
     useEffect(() => {
         const getSession = async () => {
@@ -17,7 +17,7 @@ export default function NewReport({params}: {params: {athleteId: string, session
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            const sessionTemp = result.data.sessions?.find(session => session.id === params.sessionId);
+            const sessionTemp = result.data.activities?.find(session => session.id === params.sessionId);
             if (sessionTemp) {
                 setSession(sessionTemp);
             };

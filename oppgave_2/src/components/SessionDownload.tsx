@@ -1,4 +1,4 @@
-import { Session, Report } from '@/types';
+import { Activity, Report } from '@/types';
 import * as XLSX from 'xlsx'
 import { GetCurrentDate } from './Functions';
 
@@ -28,7 +28,7 @@ function FlattenObject(object: any,): Record<string, any> {
     return result;
 }
 
-function ConvertSessionToExcel(session: Session) {
+function ConvertSessionToExcel(session: Activity) {
     const sessionCopy = {...session};
     
     const flattendQuestions = FlattenObject(sessionCopy.questions);
@@ -54,7 +54,7 @@ function ConvertSessionToExcel(session: Session) {
 }
 
 type downloadSessionButtonProps = {
-    session: Session
+    session: Activity
 }
 
 export default function DownloadSessionButton(props: downloadSessionButtonProps) {

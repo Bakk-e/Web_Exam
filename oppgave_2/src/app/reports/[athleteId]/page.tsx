@@ -3,12 +3,12 @@
 import Notifications from "@/components/Notifications"
 import ReportComponent from "@/components/ReportComponent"
 import "@/styles/ReportsPageStyle.css"
-import { Athlete, Session } from "@/types"
+import { Athlete, Activity } from "@/types"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 
 export default function ReportsPage({params}: {params: {athleteId: string}}) {
-    const [sessions, setSessions] = useState<Session[]>([]);
+    const [activities, setActivities] = useState<Activity[]>([]);
 
     useEffect(() => {
         const getSessions = async () => {
@@ -16,15 +16,15 @@ export default function ReportsPage({params}: {params: {athleteId: string}}) {
                 method: "get",
             });
             const result = (await response.json()) as {data: Athlete};
-            let sessionsTemp: Session[] = [];
-            if (result.data.sessions) {
-                for (const session of result.data.sessions) {
+            let sessionsTemp: Activity[] = [];
+            if (result.data.activities) {
+                for (const session of result.data.activities) {
                     if (session.report && session.report.status != "no") {
                         sessionsTemp.push(session);
                     };
                 };
             };
-            setSessions(sessionsTemp);
+            setActivities(sessionsTemp);
         };
         getSessions();
     }, []);
@@ -52,7 +52,7 @@ export default function ReportsPage({params}: {params: {athleteId: string}}) {
                             </tr>
                         </thead>
                         <tbody>
-                            {sessions.map((session) => (
+                            {activities.map((session) => (
                                 <ReportComponent key={session.id} session={session} athleteId={params.athleteId}></ReportComponent>
                             ))}
                         </tbody>
