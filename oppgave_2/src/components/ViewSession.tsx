@@ -5,11 +5,11 @@ import { DateToString } from "./Functions"
 import DownloadSessionButton from "./SessionDownload"
 
 type sessionProps = {
-    athleteId: string,
-    session: Activity,
-    toggleSession: any,
-    isChecked: boolean,
-    disabled: boolean
+  athleteId: string
+  session: Activity
+  toggleSession: any
+  isChecked: boolean
+  disabled: boolean
 }
 
 export default function ViewSession(props: sessionProps) {
