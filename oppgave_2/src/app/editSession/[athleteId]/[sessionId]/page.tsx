@@ -15,10 +15,10 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     const [session, setSession] = useState<Activity>({});
     const [competitionsAndGoals, setCompetitionsAndGoals] = useState<(Goal | Competition)[]>([]);
     const [competitionsAndGoalsString, setCompetitionsAndGoalsString] = useState<string[]>([]);
-    const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
-    const [intervalCount, setIntervalCount] = useState(1);
-    const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
-    const [questionCount, setQuestionCount] = useState(1);
+    const [intervals, setIntervals] = useState<IntervalData[]>([]);
+    const [intervalCount, setIntervalCount] = useState(0);
+    const [questions, setQuestions] = useState<QuestionData[]>([]);
+    const [questionCount, setQuestionCount] = useState(0);
     const [tagTemp, setTagTemp] = useState("");
     const [chosenTags, setChosenTags] = useState<string[]>([]);
     const [date, setDate] = useState("");
@@ -41,10 +41,11 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
             const sessionTemp = result.data.activities?.find(session => session.id === params.sessionId);
             if (sessionTemp) {
                 setSession(sessionTemp);
-                if (sessionTemp.tags) {
-                    setChosenTags(sessionTemp.tags);
-                };
             };
+            let tempTags: string[] = [];
+            if (sessionTemp?.tags) {
+                tempTags.push(...sessionTemp.tags.split(","))
+            }
             const tempCopetitionsAndGoals: (Goal | Competition)[] = [];
             result.data.competitions?.map((competition) => (
                 competition && (
@@ -62,8 +63,22 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                     tempCopetitionsAndGoalsString.push(object.title)
                 )
             ))
+            const tempQuestions: QuestionData[] = [];
+            if (sessionTemp?.questions) {
+                sessionTemp.questions.map((qustion, index) => (
+                    qustion && (
+                        tempQuestions.push({key: index, text: qustion.text, type: qustion.type})
+                    )
+                ))
+            }
+            if (sessionTemp && sessionTemp.tags) {
+                console.log(sessionTemp)
+            }
+            setChosenTags(tempTags);
             setCompetitionsAndGoals(tempCopetitionsAndGoals);
             setCompetitionsAndGoalsString(tempCopetitionsAndGoalsString);
+            setQuestions(tempQuestions);
+            setQuestionCount(tempQuestions.length)
         };
         getSession();
     }, []);
@@ -176,12 +191,14 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
 
     function handleSaveButton(e: any) {
         e.preventDefault();
+        /*
         const updatedSession: Activity = {
             title: titel, date: new Date(date),
             type: type, tags: chosenTags,
             connection: goalCompetition
         }
         putSession(updatedSession);
+        */
     }
 
     return (
@@ -194,7 +211,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                 </nav>
             </header>
             <div id="edit-session-page-content">
-                <p id="edit-session-page-title">Økt: {session.title}</p>
+                <p id="edit-session-page-title">Økt: {session.name}</p>
                 <div id="edit-session-page-table">
                     <div className="edit-session-page-create-point">
                         <p className="edit-session-page-create-point-title">Dato: </p>
@@ -208,7 +225,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         <p className="edit-session-page-create-point-title">Titel: </p>
                         <input className="edit-session-page-create-point-input"
                         onChange={handleTitelChange}
-                        defaultValue={session.title}/>
+                        defaultValue={session.name}/>
                     </div>
                     <div className="edit-session-page-create-point">
                         <p className="edit-session-page-create-point-title">Type: </p>

@@ -84,10 +84,10 @@
 
 .athlete-page-edit {
     position: fixed;
-    top: 43%;
+    bottom: 2rem;
     right: -37rem;
     width: 35rem;
-    height: 30rem;
+    height: 20rem;
     background-color: var(--white);
     transition: right 0.3s ease-in-out;
     z-index: 1000;
