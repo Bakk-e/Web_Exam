@@ -2,29 +2,29 @@
 
 import Link from "next/link";
 import "@/styles/MainPageStyle.css"
-import Athlete from "@/components/Athlete";
+import AthleteProps from "@/components/AthleteProps";
 import { useEffect, useState } from "react";
-import { AthleteMini } from "@/types";
+import { Athlete, AthleteMini } from "@/types";
 import AthleteSearch from "@/components/AthleteSearch";
 import Notifications from "@/components/Notifications";
 
 export default function Home() {
-  const [athleteInfos, setAthleteInfos] = useState<AthleteMini[]>([]);
-  const [searchedAthlete, setSearchedAthletes] = useState<AthleteMini[]>([]);
+  const [athleteInfos, setAthleteInfos] = useState<Athlete[]>([]);
+  const [searchedAthlete, setSearchedAthletes] = useState<Athlete[]>([]);
 
   useEffect(() =>{
     const getAthleteInfos = async () => {
       const response = await fetch("/api/athletes", {
         method: "GET",
       });
-      const result = (await response.json()) as {data: AthleteMini[]};
+      const result = (await response.json()) as {data: Athlete[]};
       setAthleteInfos(result.data);
       setSearchedAthletes(result.data);
     }
     getAthleteInfos();
   }, []);
 
-  function onSearch(filteredAthletes: AthleteMini[]) {
+  function onSearch(filteredAthletes: Athlete[]) {
     setSearchedAthletes(filteredAthletes);
   }
 
@@ -44,19 +44,15 @@ export default function Home() {
         </div>
       <div id="main-page-athlete-list">
             <table id="main-page-athlete-table">
-                <thead>
-                    <tr>
-                        <th>Id</th>
-                        <th>Kjønn</th>
-                        <th>Sport</th>
-                        <th>Rapporter</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    {searchedAthlete.map((athlete) => (
-                        <Athlete id={athlete.id} gender={athlete.gender} sport={athlete.sport}></Athlete>
-                    ))}
-                </tbody>
+                <tr>
+                    <th>Id</th>
+                    <th>Kjønn</th>
+                    <th>Sport</th>
+                    <th>Rapporter</th>
+                </tr>
+                {searchedAthlete.map((athlete) => (
+                  <AthleteProps userId={athlete.userId} gender={athlete.gender} sport={athlete.sport}></AthleteProps>
+                ))}
             </table>
         </div>
     </div>

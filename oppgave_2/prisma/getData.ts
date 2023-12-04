@@ -30,7 +30,6 @@ async function insertAthleteData (athlete : Athlete) {
       userId : athlete.userId,
       gender: athlete.gender,
       sport: athlete.sport,
-      //
       maxHeartRate: athlete.meta?.heartrate,
       thresholdWattage: athlete.meta?.watt,
       thresholdSpeed: athlete.meta?.speed
