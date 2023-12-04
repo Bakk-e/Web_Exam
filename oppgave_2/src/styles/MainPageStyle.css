@@ -96,7 +96,14 @@
     border-bottom: 1px solid var(--slightGray);
 }
 
-#main-page-athlete-table thead, tbody tr {
+
+#main-page-athlete-table thead {
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+}
+
+#main-page-athlete-table tbody tr {
     display: table;
     table-layout: fixed;
     width: 100%;
