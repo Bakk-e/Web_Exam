@@ -21,7 +21,6 @@ function generateRandomStringFromName(firstName : string, lastName : string){
     const combinedString = firstName + lastName
     console.log(typeof firstName, typeof lastName)
     const characters = combinedString.split('');
-
     for (let i = characters.length - 1 ; i > 0 ; i--){
         const j = Math.floor(Math.random() * (i + 1));
         [characters[i], characters[j]] = [characters[j], characters[i]]
@@ -32,7 +31,6 @@ function generateRandomStringFromName(firstName : string, lastName : string){
 export async function GET(request: NextApiRequest, response: NextApiResponse) {
     if (request.method === "GET") {
         try {
-
             const athletes = prisma.athlete.findMany({
                 select: {
                     userId: true,
@@ -40,7 +38,6 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
                     sport: true,
                 }
             });
-
             return NextResponse.json(
                 { data: (await athletes).map((athlete) =>(
                     { userId: athlete.userId, sport: athlete.sport, gender: athlete.gender}
@@ -67,7 +64,6 @@ export async function POST (req: NextRequest, res: NextResponse) {
                 sport : sport,
             }
         })
-
         const newMeta = await prisma.meta.create({
             data: {
                 heartrate: meta.maxHeartRate ? parseInt(meta.maxHeartRate, 10) : null,
@@ -77,43 +73,8 @@ export async function POST (req: NextRequest, res: NextResponse) {
             }
         });
         return NextResponse.json({success : true ,data : {newAthlete, meta : newMeta}, message : "Created new athlete"})
-        //res.status(200).json(newAthlete)
     }catch (e){
         console.error("Failed to create athlete", e)
-        // res.status(500).json({ error: "Internal Server Error" });
         return NextResponse.json({success : false , message : "Internal Server Error"})
     }
 }
-/*
-export async function POST(request: NextRequest) {
-    if (request.method === "POST") {
-        try {
-            const data = await request.json()
-
-            const createAthlete = await prisma.athlete.create({
-                data: {
-                    userId: data.userId,
-                    gender: data.gender,
-                    sport: data.sport,
-                    maxHeartRate: data.maxHeartRate,
-                    thresholdWattrate: data.thresholdWattrate,
-                    thresholdSpeed: data.thresholdSpeed
-                }
-            })
-
-            return NextResponse.json({
-                { data: }
-            })
-            
-        } catch (error) {
-            
-        }
-    }
-}
-
-/*
-export async function POST(request: NextResponse) {
-    const data = await request.json()
-    return NextResponse.json({ status: 200 })
-}
-*/

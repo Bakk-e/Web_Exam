@@ -4,6 +4,7 @@ import { fetchAthletesFromAPI, insertAthleteData } from "./getData"
 async function main() {
   try {
     await prisma.athlete.deleteMany()
+    await prisma.question.deleteMany()
 
     const athletesFromApi = await fetchAthletesFromAPI()
 
