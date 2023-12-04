@@ -18,7 +18,7 @@ export default function AnswerQuestion(props: answerQuestionProps) {
             {question.type == "emoji" && (
                 <form className="new-report-page-question-radio-form">
                     {Array.from({length: 10}, (_, index) =>(
-                        <label className="new-report-page-question-radio">
+                        <label key={index} className="new-report-page-question-radio">
                             <input className="new-report-page-question-radio-input" type="radio" name="ytelse" value={`${index + 1}`}/>
                             {index + 1}
                         </label>

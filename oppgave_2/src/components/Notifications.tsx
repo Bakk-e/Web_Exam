@@ -35,7 +35,7 @@ export default function Notifications() {
                     <button id="notification-drawer-header-exit" onClick={toggleDrawer}>X</button>
                 </div>
                 <div id="notification-drawer-notifications">
-                    {notifications.map((notification, index) => (
+                    {notifications.map((notification) => (
                         <NotificationCard key={notification.id} session={notification}></NotificationCard>
                     ))}
                     {notifications.length == 0 && (

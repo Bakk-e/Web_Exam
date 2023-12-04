@@ -47,7 +47,7 @@ export default function Home() {
                     <th>Id</th>
                     <th>Kjønn</th>
                     <th>Sport</th>
-                    <th>Gå til</th>
+                    <th>Profil</th>
                     <th>Rapporter</th>
                 </tr>
               </thead>

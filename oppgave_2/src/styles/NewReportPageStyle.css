@@ -46,6 +46,7 @@
     flex-direction: row;
 }
 
+
 #new-report-page-status-section-select {
     border-radius: 1.8rem;
     width: 20rem;
@@ -55,17 +56,19 @@
 
 #new-report-page-interval-expected-table {
     border-collapse: collapse;
-    width: auto;
+    width: 35%;
     margin: 0;
     padding: 0;
     margin-top: 1rem;
 }
+
 
 #new-report-page-interval-expected-table td {
     border: none;
     padding: 5px;
     text-align: left;
     background-color: transparent;
+    text-align: center;
 }
 
 #new-report-page-interval-achived-table {

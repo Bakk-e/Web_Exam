@@ -57,6 +57,10 @@
     margin-bottom: 1rem;
 }
 
+.new-session-page-create-point-title {
+    margin-right: 1rem;
+}
+
 .new-session-page-create-point-dropdown {
     border-radius: 1.8rem;
     width: 16rem;
@@ -66,6 +70,7 @@
 .new-session-page-create-point-input {
     border-radius: 1.8rem;
     width: 20rem;
+    margin-right: 1rem;
 }
 
 #new-session-page-tags-chosen {
@@ -79,6 +84,31 @@
 
 #new-session-page-tags-chosen ul li {
     margin-right: 0.8rem;
+}
+
+#new-session-page-parameters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+#new-session-page-parameters-dropdown {
+    border-radius: 1.8rem;
+    width: 16rem;
+    text-align: center;
+    margin-bottom: 1rem;
+}
+
+#new-session-page-selected-parameters-list {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+#new-session-page-selected-parameters-list li {
+    margin-right: 1rem;
 }
 
 #new-session-page-interval-and-question {

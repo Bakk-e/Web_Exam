@@ -124,7 +124,7 @@ export default function NewSessionTemplatePage() {
                 </nav>
             </header>
             <div id="new-session-template-page-create">
-                <p id="new-session-template-page-title">Ny økt</p>
+                <p id="new-session-template-page-title">Ny økt mal</p>
                 <div id="new-session-template-page-table">
                     <div className="new-session-template-page-create-point">
                         <p className="new-session-template-page-create-point-title">Titel: </p>
@@ -159,7 +159,7 @@ export default function NewSessionTemplatePage() {
                         ))}
                     </select>
                     <div id="new-session-template-page-parameters-selected">
-                        <ul>
+                        <ul id="new-session-template-page-parameters-selected-list">
                             {chosenParameters.map((parameter) => (
                                 <li key={parameter}>
                                     {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>

@@ -57,9 +57,14 @@
     margin-bottom: 1rem;
 }
 
+.new-session-template-page-create-point-title {
+    margin-right: 1rem;
+}
+
 .new-session-template-page-create-point-input {
     border-radius: 1.8rem;
     width: 20rem;
+    margin-right: 1rem;
 }
 
 #new-session-template-page-tags {
@@ -83,6 +88,24 @@
     border-radius: 1.8rem;
     width: 16rem;
     text-align: center;
+}
+
+#new-session-template-page-parameters {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+#new-session-template-page-parameters-selected-list {
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 1rem;
+}
+
+#new-session-template-page-parameters-selected-list li {
+    margin-right: 1rem;
 }
 
 #new-session-template-page-interval-and-question {
@@ -116,9 +139,14 @@
     margin-bottom: 1rem;
 }
 
+.session-interval-table-title {
+    margin-right: 1rem;
+}
+
 .session-interval-table-input {
     border-radius: 1.8rem;
     width: 12rem;
+    margin-right: 1rem;
 }
 
 .session-interval-table-dropdown {
@@ -164,6 +192,10 @@
     justify-content: center;
     flex-direction: row;
     margin-bottom: 1rem;
+}
+
+.session-question-table-title {
+    margin-right: 1rem;
 }
 
 .session-question-table-input {

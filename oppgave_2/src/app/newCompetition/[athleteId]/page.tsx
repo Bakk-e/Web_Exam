@@ -59,7 +59,6 @@ export default function NewCompetition({params}: {params: {athleteId: string}}) 
                         <textarea className="new-competition-page-create-point-textarea"></textarea>
                     </div>
                 </div>
-                
             </div>
             <div id="new-competition-page-save">
                 <button id="new-competition-page-save-button">Lagre</button>

@@ -181,7 +181,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         ))}
                     </select>
                     <div id="new-session-page-selected-parameters">
-                        <ul>
+                        <ul id="new-session-page-selected-parameters-list">
                             {chosenParameters.map((parameter) => (
                                 <li key={parameter}>
                                     {parameter} <button onClick={() => handleParameterRemove(parameter)}>x</button>

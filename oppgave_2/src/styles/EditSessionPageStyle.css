@@ -53,9 +53,14 @@
     margin-bottom: 1rem;
 }
 
+.edit-session-page-create-point-title {
+    margin-right: 1rem;
+}
+
 .edit-session-page-create-point-input {
     border-radius: 1.8rem;
     width: 20rem;
+    margin-right: 1rem;
 }
 
 #edit-session-page-tags {
@@ -107,6 +112,10 @@
     margin-bottom: 1rem;
 }
 
+.session-interval-table-title {
+    margin-right: 1rem;
+}
+
 .session-interval-table-input {
     border-radius: 1.8rem;
     width: 12rem;
@@ -155,6 +164,10 @@
     justify-content: center;
     flex-direction: row;
     margin-bottom: 1rem;
+}
+
+.session-question-table-title {
+    margin-right: 1rem;
 }
 
 .session-question-table-input {

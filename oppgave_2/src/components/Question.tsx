@@ -12,20 +12,20 @@ export default function Question(props: questionProps) {
     const [text, setText] = useState("");
     const [type, setType] = useState("");
 
-    function handleTextChange(e: any, update: string) {
-        e.preventDefault();
-        setText(update);
+    function handleTextChange(e: any) {
+        const temp: string = e.target.value;
+        setText(temp);
 
-        data.text = text;
+        data.text = temp;
 
         handleDataUpdate(index, data);
     }
 
-    function handleTypeChange(e: any, update: string) {
-        e.preventDefault();
-        setType(update);
+    function handleTypeChange(e: any) {
+        const temp: string = e.target.value;
+        setType(temp);
     
-        data.type = type;
+        data.type = temp;
     
         handleDataUpdate(index, data);
     }
@@ -38,14 +38,14 @@ export default function Question(props: questionProps) {
                     <input className="session-question-table-input"
                     type="text"
                     placeholder="Spørsmål tekst"
-                    value={data.text}
-                    onChange={(e) => handleTextChange(e, e.target.value)}/>
+                    value={text}
+                    onChange={handleTextChange}/>
                 </div>
                 <div className="session-question-table-point">
                     <p className="session-question-table-title">Type: </p>
                     <select className="session-question-table-dropdown"
-                    value={data.type}
-                    onChange={(e) => handleTypeChange(e, e.target.value)}>
+                    value={type}
+                    onChange={handleTypeChange}>
                         <option value="tekst">Tekst</option>
                         <option value="radio">Radio</option>
                         <option value="emoji">Emoji</option>

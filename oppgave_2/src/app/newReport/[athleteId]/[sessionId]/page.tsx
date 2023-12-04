@@ -47,13 +47,13 @@ export default function NewReport({params}: {params: {athleteId: string, session
                     </select>
                 </div>
                 <div id="new-report-page-intervals-section">
-                    {session.intervals?.map((interval) => (
-                        <AnswerInterval session={session} interval={interval}></AnswerInterval>
+                    {session.intervals?.map((interval, index) => (
+                        <AnswerInterval key={index} session={session} interval={interval}></AnswerInterval>
                     ))}
                 </div>
                 <div id="new-report-page-questions-section">
-                    {session.questions?.map((question) => (
-                        <AnswerQuestion question={question}></AnswerQuestion>
+                    {session.questions?.map((question, index) => (
+                        <AnswerQuestion key={index} question={question}></AnswerQuestion>
                     ))}
                 </div>
                 <div id="new-report-page-comment-section">
