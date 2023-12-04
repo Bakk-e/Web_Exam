@@ -35,19 +35,19 @@ export default function Session({params}: {params: {athleteId: string, activityI
                 </nav>
             </header>
             <div id="session-page-content">
-                <p id="session-page-title">Økt: {activity.title}</p>
+                <p id="session-page-title">Økt: {activity.name}</p>
                 <table id="session-page-table">
                     <tbody>
                         <tr className="session-page-table-point">
                             <th>Titel: </th>
-                            <td>{activity.title}</td>
+                            <td>{activity.name}</td>
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Dato: </th>
                             {activity.date ? (
-                                <td>Dato: {DateToString(activity.date?.toString())}</td>
+                                <td>{DateToString(activity.date?.toString())}</td>
                             ) : (
-                                <td>Dato: Null</td>
+                                <td>Null</td>
                             )}
                         </tr>
                         <tr className="session-page-table-point">
@@ -56,7 +56,7 @@ export default function Session({params}: {params: {athleteId: string, activityI
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Tags: </th>
-                            <td>{activity.tags?.join(", ")}</td>
+                            <td>{activity.tags?.split(",").join(", ")}</td>
                         </tr>
                         <tr className="session-page-table-point">
                             <th>Rapport status: </th>

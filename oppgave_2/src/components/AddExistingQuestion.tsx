@@ -24,7 +24,7 @@ export default function AddExistingQuestion(props: addExistingQuestionProps) {
         <div id="session-questions-existing">
             <select id="session-questions-existing-select" onChange={(e) => handleQuestionChange(e, parseInt(e.target.value))}>
                 {existingQuestions.map((question) => (
-                    <option key={question.key} value={question.key}>{question.text}</option>
+                    <option key={question.id} value={question.id}>{question.text}</option>
                 ))}
             </select>
             <button id="session-questions-existing-button" onClick={handleAddQuestionClick}>Legg til</button>

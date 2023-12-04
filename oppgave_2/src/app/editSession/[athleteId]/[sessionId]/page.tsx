@@ -27,8 +27,8 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     const [goalCompetition, setGoalCompetition] = useState<Goal | Competition>();
 
     const exampleQuestions: QuestionData[] = [
-        {key: 0, text: "Hvordan følter du det gikk?", type: "emoji"},
-        {key: 1, text: "Hvordan har du det?", type: "tekst"}
+        {id: "0", text: "Hvordan følter du det gikk?", type: "emoji"},
+        {id: "1", text: "Hvordan har du det?", type: "tekst"}
     ]
 
     useEffect(() => {
@@ -65,14 +65,13 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
             ))
             const tempQuestions: QuestionData[] = [];
             if (sessionTemp?.questions) {
+                console.log("questions")
+                console.log(sessionTemp.questions)
                 sessionTemp.questions.map((qustion, index) => (
                     qustion && (
-                        tempQuestions.push({key: index, text: qustion.text, type: qustion.type})
+                        tempQuestions.push({id: `${index}`, text: qustion.text, type: qustion.type})
                     )
                 ))
-            }
-            if (sessionTemp && sessionTemp.tags) {
-                console.log(sessionTemp)
             }
             setChosenTags(tempTags);
             setCompetitionsAndGoals(tempCopetitionsAndGoals);
@@ -114,7 +113,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     function addQuestion() {
         setQuestions((prevQuestion) => [
             ...prevQuestion,
-            {key: questionCount},
+            {id: `${questionCount}`},
         ]);
         setQuestionCount(questionCount + 1)
     };
@@ -139,7 +138,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
     function handleAddExistingQuestion(data: QuestionData) {
         setQuestions((prevQuestion) => {
             const updatedList = [...prevQuestion];
-            data.key = questionCount;
+            data.id = `${questionCount}`;
             updatedList[questionCount] = data;
             setQuestionCount(questionCount + 1);
             return updatedList;
@@ -273,7 +272,7 @@ export default function EditSessionPage({params}: {params: {athleteId: string, s
                         <p>Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
-                            <Question key={question.key} index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
+                            <Question key={question.id} index={index} handleDataUpdate={handleQuestionDataUpdate} data={question}></Question>
                         ))}
                         <div id="edit-session-page-questions-buttons">
                             <button id="edit-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>

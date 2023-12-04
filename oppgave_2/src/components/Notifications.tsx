@@ -10,9 +10,9 @@ export default function Notifications() {
     const [isNotificationOpen, setIsNotificationOpen] = useState(false);
     const [unreadCount, setUnreadCount] = useState(0);
     const [notifications, setNotifications] = useState<Activity[]>([
-        {title: "Legs", date: new Date("2023-12-05"), type: "Cycling", tags: ["Rough", "Uphill", "Downhill", "Terrain"]},
-        {title: "Chest", date: new Date("2024-02-24"), type: "Compund", tags: ["Rough", "Uphill", "Downhill", "Terrain", "Wavey"]},
-        {title: "Back", date: new Date("2025-08-30"), type: "Rowing", tags: ["Rough", "Uphill", "Downhill", "Terrain"]},
+        {name: "Legs", date: new Date("2023-12-05"), type: "Cycling", tags: "Rough, Uphill, Downhill, Terrain"},
+        {name: "Chest", date: new Date("2024-02-24"), type: "Compund", tags: "Rough, Uphill, Downhill, Terrain, Wavey"},
+        {name: "Back", date: new Date("2025-08-30"), type: "Rowing", tags: "Rough, Uphill, Downhill, Terrain"},
     ]);
 
     function toggleDrawer() {
@@ -35,7 +35,7 @@ export default function Notifications() {
                 </div>
                 <div id="notification-drawer-notifications">
                     {notifications.map((notification) => (
-                        <NotificationCard key={notification.id} session={notification}></NotificationCard>
+                        <NotificationCard key={`${notification.id} + ${notification.name}`} session={notification}></NotificationCard>
                     ))}
                     {notifications.length == 0 && (
                         <p>Ingen Varslinger</p>
