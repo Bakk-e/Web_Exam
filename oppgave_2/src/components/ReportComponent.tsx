@@ -17,7 +17,7 @@ export default function ReportComponent(props: reportProps) {
             ) : (
                 <td>null</td>
             )}
-            <td className="reports-page-reports-text">{session.title}</td>
+            <td className="reports-page-reports-text">{session.name}</td>
             <td className="reports-page-reports-text">{session.type}</td>
             <td className="reports-page-reports-text">{session.report?.status}</td>
             <td className="reports-page-reports-link"><Link legacyBehavior href="/report/[athleteId]/[sessionId]" as={`/report/${athleteId}/${session.id}`}><a id="reports-page-goto-report">Klikk her</a></Link></td>

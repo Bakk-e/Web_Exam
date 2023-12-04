@@ -61,7 +61,7 @@ export default function NewQuestionsPage() {
                 </div>
             </div>
             <div id="new-questions-page-save-section">
-                <button id="new-questions-page-save-button">Save</button>
+                <button id="new-questions-page-save-button" onChange={handleSaveButton}>Save</button>
             </div>
         </div>
     )
