@@ -21,12 +21,12 @@ model Athlete {
 }
 
 model Meta {
-  id        Int     @id @default(autoincrement())
-  heartrate Int?
+  id        Int      @id @default(autoincrement())
+  heartRate Int?
   watt      Int?
   speed     Int?
-  athlete   Athlete @relation(fields: [athleteId], references: [id])
-  athleteId String  @unique
+  athlete   Athlete? @relation(fields: [athleteId], references: [id])
+  athleteId String?  @unique
 }
 
 model Competition {

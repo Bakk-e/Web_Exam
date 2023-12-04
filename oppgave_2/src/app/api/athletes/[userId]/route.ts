@@ -30,6 +30,7 @@ export async function GET(request: NextApiRequest, context: any) {
   }
 }
 
+/*
 export async function POST(req: NextApiRequest, res: NextApiResponse) {
   const apiUrl = "https://webapp-api.vercel.app/api/users"
   const response = await fetch(apiUrl)
@@ -54,8 +55,8 @@ async function handler(req: NextRequest, res: NextResponse) {
         user.competitions?.map((comp) => ({
           id: comp.id,
           title: comp.title,
-          date: comp.date,
           location: comp.location,
+          date: comp.date,
           goal: comp.goal,
           type: comp.type,
           priority: comp.priority,
@@ -71,15 +72,15 @@ async function handler(req: NextRequest, res: NextResponse) {
           comment: goal.comment,
         })) ?? []
 
-      const sessionTocreate = user.sessions?.map((session) => ({
-        id: session.id,
-        date: session.date,
-        title: session.title,
-        type: session.type,
-        tags: session.tags,
+      const activityTocreate = user.activities?.map((activity) => ({
+        id: activity.id,
+        date: activity.date,
+        title: activity.title,
+        type: activity.type,
+        tags: activity.tags,
         questions: {
           create:
-            session.questions?.map((question) => ({
+            activity.questions?.map((question) => ({
               id: question.id,
               text: question.text,
               type: question.type,
@@ -88,7 +89,7 @@ async function handler(req: NextRequest, res: NextResponse) {
         },
         intervals: {
           create:
-            session.intervals?.map((interval) => ({
+            activity.intervals?.map((interval) => ({
               id: interval.id,
               duration: interval.duration,
               intensityZone: interval.intensityZone,
@@ -96,11 +97,11 @@ async function handler(req: NextRequest, res: NextResponse) {
         },
         report: {
           create: {
-            id: session.report?.id,
-            status: session.report?.status,
+            id: activity.report?.id,
+            status: activity.report?.status,
             intervalReport: {
               create:
-                session.intervals?.map((intervalReport) => ({
+                activity.intervals?.map((intervalReport) => ({
                   id: intervalReport.id,
                   intensityZone: intervalReport.intensityZone,
                   duration: intervalReport.duration,
@@ -115,22 +116,21 @@ async function handler(req: NextRequest, res: NextResponse) {
           userId: user.userId,
           gender: user.gender,
           sport: user.sport,
-          maxHeartRate: user.meta?.heartrate,
-          thresholdWattage: user.meta?.watt,
-          thresholdSpeed: user.meta?.speed,
-          /*
-          maxHeartRate: user.maxHeartRate,
-          thresholdWattage: user.thresholdWattage,
-          thresholdSpeed: user.thresholdSpeed,
-          */
+          meta: {
+            create: {
+              id: user.meta.heartRate,
+              heartRate: user.meta.heartRate,
+              speed: user.meta.speed,
+            }
+          },
+          activities: {
+            create: activityTocreate,
+          },
           competitions: {
             create: competitionsToCreate,
           },
           goals: {
             create: goalsToCreate,
-          },
-          sessions: {
-            create: sessionTocreate,
           },
         },
       })
@@ -142,3 +142,4 @@ async function handler(req: NextRequest, res: NextResponse) {
     await prisma.$disconnect()
   }
 }
+*/

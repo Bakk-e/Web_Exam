@@ -4,16 +4,17 @@ export type Athlete = {
     userId: string;
     gender: string,
     sport: string,
-    meta: Meta,
-    ativities?: Activity[],
+    meta?: Meta,
+    activities?: Activity[],
     competitions?: Competition[],
     goals?: Goal[],
 }
 
 export type Meta = {
-    heartRate: number,
-    watt: number,
-    speed: number,
+    id: number,
+    heartRate?: number,
+    watt?: number,
+    speed?: number,
 }
 
 export type Activity = {
@@ -49,7 +50,7 @@ export type Goal = {
 }
 
 type ReportInterval = {
-    id?: string,
+    id?: number,
     minIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     maxIntensity?: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10,
     avrageIntensity?: number,
@@ -84,8 +85,6 @@ export type Interval = {
     duration?: number,
     intensityZone?: 1 | 2 | 3 | 4 | 5
 }
-
-
 
 export type AthleteMini = {
     id: string,
