@@ -109,7 +109,7 @@ export type IntervalData = {
 }
 
 export type QuestionData = {
-    key: number,
+    id: string,
     text?: string,
     type?: string
 }

@@ -13,7 +13,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     const availableParameters: parameter[] = [{eng: "intensity", no: "Intensitet"}, {eng: "heartbeat", no: "Puls"}, {eng: "speed", no: "Fart"}, {eng: "wattage", no: "Watt"}];  
     const [intervals, setIntervals] = useState<IntervalData[]>([{key: 0}]);
     const [intervalCount, setIntervalCount] = useState(1);
-    const [questions, setQuestions] = useState<QuestionData[]>([{key: 0}]);
+    const [questions, setQuestions] = useState<QuestionData[]>([{id: "0"}]);
     const [questionCount, setQuestionCount] = useState(1);
     const [tagTemp, setTagTemp] = useState("");
     const [chosenTags, setChosenTags] = useState<string[]>([]);
@@ -22,8 +22,8 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     const tempList = ["Rough", "Uphill"];
     const tempList2 = ["none", "Template 3"];
     const exampleQuestions: QuestionData[] = [
-        {key: 0, text: "Hvordan føltes du det gikk?", type: "emoji"},
-        {key: 1, text: "Hvordan har du det?", type: "tekst"}
+        {id: "0", text: "Hvordan føltes du det gikk?", type: "emoji"},
+        {id: "1", text: "Hvordan har du det?", type: "tekst"}
     ]
 
     function addInterval() {
@@ -54,7 +54,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     function addQuestion() {
         setQuestions((prevQuestion) => [
             ...prevQuestion,
-            {key: questionCount},
+            {id: `${questionCount}`},
         ]);
         setQuestionCount(questionCount + 1)
     };
@@ -79,7 +79,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
     function handleAddExistingQuestion(data: QuestionData) {
         setQuestions((prevQuestion) => {
             const updatedList = [...prevQuestion];
-            data.key = questionCount;
+            data.id = `${questionCount}`;
             updatedList[questionCount] = data;
             setQuestionCount(questionCount + 1);
             return updatedList;
@@ -205,7 +205,7 @@ export default function NewSessionPage({params}: {params: {athleteId: string}}) 
                         <p id="new-session-page-questions-title">Questions: </p>
                         <AddExistingQuestion existingQuestions={exampleQuestions} handleAddExistingQuestion={handleAddExistingQuestion}></AddExistingQuestion>
                         {questions.map((question, index) => (
-                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question} key={question.key}></Question>
+                            <Question index={index} handleDataUpdate={handleQuestionDataUpdate} data={question} key={question.id}></Question>
                         ))}
                         <div id="new-session-page-questions-buttons">
                             <button id="new-session-page-questions-add" onClick={addQuestion}>Add spørsmål</button>

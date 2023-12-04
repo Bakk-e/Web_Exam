@@ -2,9 +2,35 @@
 
 import Notifications from "@/components/Notifications"
 import "@/styles/NewQuestionsPageStyle.css"
+import { QuestionData } from "@/types"
 import Link from "next/link"
+import { useState } from "react"
 
 export default function NewQuestionsPage() {
+    const [text, setText] = useState<string>("");
+    const [type, setType] = useState<string>("");
+
+    const putQuestion = async (question: QuestionData) => {
+    }
+
+    function handleTextChange(e: any) {
+        const update: string = e.target.value;
+        setText(update);
+    }
+
+    function handleTypeChange(e: any) {
+        const update: string = e.target.value;
+        setType(update);
+    }
+
+    function handleSaveButton(e: any) {
+        e.preventDefault();
+        const updatedGoal: QuestionData = {
+            id: "awda"/*id her*/, text: text, type: type
+        }
+        putQuestion(updatedGoal);
+    }
+
     return (
         <div id="new-questions-page">
             <header id="new-questions-page-header">
@@ -19,11 +45,14 @@ export default function NewQuestionsPage() {
                 <div id="new-questions-page-create-table">
                     <div className="new-questions-page-create-point">
                         <p className="new-questions-page-create-point-title">Text: </p>
-                        <input className="new-questions-page-create-point-input"/>
+                        <input className="new-questions-page-create-point-input"
+                        type="text"
+                        onChange={handleTextChange}/>
                     </div>
                     <div className="new-questions-page-create-point">
                         <p className="new-questions-page-create-point-title">Svar type: </p>
-                        <select id="new-questions-page-create-point-dropdown">
+                        <select id="new-questions-page-create-point-dropdown"
+                        onChange={handleTypeChange}>
                             <option value="text">Tekst</option>
                             <option value="radio">Radio 1-10</option>
                             <option value="emoji">Emoji</option>
