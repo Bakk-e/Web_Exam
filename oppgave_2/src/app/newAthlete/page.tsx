@@ -65,92 +65,78 @@ export default function NewAthletePage() {
 
             <form id="new-athlete-page-create" onSubmit={handleSubmit}>
                 <p id="new-athlete-page-title">Ny utøver</p>
-                <table id="new-athlete-page-create-table">
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                <div id="new-athlete-page-create-table">
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Fornavn:
-                        </td>
-                        <td>
-                            <input
-                                name="firstName"
-                                value={athlete.firstName}
-                                onChange={handleChange}
-                                className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                        </p>
+                        <input
+                            name="firstName"
+                            value={athlete.firstName}
+                            onChange={handleChange}
+                            className="new-athlete-page-create-point-input"/>
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Etternavn:
-                        </td>
-                        <td>
-                            <input
-                                name="lastName"
-                                value={athlete.lastName}
-                                onChange={handleChange}
-                                className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                        </p>
+                        <input
+                            name="lastName"
+                            value={athlete.lastName}
+                            onChange={handleChange}
+                            className="new-athlete-page-create-point-input"/>
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Kjønn:
-                        </td>
-                        <td>
-                            <input
-                                name="gender"
-                                value={athlete.gender}
-                                onChange={handleChange}
-                                className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                        </p>
+                        <input
+                            name="gender"
+                            value={athlete.gender}
+                            onChange={handleChange}
+                            className="new-athlete-page-create-point-input"/>
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Sport:
-                        </td>
-                        <td>
-                            <input
-                                name="sport"
-                                value={athlete.sport}
-                                onChange={handleChange}
-                                className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                        </p>
+                        <input
+                            name="sport"
+                            value={athlete.sport}
+                            onChange={handleChange}
+                            className="new-athlete-page-create-point-input"/>
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Maks puls:
-                        </td>
-                        <td>
+                        </p>
                             <input
                                 name="maxHeartRate"
                                 value={athlete.meta.maxHeartRate}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Terskel watt:
-                        </td>
-                        <td>
+                        </p>
                             <input
                                 name="thresholdWattage"
                                 value={athlete.meta.thresholdWattage}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                    <tr className="new-athlete-page-create-point">
-                        <td className="new-athlete-page-create-point-title">
+                    </div>
+                    <div className="new-athlete-page-create-point">
+                        <p className="new-athlete-page-create-point-title">
                             Terskel fart:
-                        </td>
-                        <td>
+                        </p>
                             <input
                                 name="thresholdSpeed"
                                 value={athlete.meta.thresholdSpeed}
                                 onChange={handleChange}
                                 className="new-athlete-page-create-point-input"/>
-                        </td>
-                    </tr>
-                </table>
+                    </div>
+                </div>
                 <div id="new-athlete-page-save-section">
                     <button type ="submit" id="new-athlete-page-save-button">Save</button>
                 </div>
