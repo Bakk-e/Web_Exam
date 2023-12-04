@@ -54,6 +54,7 @@ export async function GET(request: NextApiRequest, response: NextApiResponse) {
     }
 }
 
+
 export async function POST (req: NextRequest, res: NextResponse) {
     const body = await req.json() as AthleteProps
     try {
@@ -67,7 +68,6 @@ export async function POST (req: NextRequest, res: NextResponse) {
                 sport : sport,
             }
         })
-
 
         const newMeta = await prisma.meta.create({
             data: {
